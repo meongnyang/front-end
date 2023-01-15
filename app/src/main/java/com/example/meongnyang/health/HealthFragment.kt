@@ -57,6 +57,21 @@ class HealthFragment : Fragment() {
             (activity as NaviActivity).replaceFragment(DiaryFragment())
         }
 
+        // 건강기록부 데이터 있으면 text 없애기
+        if (binding.diary != null) {
+            binding.clickText.visibility = View.INVISIBLE
+            binding.noDataText.visibility = View.INVISIBLE
+            binding.mealText.visibility = View.VISIBLE
+            binding.voidText.visibility = View.VISIBLE
+            binding.excText.visibility = View.VISIBLE
+        } else {
+            binding.clickText.visibility = View.VISIBLE
+            binding.noDataText.visibility = View.VISIBLE
+            binding.mealText.visibility = View.INVISIBLE
+            binding.voidText.visibility = View.INVISIBLE
+            binding.excText.visibility = View.INVISIBLE
+        }
+
         return binding?.root
     }
 

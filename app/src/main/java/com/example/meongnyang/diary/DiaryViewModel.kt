@@ -9,19 +9,23 @@ import kotlinx.coroutines.launch
 class DiaryViewModel : ViewModel() {
     val meal : MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val voiding : MutableLiveData<String> by lazy { MutableLiveData<String>() }
+    val voidReason : MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val excretion : MutableLiveData<String> by lazy { MutableLiveData<String>() }
+    val excReason : MutableLiveData<String> by lazy { MutableLiveData<String>() }
 
-    private val diary = Diary(1, 1, 1, 1, 1)
+    private val diary = Diary(1, 1, 1, 2, "오줌에 피가 섞여 있었음", 2, "설사 증상을 보임")
 
     init {
         viewModelScope.launch {
             meal.value = mealToStr(diary.meal)
             voiding.value = voidingToStr(diary.voiding)
+            voidReason.value = diary.voidReason
             excretion.value = excretionToStr(diary.excretion)
+            excReason.value = diary.excReason
         }
     }
 
-    // 숫자 -> 문자열로 표현
+    // 숫자 -> 문자열로 표현 (db에서 가져올 때 필요하니까...)
     private fun mealToStr(meal: Int): String {
         var mealStr = ""
         when (meal) {

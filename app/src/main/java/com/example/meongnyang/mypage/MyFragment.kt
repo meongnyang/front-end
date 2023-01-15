@@ -10,10 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.meongnyang.NaviActivity
 import com.example.meongnyang.R
-import com.example.meongnyang.databinding.FragmentMyBinding
+import com.example.meongnyang.databinding.MypageFragmentMyBinding
 
 class MyFragment : Fragment() {
-    private lateinit var binding: FragmentMyBinding
+    private lateinit var binding: MypageFragmentMyBinding
     private val model: MypageViewModel by activityViewModels()
 
     override fun onCreateView(

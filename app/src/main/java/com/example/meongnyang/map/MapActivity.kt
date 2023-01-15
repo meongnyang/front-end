@@ -13,7 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.meongnyang.R
-import com.example.meongnyang.databinding.ActivityMapBinding
+import com.example.meongnyang.databinding.MapActivityHosBinding
 import com.example.meongnyang.model.MapList
 import com.example.meongnyang.model.Place
 import com.example.meongnyang.model.ResultSearchKeyword
@@ -37,14 +37,14 @@ class MapActivity : AppCompatActivity() {
         const val API_KEY = "KakaoAK 048598205d508fada0864a9cff58740f" // REST API 키
     }
 
-    private lateinit var binding: ActivityMapBinding
+    private lateinit var binding: MapActivityHosBinding
     private val listItems = arrayListOf<MapList>() // 리사이클러뷰 아이템
     private val mapListAdapter = MapListAdapter(listItems)
 
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMapBinding.inflate(layoutInflater)
+        binding = MapActivityHosBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 

@@ -9,12 +9,12 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.meongnyang.NaviActivity
 import com.example.meongnyang.R
-import com.example.meongnyang.databinding.FragmentDiaryBinding
+import com.example.meongnyang.databinding.DiaryFragmentWriteBinding
 import com.example.meongnyang.health.HealthFragment
 import com.example.meongnyang.mypage.KeyboardVisibilityUtils
 
 class DiaryFragment : Fragment() {
-    private lateinit var binding: FragmentDiaryBinding
+    private lateinit var binding: DiaryFragmentWriteBinding
     private lateinit var keyboardVisibilityUtils: KeyboardVisibilityUtils
 
     override fun onCreateView(
@@ -23,7 +23,7 @@ class DiaryFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.fragment_diary,
+            R.layout.diary_fragment_write,
             container,
             false
         )

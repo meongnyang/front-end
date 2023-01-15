@@ -5,5 +5,7 @@ data class Diary(
     val memberId: Int,
     val meal: Int,
     val voiding: Int,
-    val excretion: Int
+    val voidReason: String,
+    val excretion: Int,
+    val excReason: String
 )

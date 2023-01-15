@@ -9,4 +9,7 @@
     <string name="day_count">❤ %s이(가) 태어난 지 + %s</string>
     <string name="with_count">❤ %s와(과) 함께한 지 + %s</string>
     <string name="title">오늘도 %s의\n건강한 %s생을 위해! 🙌</string>
+    <string name="meal">식이: %s</string>
+    <string name="voiding">배뇨: %s %s</string>
+    <string name="excretion">배변: %s %s</string>
 </resources>
