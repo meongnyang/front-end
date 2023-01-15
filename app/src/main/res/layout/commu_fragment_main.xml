@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="posts"
+            type="com.example.meongnyang.model.Post" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/frameLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".community.CommuFragment">
+        <ImageView
+            android:id="@+id/imageView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/ic_blueline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="56dp"
+            android:fontFamily="@font/gothic"
+            android:text="커뮤니티 💬"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="90dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/select_button"
+            android:fontFamily="@font/gothic"
+            android:text="1일 1자랑"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/button2"
+            app:layout_constraintTop_toBottomOf="@+id/imageView16" />
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/select_button"
+            android:fontFamily="@font/gothic"
+            android:text="전체"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView16" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/select_button"
+            android:fontFamily="@font/gothic"
+            android:text="질문"
+            app:layout_constraintStart_toEndOf="@+id/button"
+            app:layout_constraintTop_toBottomOf="@+id/imageView16" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/select_button"
+            android:fontFamily="@font/gothic"
+            android:text="자유"
+            app:layout_constraintStart_toEndOf="@+id/button5"
+            app:layout_constraintTop_toBottomOf="@+id/imageView16" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="413dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button3"
+            tools:listitem="@layout/commu_list_layout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
