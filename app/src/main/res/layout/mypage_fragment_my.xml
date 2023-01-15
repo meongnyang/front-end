@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="mypage"
+            type="com.example.meongnyang.mypage.MypageViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/frameLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".mypage.MyFragment" >
+
+        <TextView
+            android:id="@+id/mypage_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="56dp"
+            android:layout_marginEnd="250dp"
+            android:fontFamily="@font/gothic"
+            android:text="@string/mypage_title"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/ic_blueline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mypage_title" />
+
+        <ImageView
+            android:id="@+id/userView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/mypage_bluerec"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.493"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+
+        <ImageView
+            android:id="@+id/user_profile"
+            android:layout_width="58dp"
+            android:layout_height="53dp"
+            android:layout_marginStart="24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/userView"
+            app:layout_constraintStart_toStartOf="@+id/userView"
+            app:layout_constraintTop_toTopOf="@+id/userView"
+            app:imageFromUrl="@{mypage.userImg}" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/mypage_emoji"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userView" />
+
+        <ImageView
+            android:id="@+id/petView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.493"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            app:srcCompat="@drawable/mypage_bluerec" />
+
+        <ImageView
+            android:id="@+id/pet_profile"
+            android:layout_width="58dp"
+            android:layout_height="53dp"
+            android:layout_marginStart="24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/petView"
+            app:layout_constraintStart_toStartOf="@+id/petView"
+            app:layout_constraintTop_toTopOf="@+id/petView"
+            app:imageFromUrl="@{mypage.petImg}" />
+
+        <TextView
+            android:id="@+id/pet_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/gothic"
+            android:text="@{mypage.petName}"
+            android:textColor="#000000"
+            app:layout_constraintEnd_toEndOf="@+id/petView"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/pet_profile"
+            app:layout_constraintTop_toTopOf="@+id/petView" />
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/gothic"
+            android:text="@{mypage.username}"
+            android:textColor="#000000"
+            app:layout_constraintEnd_toEndOf="@id/userView"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/user_profile"
+            app:layout_constraintTop_toTopOf="@id/userView" />
+
+        <TextView
+            android:id="@+id/pet_birth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/gothic"
+            android:text="@{mypage.petBirth}"
+            android:textColor="#000000"
+            android:textSize="9sp"
+            app:layout_constraintStart_toEndOf="@+id/pet_profile"
+            app:layout_constraintTop_toBottomOf="@+id/pet_name" />
+
+        <TextView
+            android:id="@+id/pet_sex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="200dp"
+            android:fontFamily="@font/gothic"
+            android:text="@{mypage.petSex}"
+            android:textColor="#000000"
+            android:textSize="11sp"
+            app:layout_constraintEnd_toEndOf="@+id/petView"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/pet_profile"
+            app:layout_constraintTop_toBottomOf="@+id/pet_birth" />
+
+        <TextView
+            android:id="@+id/dayCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="200dp"
+            android:fontFamily="@font/gothic"
+            android:text="@{@string/day_count(mypage.petName, mypage.dayCount)}"
+            android:textColor="#000000"
+            android:textSize="11sp"
+            app:layout_constraintEnd_toEndOf="@id/userView"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/user_profile"
+            app:layout_constraintTop_toBottomOf="@id/user_name" />
+
+        <TextView
+            android:id="@+id/withCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="200dp"
+            android:fontFamily="@font/gothic"
+            android:text="@{@string/with_count(mypage.petName, mypage.withCount)}"
+            android:textColor="#000000"
+            android:textSize="11sp"
+            app:layout_constraintEnd_toEndOf="@id/userView"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/user_profile"
+            app:layout_constraintTop_toBottomOf="@id/dayCount" />
+
+        <TextView
+            android:id="@+id/pet_species"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="176dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/gothic"
+            android:gravity="start"
+            android:text="@{mypage.petSpec}"
+            android:textColor="#000000"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/petView"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/pet_profile"
+            app:layout_constraintTop_toBottomOf="@+id/pet_sex"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/modifyProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/gothic"
+            android:text="내 정보 수정하기"
+            android:textColor="#2E2E2E"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/imageView8"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/petView"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.464"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/modifyProfile"
+            app:srcCompat="@drawable/ic_line1" />
+
+        <TextView
+            android:id="@+id/addPet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/gothic"
+            android:text="반려동물 추가하기"
+            android:textColor="#2E2E2E"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.141"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageView8" />
+
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.492"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addPet"
+            app:srcCompat="@drawable/ic_line1" />
+
+        <TextView
+            android:id="@+id/changePet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/gothic"
+            android:text="메인 반려동물 변경"
+            android:textColor="#2E2E2E"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.142"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView9" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

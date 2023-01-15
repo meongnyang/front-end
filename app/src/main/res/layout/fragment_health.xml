@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="diary"
+            type="com.example.meongnyang.diary.DiaryViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".health.HealthFragment">
+
+        <TextView
+            android:id="@+id/diary_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:fontFamily="@font/gothic"
+            android:text="매일매일 간편 기록 🐾"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/health_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="56dp"
+            android:fontFamily="@font/gothic"
+            android:text="우리 아이 건강은 내가 지킨다 👊"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:src="@drawable/ic_diaryrectangle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.493"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/diary_title" />
+
+        <TextView
+            android:id="@+id/noDataText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/gothic"
+            android:text="아직 오늘의 건강기록부가 작성되지 않았어요!"
+            android:textColor="#000000"
+            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintHorizontal_bias="0.596"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+        <TextView
+            android:id="@+id/clickText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/gothic"
+            android:text="작성하려면 이곳을 클릭해 주세요 ✍️"
+            android:textColor="#474747"
+            android:textSize="11dp"
+            app:layout_constraintEnd_toEndOf="@id/imageView"
+            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintStart_toStartOf="@id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/noDataText"
+            tools:layout_constraintEnd_toEndOf="@id/imageView" />
+
+        <ScrollView
+            android:layout_width="410dp"
+            android:layout_height="422dp"
+            android:layout_marginTop="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/health_title">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/skinCheckBtn"
+                        android:layout_width="341dp"
+                        android:layout_height="108dp"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/ic_healthrec"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/skintv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="28dp"
+                        android:background="#6DA1B1DF"
+                        android:fontFamily="@font/gothic"
+                        android:text="피부병 확인하기"
+                        android:textColor="#000000"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toStartOf="@+id/nextBtn"
+                        app:layout_constraintHorizontal_bias="0.158"
+                        app:layout_constraintStart_toStartOf="@+id/skinCheckBtn"
+                        app:layout_constraintTop_toTopOf="@+id/skinCheckBtn" />
+
+                    <TextView
+                        android:id="@+id/skintv2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:fontFamily="@font/gothic"
+                        android:lineSpacingExtra="3sp"
+                        android:text="간단하게 사진 한 장으로\n피부병을 체크해 보세요"
+                        android:textSize="10sp"
+                        app:layout_constraintEnd_toEndOf="@+id/skinCheckBtn"
+                        app:layout_constraintHorizontal_bias="0.137"
+                        app:layout_constraintStart_toStartOf="@+id/skinCheckBtn"
+                        app:layout_constraintTop_toBottomOf="@id/skintv" />
+
+                    <ImageView
+                        android:id="@+id/nextBtn"
+                        android:layout_width="19dp"
+                        android:layout_height="19dp"
+                        android:layout_marginEnd="16dp"
+                        android:src="@drawable/ic_round_arrow_forward_ios_24"
+                        app:layout_constraintBottom_toBottomOf="@+id/skinCheckBtn"
+                        app:layout_constraintEnd_toEndOf="@+id/skinCheckBtn"
+                        app:layout_constraintHorizontal_bias="0.983"
+                        app:layout_constraintStart_toEndOf="@+id/skintv2"
+                        app:layout_constraintTop_toTopOf="@+id/skinCheckBtn"
+                        app:tint="#BCBCBC" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/qnaBtn"
+                        android:layout_width="341dp"
+                        android:layout_height="108dp"
+                        android:src="@drawable/ic_healthrec"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0" />
+
+                    <TextView
+                        android:id="@+id/qnaTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="28dp"
+                        android:background="#6DA1B1DF"
+                        android:fontFamily="@font/gothic"
+                        android:text="반려동물 증상 및 솔루션"
+                        android:textColor="#000000"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="@id/qnaBtn"
+                        app:layout_constraintHorizontal_bias="0.126"
+                        app:layout_constraintStart_toStartOf="@id/qnaBtn"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/qnaTV2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:fontFamily="@font/gothic"
+                        android:lineSpacingExtra="3sp"
+                        android:text="내가 궁금해 하는 증상에 대한\n전문가의 답변을 한눈에 볼 수 있어요"
+                        android:textSize="10sp"
+                        app:layout_constraintEnd_toEndOf="@id/qnaBtn"
+                        app:layout_constraintHorizontal_bias="0.137"
+                        app:layout_constraintStart_toStartOf="@id/qnaBtn"
+                        app:layout_constraintTop_toBottomOf="@id/qnaTV" />
+
+                    <ImageView
+                        android:id="@+id/nextBtn3"
+                        android:layout_width="19dp"
+                        android:layout_height="19dp"
+                        android:layout_marginEnd="16dp"
+                        android:src="@drawable/ic_round_arrow_forward_ios_24"
+                        app:layout_constraintBottom_toBottomOf="@id/qnaBtn"
+                        app:layout_constraintEnd_toEndOf="@+id/qnaBtn"
+                        app:layout_constraintTop_toTopOf="@+id/qnaBtn"
+                        app:tint="#BCBCBC" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/hospitalBtn"
+                        android:layout_width="341dp"
+                        android:layout_height="108dp"
+                        android:src="@drawable/ic_healthrec"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/hosMaptv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="28dp"
+                        android:background="#6DA1B1DF"
+                        android:fontFamily="@font/gothic"
+                        android:text="근처 동물병원 찾아보기"
+                        android:textColor="#000000"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="@id/hospitalBtn"
+                        app:layout_constraintHorizontal_bias="0.139"
+                        app:layout_constraintStart_toStartOf="@id/hospitalBtn"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/hosMaptv2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:fontFamily="@font/gothic"
+                        android:lineSpacingExtra="3sp"
+                        android:text="지금 내 근처 동물병원은 어디에?\n주변 동물병원을 찾아 보세요"
+                        android:textSize="10sp"
+                        app:layout_constraintEnd_toEndOf="@id/hospitalBtn"
+                        app:layout_constraintHorizontal_bias="0.137"
+                        app:layout_constraintStart_toStartOf="@id/hospitalBtn"
+                        app:layout_constraintTop_toBottomOf="@id/hosMaptv" />
+
+                    <ImageView
+                        android:id="@+id/nextBtn2"
+                        android:layout_width="19dp"
+                        android:layout_height="19dp"
+                        android:layout_marginEnd="16dp"
+                        android:src="@drawable/ic_round_arrow_forward_ios_24"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/hospitalBtn"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@+id/hosMaptv2"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#BCBCBC" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/feedBtn"
+                        android:layout_width="341dp"
+                        android:layout_height="108dp"
+                        android:layout_marginBottom="20dp"
+                        android:src="@drawable/ic_healthrec"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/feedTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:background="#6DA1B1DF"
+                        android:fontFamily="@font/gothic"
+                        android:text="사료 성분 분석 및 추천"
+                        android:textColor="#000000"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="@id/feedBtn"
+                        app:layout_constraintHorizontal_bias="0.145"
+                        app:layout_constraintStart_toStartOf="@id/feedBtn"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/feedTV2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:fontFamily="@font/gothic"
+                        android:lineSpacingExtra="3sp"
+                        android:text="아무거나 먹으면 안 되는 우리 아이에게\n딱 맞는 사료를 만나 보세요"
+                        android:textSize="10sp"
+                        app:layout_constraintEnd_toEndOf="@id/feedBtn"
+                        app:layout_constraintHorizontal_bias="0.169"
+                        app:layout_constraintStart_toStartOf="@id/feedBtn"
+                        app:layout_constraintTop_toBottomOf="@id/feedTV" />
+
+                    <ImageView
+                        android:id="@+id/imageView11"
+                        android:layout_width="19dp"
+                        android:layout_height="19dp"
+                        android:layout_marginEnd="16dp"
+                        android:src="@drawable/ic_round_arrow_forward_ios_24"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/feedBtn"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@+id/feedTV2"
+                        app:layout_constraintTop_toTopOf="@+id/feedBtn"
+                        app:layout_constraintVertical_bias="0.375"
+                        app:tint="#BCBCBC" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
