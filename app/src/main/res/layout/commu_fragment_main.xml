@@ -5,7 +5,7 @@
     <data>
         <variable
             name="posts"
-            type="com.example.meongnyang.model.Post" />
+            type="com.example.meongnyang.community.CommuViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/frameLayout3"

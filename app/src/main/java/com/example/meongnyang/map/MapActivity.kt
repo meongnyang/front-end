@@ -66,6 +66,14 @@ class MapActivity : AppCompatActivity() {
         // 리사이클러뷰
         binding.mapListView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.mapListView.adapter = mapListAdapter
+
+        // 리스트 아이템 클릭 시 해당 위치로 이동
+        mapListAdapter.setItemClickListener(object: MapListAdapter.OnItemClickListener {
+            override fun onClick(v: View, position: Int) {
+                val mapPoint = MapPoint.mapPointWithGeoCoord(listItems[position].y, listItems[position].x)
+                mapView.setMapCenterPointAndZoomLevel(mapPoint, 1, true)
+            }
+        })
     }
 
     // 위치 권한 받기 및 표시
@@ -112,15 +120,6 @@ class MapActivity : AppCompatActivity() {
             mapView.setZoomLevel(4, true)
             requestSearchLocalDetail(mapView, "동물병원", uLongitude!!.toDouble(), uLatitude!!.toDouble(), 5)
         }
-
-
-        // 리스트 아이템 클릭 시 해당 위치로 이동
-        mapListAdapter.setItemClickListener(object: MapListAdapter.OnItemClickListener {
-            override fun onClick(v: View, position: Int) {
-                val mapPoint = MapPoint.mapPointWithGeoCoord(listItems[position].y, listItems[position].x)
-                mapView.setMapCenterPointAndZoomLevel(mapPoint, 1, true)
-            }
-        })
     }
 
     // 사용자 현재 위치에 점 표시하기
@@ -143,6 +142,8 @@ class MapActivity : AppCompatActivity() {
         marker.markerType = MapPOIItem.MarkerType.BluePin
         marker.selectedMarkerType = MapPOIItem.MarkerType.RedPin
         mapView.addPOIItem(marker)
+
+        mapView.currentLocationTrackingMode = MapView.CurrentLocationTrackingMode.TrackingModeOff
     }
 
     // 반경 5km 이내 위치 찾기

@@ -29,6 +29,7 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
 
         // 카메라 권한 받기
         requestPermission()
+        setupCamera()
     }
 
     // 카메라 권한 받기 및 표시
@@ -38,7 +39,7 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
             .setPermissionListener(object : PermissionListener {
                 // 권한이 허용되었을 때
                 override fun onPermissionGranted() {
-                    setupCamera()
+
                 }
                 // 권한이 거부됐을 때
                 override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
@@ -50,7 +51,8 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
             .setDeniedCloseButtonText("닫기")
             .setGotoSettingButtonText("설정")
             .setPermissions(
-                Manifest.permission.CAMERA)
+                Manifest.permission.CAMERA,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
             .check()
     }
 
