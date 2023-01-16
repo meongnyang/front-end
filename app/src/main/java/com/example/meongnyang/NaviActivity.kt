@@ -20,6 +20,7 @@ import com.example.meongnyang.map.PlayMapActivity
 import com.example.meongnyang.mypage.MyFragment
 import com.example.meongnyang.qna.QnaFragment
 import com.example.meongnyang.skin.CameraActivity
+import com.example.meongnyang.skin.SkinMainActivity
 
 class NaviActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNaviBinding
@@ -66,7 +67,7 @@ class NaviActivity : AppCompatActivity() {
 
         // 사이드 메뉴 클릭 시
         skinBtn.setOnClickListener {
-            val intent = Intent(this, CameraActivity::class.java)
+            val intent = Intent(this, SkinMainActivity::class.java)
             startActivity(intent)
         }
         hospitalBtn.setOnClickListener {

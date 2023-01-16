@@ -16,6 +16,7 @@ import com.example.meongnyang.diary.DiaryViewModel
 import com.example.meongnyang.feed.FeedFragment
 import com.example.meongnyang.qna.QnaFragment
 import com.example.meongnyang.skin.CameraActivity
+import com.example.meongnyang.skin.SkinMainActivity
 
 class HealthFragment : Fragment() {
     private lateinit var binding: FragmentHealthBinding
@@ -38,7 +39,7 @@ class HealthFragment : Fragment() {
 
         // 메뉴 화면 이동
         binding.skinCheckBtn.setOnClickListener {
-            val intent = Intent(context, CameraActivity::class.java)
+            val intent = Intent(context, SkinMainActivity::class.java)
             startActivity(intent)
         }
         binding.qnaBtn.setOnClickListener {

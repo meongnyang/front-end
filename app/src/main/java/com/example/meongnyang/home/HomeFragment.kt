@@ -17,6 +17,7 @@ import com.example.meongnyang.feed.FeedFragment
 import com.example.meongnyang.qna.QnaFragment
 import com.example.meongnyang.skin.CameraActivity
 import com.example.meongnyang.map.PlayMapActivity
+import com.example.meongnyang.skin.SkinMainActivity
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
@@ -42,7 +43,7 @@ class HomeFragment : Fragment() {
             (activity as NaviActivity).replaceFragment(FeedFragment())
         }
         binding.skinMenu.setOnClickListener {
-            val intent = Intent(context, CameraActivity::class.java)
+            val intent = Intent(context, SkinMainActivity::class.java)
             startActivity(intent)
         }
         binding.playMapMenu.setOnClickListener {

@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.meongnyang.model.Pet
 import kotlinx.coroutines.launch
+import org.json.JSONException
+import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -13,7 +15,19 @@ class HomeViewModel : ViewModel() {
     val strType : MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val count : MutableLiveData<String> by lazy { MutableLiveData<String>() }
 
-    private val pet = Pet(1,1,  "정만두", "여아", "2019-03-16", "2019-06-14", "비숑프리제", "http://domain/image/profile.png")
+    val jsonStr = "{\"conimalId\":1, \"type\": 1, \"name\":\"만두\", \"sex\": \"여아\", \"birth\": \"2019-03-16\", \"adopt\":\"2019-06-14\", \"species\": \"비숑프리제\", \"img\": \"img.png\"}"
+
+    val petInfo = JSONObject(jsonStr)
+    val conimalId = petInfo.getInt("conimalId")
+    val type = petInfo.getInt("type")
+    val petName = petInfo.getString("name")
+    val sex = petInfo.getString("sex")
+    val birth = petInfo.getString("birth")
+    val adopt = petInfo.getString("adopt")
+    val species = petInfo.getString("species")
+    val img = petInfo.getString("img")
+
+    private val pet = Pet(conimalId, type, petName, sex, birth, adopt, species, img)
 
     init {
         viewModelScope.launch {

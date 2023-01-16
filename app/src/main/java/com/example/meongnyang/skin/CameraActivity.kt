@@ -2,13 +2,17 @@ package com.example.meongnyang.skin
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
 import android.hardware.Camera
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.view.SurfaceHolder
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.meongnyang.databinding.SkinActivityCameraBinding
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
@@ -28,8 +32,8 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
         setContentView(view)
 
         // 카메라 권한 받기
-        requestPermission()
-        setupCamera()
+        //requestPermission()
+        //setupCamera()
     }
 
     // 카메라 권한 받기 및 표시
@@ -61,6 +65,7 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
         binding.surfaceView.visibility = View.VISIBLE
         surfaceHolder = binding.surfaceView.holder
         binding.surfaceView.holder.addCallback(this)
+        binding.guideText.invalidate()
         setBtnClick()
     }
 
@@ -115,9 +120,8 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
     }
 
     private fun releaseCamera() {
-        camera!!.stopPreview()
-        camera!!.release()
-        camera = null
+            camera!!.stopPreview()
+            camera!!.release()
     }
 
     override fun onPictureTaken(bytes: ByteArray, camera: Camera) {

@@ -31,6 +31,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class MapActivity : AppCompatActivity() {
     private lateinit var hospitalList: ArrayList<Place>
+    private lateinit var mapView: MapView
 
     companion object {
         const val BASE_URL = "https://dapi.kakao.com/"
@@ -48,42 +49,43 @@ class MapActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        hospitalList = arrayListOf()
+        requestPermission {
+            mapView = MapView(this@MapActivity)
+            val mapViewContainer = findViewById<View>(R.id.map_view) as ViewGroup
+            mapViewContainer.addView(mapView)
 
-        // 권한
-        requestPermission()
+            hospitalList = arrayListOf()
 
-        val mapView = MapView(this@MapActivity)
-        val mapViewContainer = findViewById<View>(R.id.map_view) as ViewGroup
-        mapViewContainer.addView(mapView)
-
-        show(mapView)
-
-        binding.allDayCheck.setOnClickListener {
+            nowLocation(mapView)
             show(mapView)
-        }
 
-        // 리사이클러뷰
-        binding.mapListView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        binding.mapListView.adapter = mapListAdapter
-
-        // 리스트 아이템 클릭 시 해당 위치로 이동
-        mapListAdapter.setItemClickListener(object: MapListAdapter.OnItemClickListener {
-            override fun onClick(v: View, position: Int) {
-                val mapPoint = MapPoint.mapPointWithGeoCoord(listItems[position].y, listItems[position].x)
-                mapView.setMapCenterPointAndZoomLevel(mapPoint, 1, true)
+            binding.allDayCheck.setOnClickListener {
+                show(mapView)
             }
-        })
+
+            // 리사이클러뷰
+            binding.mapListView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+            binding.mapListView.adapter = mapListAdapter
+
+            // 리스트 아이템 클릭 시 해당 위치로 이동
+            mapListAdapter.setItemClickListener(object: MapListAdapter.OnItemClickListener {
+                override fun onClick(v: View, position: Int) {
+                    mapView.currentLocationTrackingMode = MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeadingWithoutMapMoving
+                    val mapPoint = MapPoint.mapPointWithGeoCoord(listItems[position].y, listItems[position].x)
+                    mapView.setMapCenterPointAndZoomLevel(mapPoint, 1, true)
+                }
+            })
+        }
     }
 
     // 위치 권한 받기 및 표시
     @SuppressLint("MissingPermission")
-    private fun requestPermission() {
+    private fun requestPermission(logic: () -> Unit) {
         TedPermission.create()
             .setPermissionListener(object : PermissionListener {
                 // 권한이 허용되었을 때
                 override fun onPermissionGranted() {
-
+                    logic()
                 }
                 // 권한이 거부됐을 때
                 override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
@@ -92,8 +94,6 @@ class MapActivity : AppCompatActivity() {
             })
             .setRationaleMessage("위치 정보 제공이 필요한 서비스입니다.")
             .setDeniedMessage("위치 권한을 허용해 주세요! [설정] > [앱 및 알림] > [고급] > [앱 권한]")
-            .setDeniedCloseButtonText("닫기")
-            .setGotoSettingButtonText("설정")
             .setPermissions(
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -102,8 +102,6 @@ class MapActivity : AppCompatActivity() {
 
     @SuppressLint("MissingPermission")
     private fun show(mapView: MapView) {
-        nowLocation(mapView)
-
         // 동물병원 보여주기
         val lm: LocationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         val userNowLocation: Location? = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
@@ -142,8 +140,6 @@ class MapActivity : AppCompatActivity() {
         marker.markerType = MapPOIItem.MarkerType.BluePin
         marker.selectedMarkerType = MapPOIItem.MarkerType.RedPin
         mapView.addPOIItem(marker)
-
-        mapView.currentLocationTrackingMode = MapView.CurrentLocationTrackingMode.TrackingModeOff
     }
 
     // 반경 5km 이내 위치 찾기

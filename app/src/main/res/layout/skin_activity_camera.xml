@@ -7,73 +7,56 @@
     tools:context=".skin.CameraActivity">
 
     <ImageView
-        android:id="@+id/imageView15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:src="@drawable/ic_blueline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView18" />
-
-    <TextView
-        android:id="@+id/textView18"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="56dp"
-        android:fontFamily="@font/gothic"
-        android:lineSpacingExtra="5dp"
-        android:text="우리 아이의 피부 상태,\n사진 한 장으로 확인해 봐요"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView19"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="93dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="94dp"
-        android:fontFamily="@font/gothic"
-        android:text="버튼을 눌러 반려동물 피부 사진을 촬영해 주세요"
-        android:textColor="#2B2B2B"
-        android:textSize="16sp"
+        android:id="@+id/imageView18"
+        android:layout_width="521dp"
+        android:layout_height="1039dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView15" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_camera_background" />
 
     <Button
         android:id="@+id/showResultBtn"
         android:layout_width="113dp"
         android:layout_height="52dp"
-        android:layout_marginStart="146dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="146dp"
+        android:layout_marginStart="149dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="149dp"
         android:background="@drawable/ic_click"
         android:fontFamily="@font/gothic"
         android:text="촬영하기"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/surfaceView" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:orientation="vertical"
+    <SurfaceView
+        android:id="@+id/surfaceView"
+        android:layout_width="415dp"
+        android:layout_height="255dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="184dp"
+        android:layout_marginEnd="33dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView19">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <SurfaceView
-            android:id="@+id/surfaceView"
-            android:layout_width="344dp"
-            android:layout_height="250dp"
-            android:layout_gravity="center" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/guideText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/gothic"
+        android:gravity="center"
+        android:lineSpacingExtra="5dp"
+        android:text="화면 내에 환부가 들어가도록 사진을 촬영해 주세요"
+        android:textColor="#17FF37"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="@+id/surfaceView"
+        app:layout_constraintStart_toStartOf="@+id/surfaceView"
+        app:layout_constraintTop_toTopOf="@+id/surfaceView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
