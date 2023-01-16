@@ -67,6 +67,7 @@ class PlayMapActivity : AppCompatActivity() {
             override fun onClick(v: View, position: Int) {
                 val mapPoint = MapPoint.mapPointWithGeoCoord(listItems[position].y, listItems[position].x)
                 mapView.setMapCenterPointAndZoomLevel(mapPoint, 1, true)
+                mapView.currentLocationTrackingMode = MapView.CurrentLocationTrackingMode.TrackingModeOff
             }
         })
     }
@@ -131,8 +132,6 @@ class PlayMapActivity : AppCompatActivity() {
         marker.markerType = MapPOIItem.MarkerType.BluePin
         marker.selectedMarkerType = MapPOIItem.MarkerType.RedPin
         mapView.addPOIItem(marker)
-
-        mapView.currentLocationTrackingMode = MapView.CurrentLocationTrackingMode.TrackingModeOff
     }
 
     // 반경 5km 이내 위치 찾기
