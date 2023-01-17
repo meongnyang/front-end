@@ -54,7 +54,7 @@ class HealthFragment : Fragment() {
         }
 
         // 건강기록부 작성 화면으로
-        binding.imageView.setOnClickListener {
+        binding.diaryView.setOnClickListener {
             (activity as NaviActivity).replaceFragment(DiaryFragment())
         }
 

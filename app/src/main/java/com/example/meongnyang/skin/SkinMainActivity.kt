@@ -2,7 +2,6 @@ package com.example.meongnyang.skin
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Camera
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -13,7 +12,7 @@ class SkinMainActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_skin_main)
+        setContentView(R.layout.skin_activity_main)
 
         startBtn = findViewById(R.id.startBtn)
 

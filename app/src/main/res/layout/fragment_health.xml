@@ -42,10 +42,10 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            app:layout_constraintTop_toBottomOf="@+id/diaryView" />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/diaryView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
@@ -63,10 +63,10 @@
             android:fontFamily="@font/gothic"
             android:text="아직 오늘의 건강기록부가 작성되지 않았어요!"
             android:textColor="#000000"
-            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="@+id/diaryView"
             app:layout_constraintHorizontal_bias="0.588"
-            app:layout_constraintStart_toStartOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="@+id/imageView" />
+            app:layout_constraintStart_toStartOf="@+id/diaryView"
+            app:layout_constraintTop_toTopOf="@+id/diaryView" />
 
         <TextView
             android:id="@+id/mealText"
@@ -78,10 +78,10 @@
             android:text="@{@string/meal(diary.meal)}"
             android:textColor="#000000"
             android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="@+id/diaryView"
             app:layout_constraintHorizontal_bias="0.048"
-            app:layout_constraintStart_toStartOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="@+id/imageView" />
+            app:layout_constraintStart_toStartOf="@+id/diaryView"
+            app:layout_constraintTop_toTopOf="@+id/diaryView" />
 
         <TextView
             android:id="@+id/voidText"
@@ -93,10 +93,10 @@
             android:text="@{@string/voiding(diary.voiding, diary.voidReason)}"
             android:textColor="#000000"
             android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="@+id/diaryView"
             app:layout_constraintHorizontal_bias="0.047"
-            app:layout_constraintStart_toStartOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="@+id/imageView" />
+            app:layout_constraintStart_toStartOf="@+id/diaryView"
+            app:layout_constraintTop_toTopOf="@+id/diaryView" />
 
         <TextView
             android:id="@+id/excText"
@@ -108,10 +108,10 @@
             android:text="@{@string/excretion(diary.excretion, diary.excReason)}"
             android:textColor="#000000"
             android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="@+id/diaryView"
             app:layout_constraintHorizontal_bias="0.047"
-            app:layout_constraintStart_toStartOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="@+id/imageView" />
+            app:layout_constraintStart_toStartOf="@+id/diaryView"
+            app:layout_constraintTop_toTopOf="@+id/diaryView" />
 
         <TextView
             android:id="@+id/clickText"
@@ -122,9 +122,9 @@
             android:text="작성하려면 이곳을 클릭해 주세요 ✍️"
             android:textColor="#474747"
             android:textSize="12dp"
-            app:layout_constraintEnd_toEndOf="@id/imageView"
+            app:layout_constraintEnd_toEndOf="@id/diaryView"
             app:layout_constraintHorizontal_bias="0.503"
-            app:layout_constraintStart_toStartOf="@id/imageView"
+            app:layout_constraintStart_toStartOf="@id/diaryView"
             app:layout_constraintTop_toBottomOf="@+id/noDataText"
             tools:layout_constraintEnd_toEndOf="@id/imageView" />
 

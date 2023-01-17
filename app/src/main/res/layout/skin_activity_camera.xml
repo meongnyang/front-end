@@ -8,10 +8,11 @@
 
     <ImageView
         android:id="@+id/imageView18"
-        android:layout_width="521dp"
-        android:layout_height="1039dp"
+        android:layout_width="518dp"
+        android:layout_height="1073dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_camera_background" />
@@ -21,42 +22,66 @@
         android:layout_width="113dp"
         android:layout_height="52dp"
         android:layout_marginStart="149dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="149dp"
         android:background="@drawable/ic_click"
         android:fontFamily="@font/gothic"
         android:text="촬영하기"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/surfaceView" />
 
     <SurfaceView
         android:id="@+id/surfaceView"
-        android:layout_width="415dp"
-        android:layout_height="255dp"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
         android:layout_gravity="center"
         android:layout_marginStart="34dp"
-        android:layout_marginTop="184dp"
+        android:layout_marginTop="172dp"
         android:layout_marginEnd="33dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.521"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/guideText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="382dp"
+        android:layout_height="17dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/gothic"
         android:gravity="center"
         android:lineSpacingExtra="5dp"
         android:text="화면 내에 환부가 들어가도록 사진을 촬영해 주세요"
         android:textColor="#17FF37"
-        android:textSize="15sp"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@+id/surfaceView"
         app:layout_constraintStart_toStartOf="@+id/surfaceView"
         app:layout_constraintTop_toTopOf="@+id/surfaceView" />
+
+    <TextView
+        android:id="@+id/selectGallery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/gothic"
+        android:text="앨범에서 선택하기"
+        android:textColor="#FFFFFF"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/showResultBtn" />
+
+    <ImageView
+        android:id="@+id/picView"
+        android:layout_width="224px"
+        android:layout_height="224px"
+        android:layout_marginTop="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
