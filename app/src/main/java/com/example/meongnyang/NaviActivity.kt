@@ -3,6 +3,7 @@ package com.example.meongnyang
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -37,7 +38,22 @@ class NaviActivity : AppCompatActivity() {
         binding = ActivityNaviBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        replaceFragment(HomeFragment())
+        val intent = intent
+        val fragName = intent.getStringExtra("fragment")
+
+        if (fragName != null) {
+            Log.d("fragment", fragName)
+            when (fragName) {
+                "feed" -> {
+                    replaceFragment(FeedFragment())
+                }
+                "qna" -> {
+                    replaceFragment(QnaFragment())
+                }
+            }
+        } else {
+            replaceFragment(HomeFragment())
+        }
 
         binding.navigationView.setOnItemSelectedListener { item ->
             when(item.itemId) {

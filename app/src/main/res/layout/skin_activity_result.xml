@@ -1,9 +1,217 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".skin.ResultActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".skin.ResultActivity">
+
+        <ScrollView
+            android:id="@+id/resultView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imageView17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="183dp"
+                    android:src="@drawable/ic_blueline"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+                <TextView
+                    android:id="@+id/textView20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="21dp"
+                    android:layout_marginTop="56dp"
+                    android:layout_marginEnd="200dp"
+                    android:fontFamily="@font/gothic"
+                    android:lineSpacingExtra="5dp"
+                    android:text="확인 및 분석 결과 💻"
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView23"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="92dp"
+                    android:layout_marginTop="31dp"
+                    android:layout_marginEnd="93dp"
+                    android:fontFamily="@font/gothic"
+                    android:text="피부 질환이 있는 것 같아요"
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/resultImg" />
+
+                <TextView
+                    android:id="@+id/textView25"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="80dp"
+                    android:fontFamily="@font/gothic"
+                    android:text="어쩌구, 저쩌구, 뭐시기로 의심돼요"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView23" />
+
+                <ImageView
+                    android:id="@+id/resultImg"
+                    android:layout_width="125dp"
+                    android:layout_height="125dp"
+                    android:layout_marginStart="140dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="144dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView17"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <ImageView
+                    android:id="@+id/result1"
+                    android:layout_width="382dp"
+                    android:layout_height="147dp"
+                    android:layout_marginStart="13dp"
+                    android:layout_marginTop="27dp"
+                    android:layout_marginEnd="14dp"
+                    android:foregroundGravity="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView25"
+                    app:srcCompat="@drawable/ic_result_box" />
+
+                <ImageView
+                    android:id="@+id/result2"
+                    android:layout_width="382dp"
+                    android:layout_height="147dp"
+                    android:layout_marginTop="16dp"
+                    android:foregroundGravity="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.481"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/result1"
+                    app:srcCompat="@drawable/ic_result_box" />
+
+                <TextView
+                    android:id="@+id/textView26"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="48dp"
+                    android:fontFamily="@font/gothic"
+                    android:text="가까운 병원을 방문하는 것을 추천드릴게요"
+                    android:textColor="#000000"
+                    android:textSize="17sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/result2" />
+
+                <Button
+                    android:id="@+id/goMapBtn"
+                    android:layout_width="350dp"
+                    android:layout_height="46dp"
+                    android:layout_marginStart="29dp"
+                    android:layout_marginTop="28dp"
+                    android:layout_marginEnd="30dp"
+                    android:background="@drawable/ic_next_btn"
+                    android:fontFamily="@font/gothic"
+                    android:text="가까운 병원 보러 가기"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView26" />
+
+                <Button
+                    android:id="@+id/goFeedBtn"
+                    android:layout_width="350dp"
+                    android:layout_height="46dp"
+                    android:layout_marginStart="31dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="28dp"
+                    android:background="@drawable/ic_next_btn"
+                    android:fontFamily="@font/gothic"
+                    android:text="피부병에 좋은 사료 찾아보기"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/goMapBtn" />
+
+                <Button
+                    android:id="@+id/goQnaBtn"
+                    android:layout_width="350dp"
+                    android:layout_height="46dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="28dp"
+                    android:background="@drawable/ic_next_btn"
+                    android:fontFamily="@font/gothic"
+                    android:text="전문가의 솔루션 찾아보기"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/goFeedBtn" />
+
+                <Button
+                    android:id="@+id/goMainBtn"
+                    android:layout_width="350dp"
+                    android:layout_height="46dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="28dp"
+                    android:layout_marginBottom="100dp"
+                    android:background="@drawable/ic_next_btn"
+                    android:fontFamily="@font/gothic"
+                    android:text="나가기"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/goQnaBtn" />
+
+                <TextView
+                    android:id="@+id/textView27"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/gothic"
+                    android:text="피부병 발생 원인 및 유의사항"
+                    android:textSize="13sp"
+                    app:layout_constraintEnd_toEndOf="@+id/result1"
+                    app:layout_constraintStart_toStartOf="@+id/result1"
+                    app:layout_constraintTop_toTopOf="@+id/result1" />
+
+                <TextView
+                    android:id="@+id/textView29"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/gothic"
+                    android:text="피부병 완화를 위해 힘써야 할 것"
+                    android:textSize="13sp"
+                    app:layout_constraintEnd_toEndOf="@+id/result2"
+                    app:layout_constraintStart_toStartOf="@+id/result2"
+                    app:layout_constraintTop_toTopOf="@+id/result2" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

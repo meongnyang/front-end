@@ -4,6 +4,7 @@ import android.Manifest
 import android.Manifest.permission.CAMERA
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -23,6 +24,7 @@ import android.widget.Toast
 import com.example.meongnyang.databinding.SkinActivityCameraBinding
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
@@ -79,7 +81,9 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
         }
 
         private fun setBtnClick() {
-            binding.showResultBtn.setOnClickListener { captureImage() }
+            binding.showResultBtn.setOnClickListener {
+                captureImage()
+            }
         }
 
         private fun captureImage() {
@@ -138,56 +142,62 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
         }
 
         override fun onPictureTaken(bytes: ByteArray, camera: Camera) {
-            showImage(bytes)
             saveImage(bytes)
+            showImg(bytes)
             resetCamera()
         }
 
-        private fun saveImage(bytes: ByteArray) {
-            val outStream: FileOutputStream
-            try {
-                // 이미지 저장하기
-                val fileName = "MEONGNYANG_" + System.currentTimeMillis() + ".jpg"
-                val file = File(
-                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-                    fileName
-                )
-                outStream = FileOutputStream(file)
-                outStream.write(bytes)
-                outStream.close()
-                Toast.makeText(this@CameraActivity, "저장 완료! $fileName", Toast.LENGTH_SHORT).show()
-            } catch (e: FileNotFoundException) {
-                e.printStackTrace()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
+    private fun showImg(bytes: ByteArray) {
+        // 이미지 위에 띄워보기 일단
+        val options = BitmapFactory.Options()
+        options.inSampleSize = 2 // 1/2 사이즈로 보여주기
+        val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+        val width = bitmap.width
+        val height = bitmap.height
+        val newWidth = 224
+        val newHeight = 224
+        val scaleWidth = (newWidth.toFloat()) / width
+        val scaleHeight = (newHeight.toFloat()) / height
+
+        val matrix = Matrix()
+        matrix.postScale(scaleWidth, scaleHeight)
+        matrix.postRotate(90f)
+
+        val resizedBitmap: Bitmap = Bitmap.createBitmap(bitmap, 0, 0,  width, height, matrix, true)
+        val bmd = BitmapDrawable(resizedBitmap)
+
+        binding.picView.setImageDrawable(bmd)
+        camera!!.startPreview()
+
+        val stream = ByteArrayOutputStream()
+        resizedBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+        val byte = stream.toByteArray()
+        val intent = Intent(this, ResultActivity::class.java)
+        intent.putExtra("image", byte)
+        startActivity(intent)
+    }
+
+    private fun saveImage(bytes: ByteArray) {
+        val outStream: FileOutputStream
+        try {
+            // 이미지 저장하기
+            val fileName = "MEONGNYANG_" + System.currentTimeMillis() + ".jpg"
+            val file = File(
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+                fileName
+            )
+            outStream = FileOutputStream(file)
+            outStream.write(bytes)
+            outStream.close()
+            Toast.makeText(this@CameraActivity, "저장 완료! $fileName", Toast.LENGTH_SHORT).show()
+        } catch (e: FileNotFoundException) {
+            e.printStackTrace()
+        } catch (e: IOException) {
+            e.printStackTrace()
         }
+    }
 
-        private fun showImage(bytes: ByteArray) {
-            // 이미지 위에 띄워보기 일단
-            val options = BitmapFactory.Options()
-            options.inSampleSize = 2 // 1/2 사이즈로 보여주기
-            val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-            val width = bitmap.width
-            val height = bitmap.height
-            val newWidth = 224
-            val newHeight = 224
-            val scaleWidth = (newWidth.toFloat()) / width
-            val scaleHeight = (newHeight.toFloat()) / height
-
-            val matrix = Matrix()
-            matrix.postScale(scaleWidth, scaleHeight)
-            matrix.postRotate(90f)
-
-            val resizedBitmap: Bitmap = Bitmap.createBitmap(bitmap, 0, 0,  width, height, matrix, true)
-            val bmd: BitmapDrawable = BitmapDrawable(resizedBitmap)
-
-            binding.picView.setImageDrawable(bmd)
-            camera!!.startPreview()
-
-        }
-
-        companion object {
-            const val REQUEST_CODE = 100
-        }
+    companion object {
+        const val REQUEST_CODE = 100
+    }
 }

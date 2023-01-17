@@ -36,21 +36,31 @@ class CommuFragment : Fragment() {
         }
 
         // 카테고리 선택
+        binding.allBtn.setOnClickListener {
+            binding.allBtn.isSelected = true
+            binding.freeBtn.isSelected = false
+            binding.askBtn.isSelected = false
+            binding.boastBtn.isSelected = false
+        }
+
         binding.freeBtn.setOnClickListener {
             binding.freeBtn.isSelected = true
             binding.askBtn.isSelected = false
             binding.boastBtn.isSelected = false
+            binding.allBtn.isSelected = false
             // 포스트에서 카테고리가 "자유"에 해당하는 것만 골라서 recyclerView 갱신하도록 하기
         }
         binding.askBtn.setOnClickListener {
             binding.askBtn.isSelected = true
             binding.freeBtn.isSelected = false
             binding.boastBtn.isSelected = false
+            binding.allBtn.isSelected = false
         }
         binding.boastBtn.setOnClickListener {
             binding.boastBtn.isSelected = true
             binding.freeBtn.isSelected = false
             binding.askBtn.isSelected = false
+            binding.allBtn.isSelected = false
         }
 
         postList = arrayListOf()
