@@ -6,58 +6,48 @@ import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.graphics.drawable.BitmapDrawable
 import android.hardware.Camera
 import android.net.Uri
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.view.SurfaceHolder
-import android.view.SurfaceView
-import android.view.TextureView
 import android.view.View
-import android.widget.Button
 import android.widget.Toast
-import com.example.meongnyang.databinding.ActivityNaviBinding
+import androidx.appcompat.app.AppCompatActivity
 import com.example.meongnyang.databinding.SkinActivityCameraBinding
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileNotFoundException
-import java.io.FileOutputStream
-import java.io.IOException
+import java.io.*
 
 class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.PictureCallback {
 
-        private lateinit var binding: SkinActivityCameraBinding
+    private lateinit var binding: SkinActivityCameraBinding
 
-        private var surfaceHolder: SurfaceHolder? = null
-        private var camera: Camera? = null
+    private var surfaceHolder: SurfaceHolder? = null
+    private var camera: Camera? = null
 
-        override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-            binding = SkinActivityCameraBinding.inflate(layoutInflater)
-            setContentView(binding.root)
+        binding = SkinActivityCameraBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-            checkPermission {
-                setupSurfaceHolder()
-                startCamera()
+        checkPermission {
+            setupSurfaceHolder()
+            startCamera()
 
-                // 갤러리에서 선택 클릭했을 때
-                binding.selectGallery.setOnClickListener {
-                    openGallery()
-                }
+            // 갤러리에서 선택 클릭했을 때
+            binding.selectGallery.setOnClickListener {
+                openGallery()
             }
         }
+    }
 
     @SuppressLint("MissingPermission")
     private fun checkPermission(logic: () -> Unit) {
@@ -67,6 +57,7 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
                 override fun onPermissionGranted() {
                     logic()
                 }
+
                 // 권한이 거부됐을 때
                 override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
                     Toast.makeText(this@CameraActivity, "권한 거부됨", Toast.LENGTH_SHORT).show()
@@ -79,83 +70,85 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
             .setPermissions(
                 WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.READ_EXTERNAL_STORAGE,
-                CAMERA)
+                CAMERA
+            )
             .check()
     }
 
-        private fun setupSurfaceHolder() {
-            binding.surfaceView.visibility = View.VISIBLE
-            surfaceHolder = binding.surfaceView.holder
-            binding.surfaceView.holder.addCallback(this)
-            setBtnClick()
+    private fun setupSurfaceHolder() {
+        binding.surfaceView.visibility = View.VISIBLE
+        surfaceHolder = binding.surfaceView.holder
+        binding.surfaceView.holder.addCallback(this)
+        setBtnClick()
+    }
+
+    private fun setBtnClick() {
+        binding.showResultBtn.setOnClickListener {
+            captureImage()
         }
+    }
 
-        private fun setBtnClick() {
-            binding.showResultBtn.setOnClickListener {
-                captureImage()
-            }
+    private fun captureImage() {
+        if (camera != null) {
+            camera!!.takePicture(null, null, this)
         }
+    }
 
-        private fun captureImage() {
-            if (camera != null) {
-                camera!!.takePicture(null, null, this)
-            }
-        }
+    override fun surfaceCreated(surfaceHolder: SurfaceHolder) {
+        startCamera()
+    }
 
-        override fun surfaceCreated(surfaceHolder: SurfaceHolder) {
-            startCamera()
-        }
-
-        private fun startCamera() {
-            camera = Camera.open()
-            camera!!.setDisplayOrientation(90)
-            try {
-                camera!!.setPreviewDisplay(surfaceHolder)
-                camera!!.startPreview()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-
-        }
-
-        override fun surfaceChanged(surfaceHolder: SurfaceHolder, i: Int, i1: Int, i2: Int) {
-            resetCamera()
-        }
-
-        private fun resetCamera() {
-            if (surfaceHolder!!.surface == null) {
-                // Return if preview surface does not exist
-                return
-            }
-
-            // Stop if preview surface is already running.
-            camera!!.stopPreview()
-            try {
-                // Set preview display
-                camera!!.setPreviewDisplay(surfaceHolder)
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-
-            // Start the camera preview...
+    private fun startCamera() {
+        camera = Camera.open()
+        camera!!.setDisplayOrientation(90)
+        try {
+            setCamFocusMode() // 자동 초점 기능 설정
+            camera!!.setPreviewDisplay(surfaceHolder)
             camera!!.startPreview()
+        } catch (e: IOException) {
+            e.printStackTrace()
         }
 
-        override fun surfaceDestroyed(surfaceHolder: SurfaceHolder) {
-            releaseCamera()
+    }
+
+    override fun surfaceChanged(surfaceHolder: SurfaceHolder, i: Int, i1: Int, i2: Int) {
+        resetCamera()
+    }
+
+    private fun resetCamera() {
+        if (surfaceHolder!!.surface == null) {
+            // Return if preview surface does not exist
+            return
         }
 
-        private fun releaseCamera() {
-            camera!!.stopPreview()
-            camera!!.release()
-            camera = null
+        // Stop if preview surface is already running.
+        camera!!.stopPreview()
+        try {
+            // Set preview display
+            camera!!.setPreviewDisplay(surfaceHolder)
+        } catch (e: IOException) {
+            e.printStackTrace()
         }
 
-        override fun onPictureTaken(bytes: ByteArray, camera: Camera) {
-            saveImage(bytes)
-            showImg(bytes)
-            resetCamera()
-        }
+        // Start the camera preview...
+        camera!!.startPreview()
+    }
+
+    override fun surfaceDestroyed(surfaceHolder: SurfaceHolder) {
+        releaseCamera()
+    }
+
+    private fun releaseCamera() {
+        camera!!.stopPreview()
+        camera!!.release()
+        camera = null
+    }
+
+    override fun onPictureTaken(bytes: ByteArray, camera: Camera) {
+        saveImage(bytes)
+        showImg(bytes)
+        resetCamera()
+    }
 
     private fun showImg(bytes: ByteArray) {
         // 이미지 위에 띄워보기 일단
@@ -173,7 +166,7 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
         matrix.postScale(scaleWidth, scaleHeight)
         matrix.postRotate(90f)
 
-        val resizedBitmap: Bitmap = Bitmap.createBitmap(bitmap, 0, 0,  width, height, matrix, true)
+        val resizedBitmap: Bitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true)
         val bmd = BitmapDrawable(resizedBitmap)
 
         binding.picView.setImageDrawable(bmd)
@@ -216,6 +209,7 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
         startActivityForResult(intent, OPEN_GALLERY)
     }
 
+    // 갤러리에서 사진 가져오기
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -238,9 +232,10 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
 
                     val matrix = Matrix()
                     matrix.postScale(scaleWidth, scaleHeight)
-                    matrix.postRotate(0f)
+                    matrix.postRotate(90f)
 
-                    val resizedBitmap: Bitmap = Bitmap.createBitmap(bitmap, 0, 0,  width, height, matrix, true)
+                    val resizedBitmap: Bitmap =
+                        Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true)
 
                     resizedBitmap.compress(Bitmap.CompressFormat.PNG, 60, stream)
                     val bytes = stream.toByteArray()
@@ -258,7 +253,19 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
         }
     }
 
-    companion object {
-        const val REQUEST_CODE = 100
+    // 자동 초점 기능
+    private fun setCamFocusMode() {
+        if (null == camera) {
+            return
+        }
+
+        val parameters: Camera.Parameters = camera!!.parameters
+        val focusModes: List<String> = parameters.supportedFocusModes
+        if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
+            parameters.focusMode = Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE
+        } else if (focusModes.contains(Camera.Parameters.FOCUS_MODE_AUTO)) {
+            parameters.focusMode = Camera.Parameters.FOCUS_MODE_AUTO
+        }
+        camera!!.parameters = parameters
     }
 }
