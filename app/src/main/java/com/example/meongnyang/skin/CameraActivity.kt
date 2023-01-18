@@ -146,35 +146,30 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
 
     override fun onPictureTaken(bytes: ByteArray, camera: Camera) {
         saveImage(bytes)
-        showImg(bytes)
+        sendImg(bytes)
         resetCamera()
     }
 
-    private fun showImg(bytes: ByteArray) {
-        // 이미지 위에 띄워보기 일단
-        val options = BitmapFactory.Options()
-        options.inSampleSize = 2 // 1/2 사이즈로 보여주기
+    // resultActivity로 사진 보내주기
+    private fun sendImg(bytes: ByteArray) {
         val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-        val width = bitmap.width
-        val height = bitmap.height
-        val newWidth = 224
-        val newHeight = 224
-        val scaleWidth = (newWidth.toFloat()) / width
-        val scaleHeight = (newHeight.toFloat()) / height
 
+        // 224x224로 크기 조절
+        val resized = Bitmap.createScaledBitmap(bitmap, 224, 224, true)
+
+        // 90도 회전시키기
         val matrix = Matrix()
-        matrix.postScale(scaleWidth, scaleHeight)
         matrix.postRotate(90f)
 
-        val resizedBitmap: Bitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true)
-        val bmd = BitmapDrawable(resizedBitmap)
+        val result = Bitmap.createBitmap(resized, 0, 0, resized.width, resized.height, matrix, true)
 
-        binding.picView.setImageDrawable(bmd)
         camera!!.startPreview()
 
         val stream = ByteArrayOutputStream()
-        resizedBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+        result.compress(Bitmap.CompressFormat.PNG, 100, stream)
         val byte = stream.toByteArray()
+
+        saveImage(byte) // 압축한 거 저장해 보기
 
         val intent = Intent(this, ResultActivity::class.java)
         intent.putExtra("image", byte)
@@ -193,7 +188,7 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
             outStream = FileOutputStream(file)
             outStream.write(bytes)
             outStream.close()
-            Toast.makeText(this@CameraActivity, "저장 완료! $fileName", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@CameraActivity, "촬영한 사진이 갤러리에 저장되었습니다.", Toast.LENGTH_SHORT).show()
         } catch (e: FileNotFoundException) {
             e.printStackTrace()
         } catch (e: IOException) {

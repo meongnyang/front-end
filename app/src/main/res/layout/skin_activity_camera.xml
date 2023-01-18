@@ -22,7 +22,7 @@
         android:layout_width="113dp"
         android:layout_height="52dp"
         android:layout_marginStart="149dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="149dp"
         android:background="@drawable/ic_click"
         android:fontFamily="@font/gothic"
@@ -35,14 +35,14 @@
 
     <SurfaceView
         android:id="@+id/surfaceView"
-        android:layout_width="400dp"
-        android:layout_height="400dp"
+        android:layout_width="379dp"
+        android:layout_height="550dp"
         android:layout_gravity="center"
         android:layout_marginStart="34dp"
-        android:layout_marginTop="172dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="33dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.521"
+        app:layout_constraintHorizontal_bias="0.514"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -56,7 +56,7 @@
         android:lineSpacingExtra="5dp"
         android:text="화면 내에 환부가 들어가도록 사진을 촬영해 주세요"
         android:textColor="#17FF37"
-        android:textSize="12sp"
+        android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="@+id/surfaceView"
         app:layout_constraintStart_toStartOf="@+id/surfaceView"
         app:layout_constraintTop_toTopOf="@+id/surfaceView" />
@@ -73,15 +73,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/showResultBtn" />
-
-    <ImageView
-        android:id="@+id/picView"
-        android:layout_width="224px"
-        android:layout_height="224px"
-        android:layout_marginTop="48dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

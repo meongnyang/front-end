@@ -12,4 +12,5 @@
     <string name="excretion" formatted="false">배변: %s %s</string>
     <string name="commu_title">커뮤니티 💬</string>
     <string name="category">1일 1자랑</string>
+    <string name="add_title">반려동물 추가하기 🐶🐱</string>
 </resources>
