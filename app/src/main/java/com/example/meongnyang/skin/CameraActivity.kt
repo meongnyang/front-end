@@ -4,6 +4,7 @@ import android.Manifest
 import android.Manifest.permission.CAMERA
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -11,16 +12,20 @@ import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.graphics.drawable.BitmapDrawable
 import android.hardware.Camera
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
+import android.provider.MediaStore
+import android.util.Log
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.TextureView
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
+import com.example.meongnyang.databinding.ActivityNaviBinding
 import com.example.meongnyang.databinding.SkinActivityCameraBinding
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
@@ -46,6 +51,11 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
             checkPermission {
                 setupSurfaceHolder()
                 startCamera()
+
+                // 갤러리에서 선택 클릭했을 때
+                binding.selectGallery.setOnClickListener {
+                    openGallery()
+                }
             }
         }
 
@@ -172,6 +182,7 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
         val stream = ByteArrayOutputStream()
         resizedBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
         val byte = stream.toByteArray()
+
         val intent = Intent(this, ResultActivity::class.java)
         intent.putExtra("image", byte)
         startActivity(intent)
@@ -194,6 +205,56 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
             e.printStackTrace()
         } catch (e: IOException) {
             e.printStackTrace()
+        }
+    }
+
+    // 갤러리 열기
+    private val OPEN_GALLERY = 1
+    private fun openGallery() {
+        val intent: Intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.setType("image/*")
+        startActivityForResult(intent, OPEN_GALLERY)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == OPEN_GALLERY) {
+                var currentImageUrl: Uri? = data?.data
+
+                try {
+                    // resultActivity에 이미지 보내기
+                    val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, currentImageUrl)
+                    val stream = ByteArrayOutputStream()
+                    val options = BitmapFactory.Options()
+                    options.inSampleSize = 2 // 1/2 사이즈로 보여주기
+                    val width = bitmap.width
+                    val height = bitmap.height
+                    val newWidth = 224
+                    val newHeight = 224
+                    val scaleWidth = (newWidth.toFloat()) / width
+                    val scaleHeight = (newHeight.toFloat()) / height
+
+                    val matrix = Matrix()
+                    matrix.postScale(scaleWidth, scaleHeight)
+                    matrix.postRotate(0f)
+
+                    val resizedBitmap: Bitmap = Bitmap.createBitmap(bitmap, 0, 0,  width, height, matrix, true)
+
+                    resizedBitmap.compress(Bitmap.CompressFormat.PNG, 60, stream)
+                    val bytes = stream.toByteArray()
+
+                    val intent = Intent(this, ResultActivity::class.java)
+                    intent.putExtra("image", bytes)
+                    startActivity(intent)
+
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            } else {
+                Log.d("ActivityResult", "something wrong")
+            }
         }
     }
 
