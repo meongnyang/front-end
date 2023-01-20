@@ -1,19 +1,19 @@
-package com.example.meongnyang.mypage
+package com.example.meongnyang.login
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import com.example.meongnyang.R
+import com.example.meongnyang.mypage.AddActivity
 
-class ChoiceActivity : AppCompatActivity() {
+class TypeActivity : AppCompatActivity() {
     private lateinit var dogBtn: Button
     private lateinit var catBtn: Button
     private lateinit var selectBtn: Button
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.mypage_activity_choice)
+        setContentView(R.layout.login_activity_type)
 
         dogBtn = findViewById(R.id.dogBtn)
         catBtn = findViewById(R.id.catBtn)
@@ -28,15 +28,12 @@ class ChoiceActivity : AppCompatActivity() {
             dogBtn.isSelected = false
         }
 
-        // 어떤 것 선택하느냐에 따라 강아지, 고양이 intent로 전달?
         selectBtn.setOnClickListener {
             if (dogBtn.isSelected) {
-                val intent = Intent(this, AddActivity::class.java)
-                intent.putExtra("type", "강아지")
+                val intent = Intent(this, EnrollActivity::class.java)
                 startActivity(intent)
             } else {
-                val intent = Intent(this, AddActivity::class.java)
-                intent.putExtra("type", "고양이")
+                val intent = Intent(this, EnrollActivity::class.java)
                 startActivity(intent)
             }
         }
