@@ -56,6 +56,9 @@ android {
 }
 
 dependencies {
+    // kakao login
+    implementation group: 'com.kakao.sdk', name: 'usermgmt', version: '1.30.0'
+    implementation 'com.kakao.sdk:v2-user:2.11.0'
     // Google Play 서비스 선언
     implementation 'com.google.android.gms:play-services-auth:20.4.1'
     // Retrofit

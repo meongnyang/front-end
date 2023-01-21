@@ -253,10 +253,12 @@
                     android:id="@+id/checkBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="26dp"
+                    android:fontFamily="@font/gothic"
                     android:text="했음"
-                    app:layout_constraintTop_toBottomOf="@+id/radioGroup"
-                    tools:layout_editor_absoluteX="155dp" />
+                    app:layout_constraintStart_toEndOf="@+id/textView30"
+                    app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

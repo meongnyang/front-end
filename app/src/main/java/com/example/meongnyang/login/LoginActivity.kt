@@ -12,6 +12,7 @@ import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.meongnyang.NaviActivity
 import com.example.meongnyang.R
+import com.example.meongnyang.home.HomeFragment
 import com.example.meongnyang.skin.SkinMainActivity
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -23,6 +24,9 @@ import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.kakao.sdk.common.KakaoSdk
+import com.kakao.sdk.common.model.AuthErrorCause
+import com.kakao.sdk.user.UserApiClient
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var ggBtn: Button
@@ -53,6 +57,23 @@ class LoginActivity : AppCompatActivity() {
             .build()
 
         client = GoogleSignIn.getClient(this, gso)
+
+
+        // 카카오 로그인 유지하기
+        UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
+            if (error != null) {
+
+            } else if (tokenInfo != null) {
+                // 홈 화면으로 넘어가기
+                var intent = Intent(this, NaviActivity::class.java)
+                startActivity(intent)
+            }
+        }
+
+        // 카카오 로그인 버튼 클릭했을 시
+        kkoBtn.setOnClickListener {
+            kkoSignIn()
+        }
     }
 
     // 유저가 앱에 이미 구글 로그인을 했는지 확인하기
@@ -67,6 +88,51 @@ class LoginActivity : AppCompatActivity() {
     private fun ggSignIn() {
         var signInIntent = client?.signInIntent
         startActivityForResult(signInIntent, 100)
+    }
+
+    private fun kkoSignIn() {
+        UserApiClient.instance.loginWithKakaoTalk(this) { token, error ->
+            if (error != null) {
+                when {
+                    error.toString() == AuthErrorCause.AccessDenied.toString() -> {
+                        Toast.makeText(this, "접근이 거부되었습니다.", Toast.LENGTH_SHORT).show()
+                    }
+                    error.toString() == AuthErrorCause.InvalidClient.toString() -> {
+                        Toast.makeText(this, "유효하지 않은 앱입니다.", Toast.LENGTH_SHORT).show()
+                    }
+                    error.toString() == AuthErrorCause.InvalidGrant.toString() -> {
+                        Toast.makeText(this, "인증 수단이 유효하지 않아 인증할 수 없는 상태입니다.", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                    error.toString() == AuthErrorCause.InvalidRequest.toString() -> {
+                        Toast.makeText(this, "요청 파라미터 오류입니다.", Toast.LENGTH_SHORT).show()
+                    }
+                    error.toString() == AuthErrorCause.InvalidScope.toString() -> {
+                        Toast.makeText(this, "유효하지 않은 scope ID입니다.", Toast.LENGTH_SHORT).show()
+                    }
+                    error.toString() == AuthErrorCause.Misconfigured.toString() -> {
+                        Toast.makeText(
+                            this,
+                            "설정이 올바르지 않습니다. (android key hash)",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    error.toString() == AuthErrorCause.ServerError.toString() -> {
+                        Toast.makeText(this, "서버 내부 에러 발생!", Toast.LENGTH_SHORT).show()
+                    }
+                    error.toString() == AuthErrorCause.Unauthorized.toString() -> {
+                        Toast.makeText(this, "앱이 요청 권한이 없습니다.", Toast.LENGTH_SHORT).show()
+                    }
+                    else -> {
+                        Toast.makeText(this, "기타 에러", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } else if (token != null) {
+                Toast.makeText(this, "멍냥백서 가입 완료!", Toast.LENGTH_SHORT).show()
+                var intent = Intent(this, NicknameActivity::class.java)
+                startActivity(intent)
+            }
+        }
     }
 
     private fun moveNextPage() {

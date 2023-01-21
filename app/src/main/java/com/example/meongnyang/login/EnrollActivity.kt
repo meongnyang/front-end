@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.meongnyang.NaviActivity
 import com.example.meongnyang.R
 import com.example.meongnyang.databinding.LoginActivityEnrollBinding
@@ -31,8 +32,7 @@ class EnrollActivity : AppCompatActivity() {
                 binding.birthDay.text = birthString
             }
             // 오늘 날짜로 지정해 놓고 다이얼로그 띄우기
-            DatePickerDialog(this, dateSetListener, calender.get(Calendar.YEAR), calender.get(
-                Calendar.MONTH), calender.get(Calendar.DAY_OF_MONTH)).show()
+            DatePickerDialog(this, dateSetListener, calender.get(Calendar.YEAR), calender.get(Calendar.MONTH), calender.get(Calendar.DAY_OF_MONTH)).show()
         }
 
         binding.adoptDay.setOnClickListener {
