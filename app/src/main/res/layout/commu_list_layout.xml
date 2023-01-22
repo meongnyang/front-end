@@ -27,12 +27,13 @@
             android:id="@+id/categoryTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
             android:fontFamily="@font/gothic"
             android:text="카테고리"
             android:textColor="#252525"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/listImage"
+            app:layout_constraintHorizontal_bias="0.072"
             app:layout_constraintStart_toStartOf="@+id/listImage"
             app:layout_constraintTop_toTopOf="@+id/listImage" />
 

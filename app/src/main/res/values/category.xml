@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="category_array">
+        <item>선택하세요</item>
+        <item>자유</item>
+        <item>질문</item>
+        <item>1일 1자랑</item>
+    </string-array>
+</resources>

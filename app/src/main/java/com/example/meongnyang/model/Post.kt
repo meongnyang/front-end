@@ -18,3 +18,15 @@ data class GetPosts(
     val date: String,
     val time: String
 )
+
+data class PostModel(
+    val category: Int,
+    val type: Int,
+    val title: String,
+    val contents: String,
+    val img: String
+)
+
+data class PostResult(
+    var result: String? = null
+)

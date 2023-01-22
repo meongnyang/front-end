@@ -10,6 +10,7 @@ import com.example.meongnyang.R
 import com.example.meongnyang.api.RetrofitApi
 import com.example.meongnyang.model.PostResult
 import com.example.meongnyang.model.PostUser
+import com.example.meongnyang.model.UserModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -36,15 +37,15 @@ class NicknameActivity : AppCompatActivity() {
 
             // 서버에 유저 정보 POST
             val user = PostUser(email!!, nickname, null)
-            retrofit.postMembers(user).enqueue(object: Callback<PostResult> {
-                override fun onResponse(call: Call<PostResult>, response: Response<PostResult>) {
+            retrofit.postMembers(user).enqueue(object: Callback<UserModel> {
+                override fun onResponse(call: Call<UserModel>, response: Response<UserModel>) {
                     if (response.isSuccessful) {
                         Log.d("Post", "success ${response}")
                     } else {
                         Log.d("Post", "success, but ${response.errorBody()}")
                     }
                 }
-                override fun onFailure(call: Call<PostResult>, t: Throwable) {
+                override fun onFailure(call: Call<UserModel>, t: Throwable) {
                     Log.d("Post", "fail ${t}")
                 }
             })

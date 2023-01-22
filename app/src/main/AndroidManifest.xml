@@ -30,6 +30,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".NaviActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name=".login.TypeActivity"
             android:exported="false" />
         <activity
@@ -80,11 +84,6 @@
         <activity
             android:name=".skin.CameraActivity"
             android:exported="false" />
-        <activity
-            android:name=".NaviActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="6834c4f27fbbf23e589df95359fe78c9" />

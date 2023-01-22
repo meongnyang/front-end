@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.meongnyang.NaviActivity
 import com.example.meongnyang.R
 import com.example.meongnyang.api.RetrofitApi
 import com.example.meongnyang.databinding.CommuFragmentMainBinding
@@ -43,29 +44,10 @@ class CommuFragment : Fragment() {
 
         postList = arrayListOf()
 
-        // 서버에서 게시글 받아오기
-        retrofit.getAllPosts().enqueue(object: Callback<List<GetPosts>> {
-            override fun onResponse(call: Call<List<GetPosts>>, response: Response<List<GetPosts>>) {
-                if (response.isSuccessful) {
-                    postList.clear()
-                    postList.addAll(response.body()!!)
+        // 기본값: 모든 카테고리 보이게
+        binding.allBtn.isSelected = true
+        showAllPost()
 
-                    Log.d("post", postList.toString())
-
-                    listItems.clear()
-                    for (document in response.body()!!) {
-                        val item = Post(document.title,
-                            document.categoryName)
-                        listItems.add(item)
-                    }
-                    postListAdapter.notifyDataSetChanged()
-                }
-            }
-
-            override fun onFailure(call: Call<List<GetPosts>>, t: Throwable) {
-                Log.d("error", t.message.toString())
-            }
-        })
 
         binding.postView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.postView.adapter = postListAdapter
@@ -84,6 +66,7 @@ class CommuFragment : Fragment() {
             binding.freeBtn.isSelected = false
             binding.askBtn.isSelected = false
             binding.boastBtn.isSelected = false
+            showAllPost()
         }
 
         binding.freeBtn.setOnClickListener {
@@ -92,20 +75,76 @@ class CommuFragment : Fragment() {
             binding.boastBtn.isSelected = false
             binding.allBtn.isSelected = false
             // 포스트에서 카테고리가 "자유"에 해당하는 것만 골라서 recyclerView 갱신하도록 하기
+            showPost("자유")
         }
         binding.askBtn.setOnClickListener {
             binding.askBtn.isSelected = true
             binding.freeBtn.isSelected = false
             binding.boastBtn.isSelected = false
             binding.allBtn.isSelected = false
+            showPost("질문")
         }
         binding.boastBtn.setOnClickListener {
             binding.boastBtn.isSelected = true
             binding.freeBtn.isSelected = false
             binding.askBtn.isSelected = false
             binding.allBtn.isSelected = false
+            showPost("1일 1자랑")
+        }
+
+        binding.writeBtn.setOnClickListener {
+            (activity as NaviActivity).replaceFragment(WriteFragment())
         }
 
         return binding.root
     }
+
+    // 서버와 통신
+    private fun showAllPost() {
+        retrofit.findPosts().enqueue(object: Callback<List<GetPosts>> {
+            override fun onResponse(call: Call<List<GetPosts>>, response: Response<List<GetPosts>>) {
+                if (response.isSuccessful) {
+                    postList.clear()
+                    postList.addAll(response.body()!!)
+                    listItems.clear()
+                    for (document in response.body()!!) {
+                        val item = Post(document.title,
+                            document.categoryName)
+                        listItems.add(item)
+                    }
+                    postListAdapter.notifyDataSetChanged()
+                }
+            }
+
+            override fun onFailure(call: Call<List<GetPosts>>, t: Throwable) {
+                Log.d("error", t.message.toString())
+            }
+        })
+    }
+
+    private fun showPost(category: String) {
+        retrofit.findPosts().enqueue(object: Callback<List<GetPosts>> {
+            override fun onResponse(call: Call<List<GetPosts>>, response: Response<List<GetPosts>>) {
+                if (response.isSuccessful) {
+                    postList.clear()
+                    postList.addAll(response.body()!!)
+                    listItems.clear()
+                    for (document in response.body()!!) {
+                        if (document.categoryName == category) {
+                            val item = Post(document.title,
+                                document.categoryName)
+                            listItems.add(item)
+                        }
+                    }
+                    postListAdapter.notifyDataSetChanged()
+                }
+            }
+
+            override fun onFailure(call: Call<List<GetPosts>>, t: Throwable) {
+                Log.d("error", t.message.toString())
+            }
+        })
+    }
+
+
 }

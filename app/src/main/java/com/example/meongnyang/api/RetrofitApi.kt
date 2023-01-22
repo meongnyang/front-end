@@ -13,17 +13,23 @@ interface RetrofitApi {
     @POST("members")
     fun postMembers(
         @Body postUser: PostUser
-    ): Call<PostResult>
-
-    @GET("members/{memberid}")
+    ): Call<UserModel>
+    @GET("members/{memberId}")
     fun getMembers(
-        @Path("memberid") memberid: Int,
+        @Path("memberId") memberId: Int
     ): Call<UserModel>
 
     // 커뮤니티 모든 글 받아오기
     @GET("posts")
-    fun getAllPosts(
+    fun findPosts(
     ): Call <List<GetPosts>>
+
+    // 게시글 작성하기
+    @POST("posts/{memberId}")
+    fun createPost(
+        @Body jsonparams: PostModel,
+        @Path("memberId") memberId: Int
+    ): Call<GetPosts>
 
     companion object {
         private const val BASE_URL = "http://43.201.122.215:8080/"
