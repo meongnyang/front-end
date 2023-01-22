@@ -20,7 +20,7 @@ class PostListAdapter(val postList: ArrayList<Post>): RecyclerView.Adapter<PostL
 
     override fun onBindViewHolder(holder: PostListAdapter.ViewHolder, position: Int) {
         holder.title.text = postList[position].title
-        holder.category.text = postList[position].category
+        holder.categoryName.text = postList[position].categoryName
 
         // 아이템 클릭 이벤트 -> 게시글 보여주기
         holder.itemView.setOnClickListener {
@@ -29,7 +29,7 @@ class PostListAdapter(val postList: ArrayList<Post>): RecyclerView.Adapter<PostL
     }
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        val category: TextView = itemView.findViewById(R.id.categoryTV)
+        val categoryName: TextView = itemView.findViewById(R.id.categoryTV)
         val title: TextView = itemView.findViewById(R.id.titleTV)
     }
 

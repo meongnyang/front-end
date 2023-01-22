@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.meongnyang.model.Pet
-import com.example.meongnyang.model.User
+import com.example.meongnyang.model.PostUser
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
@@ -20,15 +20,15 @@ class MypageViewModel: ViewModel() {
     val petSpec : MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val petImg : MutableLiveData<String> by lazy { MutableLiveData<String>() }
 
-    private val user = User("만두언니","abc@naver.com",  "1234", "http://domain/image/profile.png")
+    private val postUser = PostUser("만두언니", "abc@naver.com", "http://domain/image/profile.png")
     private val pet = Pet(1,1,  "정만두", "여아", "2019-03-16", "2019-06-14", "비숑프리제", "http://domain/image/profile.png")
 
     init {
         viewModelScope.launch {
-            username.value = user.nickname
+            username.value = postUser.nickname
             dayCount.value = (dayCount(pet.birth))
             withCount.value = (withCount(pet.adopt))
-            userImg.value = user.profile
+            userImg.value = postUser.profile
             petName.value = pet.name
             petBirth.value = pet.birth
             petSex.value = pet.sex

@@ -13,7 +13,9 @@ import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.meongnyang.NaviActivity
 import com.example.meongnyang.R
+import com.example.meongnyang.api.RetrofitApi
 import com.example.meongnyang.home.HomeFragment
+import com.example.meongnyang.model.PostUser
 import com.example.meongnyang.skin.SkinMainActivity
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -34,6 +36,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var ggBtn: Button
     private lateinit var kkoBtn: Button
     private lateinit var kakaoCallback: (OAuthToken?, Throwable?) -> Unit
+    private lateinit var userEmail: String
 
     private var auth: FirebaseAuth? = null // 객체의 공유 인스턴스
     private lateinit var client: GoogleSignInClient
@@ -73,6 +76,16 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
+        // 사용자 정보 요청
+        UserApiClient.instance.me { user, error ->
+            if (error != null) {
+
+            } else if (user != null) {
+                userEmail = user.kakaoAccount?.email.toString()
+                Log.d("email", user.kakaoAccount?.email.toString())
+            }
+        }
+
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
             if (error != null) {
                 when {
@@ -107,6 +120,7 @@ class LoginActivity : AppCompatActivity() {
             } else if (token != null) {
                 Toast.makeText(this, "멍냥백서 가입 성공!", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, NicknameActivity::class.java)
+                intent.putExtra("email", userEmail)
                 startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
                 finish()
             }
@@ -199,6 +213,7 @@ class LoginActivity : AppCompatActivity() {
                 // 로그인 처리
                 Toast.makeText(this, "멍냥백서 가입 성공!", Toast.LENGTH_LONG).show()
                 var intent = Intent(this, NicknameActivity::class.java)
+                intent.putExtra("email", account?.email)
                 startActivity(intent)
             } else {
                 // 오류

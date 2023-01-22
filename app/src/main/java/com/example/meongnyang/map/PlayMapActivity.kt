@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.meongnyang.R
+import com.example.meongnyang.api.KakaoAPI
 import com.example.meongnyang.databinding.MapActivityPlayBinding
 import com.example.meongnyang.model.MapList
 import com.example.meongnyang.model.Place

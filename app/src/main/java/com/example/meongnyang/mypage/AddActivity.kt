@@ -3,6 +3,7 @@ package com.example.meongnyang.mypage
 import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -33,6 +34,7 @@ class AddActivity : AppCompatActivity() {
             // 오늘 날짜로 지정해 놓고 다이얼로그 띄우기
             DatePickerDialog(this, dateSetListener, calender.get(Calendar.YEAR), calender.get(Calendar.MONTH), calender.get(Calendar.DAY_OF_MONTH)).show()
         }
+
 
         binding.adoptDay.setOnClickListener {
             val calender = Calendar.getInstance()

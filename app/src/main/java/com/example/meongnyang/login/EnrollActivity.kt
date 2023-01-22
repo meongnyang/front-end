@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.meongnyang.NaviActivity
 import com.example.meongnyang.R
+import com.example.meongnyang.api.RetrofitApi
 import com.example.meongnyang.databinding.LoginActivityEnrollBinding
 import com.example.meongnyang.databinding.MypageActivityAddBinding
 import java.util.*

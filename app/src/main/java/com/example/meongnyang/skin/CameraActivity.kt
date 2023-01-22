@@ -232,7 +232,8 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
                     val resizedBitmap: Bitmap =
                         Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true)
 
-                    resizedBitmap.compress(Bitmap.CompressFormat.PNG, 60, stream)
+                    resizedBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+
                     val bytes = stream.toByteArray()
 
                     val intent = Intent(this, ResultActivity::class.java)
