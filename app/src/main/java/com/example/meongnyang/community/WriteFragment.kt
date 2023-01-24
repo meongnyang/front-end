@@ -51,7 +51,7 @@ class WriteFragment : Fragment() {
             var contents = binding.postContent.editText?.text.toString()
             var img = "" // 일단 이미지는 나중에... ㅠㅠ
             val type = 1 // 일단 강아지라고 해놓자...
-            val memberId = 1 // 얘도 일단 임시로, 나중엔 서버한테 받아서 가져와야 해용
+            val memberId = 9 // 얘도 일단 임시로, 나중엔 서버한테 받아서 가져와야 해용
             val data = PostModel(category, type, title, contents, img)
 
             retrofit.createPost(data, memberId).enqueue(object: Callback<GetPosts> {

@@ -3,7 +3,7 @@ package com.example.meongnyang.diary
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.meongnyang.model.Diary
+import com.example.meongnyang.model.PostDiary
 import kotlinx.coroutines.launch
 
 class DiaryViewModel : ViewModel() {
@@ -13,7 +13,7 @@ class DiaryViewModel : ViewModel() {
     val excretion : MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val excReason : MutableLiveData<String> by lazy { MutableLiveData<String>() }
 
-    private val diary = Diary(1, 1, 1, 2, "오줌에 피가 섞여 있었음", 2, "설사 증상을 보임")
+    private val diary = PostDiary(1, 1, 1, 2, "오줌에 피가 섞여 있었음", 2, "설사 증상을 보임")
 
     init {
         viewModelScope.launch {

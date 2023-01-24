@@ -18,4 +18,8 @@
         <!-- 글꼴 설정 -->
         <item name="android:fontFamily">@font/gothic</item>
     </style>
+
+    <style name="MySpinner" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:fontFamily">@font/gothic</item>
+    </style>
 </resources>

@@ -26,7 +26,7 @@
         android:layout_marginEnd="175dp"
         android:fontFamily="@font/gothic"
         android:lineSpacingExtra="9sp"
-        android:text="반가워요,\n사용하실 닉네임을 입력해 주세요!"
+        android:text="반가워요,\n닉네임과 비밀번호를 입력해 주세요!"
         android:textColor="#000000"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -37,10 +37,9 @@
 
     <EditText
         android:id="@+id/nickNameEdit"
-        android:layout_width="383dp"
-        android:layout_height="58dp"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="160dp"
+        android:layout_width="300dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="112dp"
         android:layout_marginEnd="14dp"
         android:background="@drawable/ic_name_edit"
         android:ems="10"
@@ -50,16 +49,30 @@
         android:inputType="textPersonName"
         android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView19" />
+
+    <EditText
+        android:id="@+id/passEdit"
+        android:layout_width="300dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/ic_name_edit"
+        android:ems="10"
+        android:fontFamily="@font/gothic"
+        android:gravity="center"
+        android:hint="입력하세요!"
+        android:inputType="textPassword"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nickNameEdit" />
 
     <Button
         android:id="@+id/nickSaveBtn"
         android:layout_width="108dp"
         android:layout_height="49dp"
         android:layout_marginStart="122dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="123dp"
         android:background="@drawable/ic_save_btn"
         android:fontFamily="@font/gothic"
@@ -67,6 +80,36 @@
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nickNameEdit" />
+        app:layout_constraintTop_toBottomOf="@+id/passEdit" />
+
+    <TextView
+        android:id="@+id/textView39"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="124dp"
+        android:layout_marginEnd="28dp"
+        android:fontFamily="@font/gothic"
+        android:text="닉네임"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/nickNameEdit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView19" />
+
+    <TextView
+        android:id="@+id/textView40"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="17dp"
+        android:fontFamily="@font/gothic"
+        android:text="비밀번호"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/passEdit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView39" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

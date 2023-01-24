@@ -40,6 +40,8 @@ class NaviActivity : AppCompatActivity() {
 
         val intent = intent
         val fragName = intent.getStringExtra("fragment")
+        val memberId = intent.getIntExtra("memberId", 0)
+        val conimalId = intent.getIntExtra("conimalId", 0)
 
         if (fragName != null) {
             Log.d("fragment", fragName)
