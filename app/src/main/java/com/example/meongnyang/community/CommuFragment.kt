@@ -56,7 +56,7 @@ class CommuFragment : Fragment() {
             override fun onClick(v: View, position: Int) {
                 // 여기에 구현
                 val bundle = Bundle()
-                val postId = position + 1
+                val postId = postList.size - position
                 bundle.putInt("postId", postId)
                 val postFragment = PostFragment()
                 postFragment.arguments = bundle

@@ -31,12 +31,12 @@ class PostViewModel(postId: Int) : ViewModel() {
                     date.value = response.body()!!.date
                     memberId = response.body()!!.memberId
 
-                    retrofit.getMember(memberId).enqueue(object: Callback<User> {
-                        override fun onResponse(call: Call<User>, response: Response<User>) {
+                    retrofit.getMember(memberId).enqueue(object: Callback<allPet> {
+                        override fun onResponse(call: Call<allPet>, response: Response<allPet>) {
                             writer.value = response.body()!!.nickname
                         }
 
-                        override fun onFailure(call: Call<User>, t: Throwable) {
+                        override fun onFailure(call: Call<allPet>, t: Throwable) {
                             TODO("Not yet implemented")
                         }
                     })

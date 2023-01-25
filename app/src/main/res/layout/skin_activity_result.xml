@@ -52,34 +52,35 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/textView23"
+                    android:id="@+id/resultTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="92dp"
                     android:layout_marginTop="31dp"
                     android:layout_marginEnd="93dp"
                     android:fontFamily="@font/gothic"
-                    android:text="피부 질환이 있는 것 같아요"
                     android:textColor="#000000"
                     android:textSize="20sp"
+                    android:text=""
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/resultImg" />
 
                 <TextView
-                    android:id="@+id/textView25"
+                    android:id="@+id/resultName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="80dp"
                     android:layout_marginTop="12dp"
                     android:layout_marginEnd="80dp"
                     android:fontFamily="@font/gothic"
-                    android:text="어쩌구, 저쩌구, 뭐시기로 의심돼요"
+                    android:text=""
                     android:textColor="#000000"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.497"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView23" />
+                    app:layout_constraintTop_toBottomOf="@+id/resultTitle" />
 
                 <ImageView
                     android:id="@+id/resultImg"
@@ -104,7 +105,7 @@
                     android:foregroundGravity="center"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView25"
+                    app:layout_constraintTop_toBottomOf="@+id/resultName"
                     app:srcCompat="@drawable/ic_result_box" />
 
                 <ImageView
@@ -209,6 +210,29 @@
                     app:layout_constraintEnd_toEndOf="@+id/result2"
                     app:layout_constraintStart_toStartOf="@+id/result2"
                     app:layout_constraintTop_toTopOf="@+id/result2" />
+
+                <TextView
+                    android:id="@+id/textView23"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    app:layout_constraintBottom_toBottomOf="@+id/result1"
+                    app:layout_constraintEnd_toEndOf="@+id/result1"
+                    app:layout_constraintHorizontal_bias="0.481"
+                    app:layout_constraintStart_toStartOf="@+id/result1"
+                    app:layout_constraintTop_toBottomOf="@+id/textView27"
+                    app:layout_constraintVertical_bias="0.386" />
+
+                <TextView
+                    android:id="@+id/textView25"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    app:layout_constraintBottom_toBottomOf="@+id/result2"
+                    app:layout_constraintEnd_toEndOf="@+id/result2"
+                    app:layout_constraintStart_toStartOf="@+id/result2"
+                    app:layout_constraintTop_toBottomOf="@+id/textView29"
+                    app:layout_constraintVertical_bias="0.34" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

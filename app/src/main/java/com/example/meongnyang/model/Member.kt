@@ -28,3 +28,10 @@ data class Id(
     val memberId: Int? = null,
     val conimalId: Int? = null
 )
+
+data class allPet(
+    val nickname: String,
+    val memberImg: String,
+    val memberId: Int,
+    val conimals: List<myPet>
+)

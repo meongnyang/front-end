@@ -18,7 +18,7 @@ interface RetrofitApi {
     @GET("mypage/{memberId}")
     fun getMember(
         @Path("memberId") memberId: Int
-    ): Call<User>
+    ): Call<allPet>
     @PATCH("members/update")
     fun userUpdate(
         @Body img: String

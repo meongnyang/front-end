@@ -231,8 +231,6 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
     // 갤러리에서 사진 가져오기
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
-        Toast.makeText(this, "Let's Start", Toast.LENGTH_SHORT).show()
-
         val classList = mutableMapOf<Int, String>()
         classList[0] = "구진, 플라크"
         classList[1] = "비듬, 각질, 상피성잔고리"
@@ -268,7 +266,6 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
                         Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true)
 
                     // model
-
                     if (mModule == null) {
                         mModule = LiteModuleLoader.load(assetFilePath(this, "petScriptv5.ptl"))
                         Toast.makeText(this, "model Start", Toast.LENGTH_SHORT).show()
@@ -297,6 +294,7 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
 
                     val intent = Intent(this, ResultActivity::class.java)
                     intent.putExtra("image", bytes)
+                    intent.putExtra("result", classList[maxScoreIdx].toString())
                     startActivity(intent)
 
                 } catch (e: Exception) {

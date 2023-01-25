@@ -29,7 +29,6 @@ class PostFragment : Fragment() {
             container,
             false
         )
-        //val retrofit = RetrofitApi.create()
 
         val bundle = arguments
         postId = bundle!!.getInt("postId")
@@ -42,30 +41,6 @@ class PostFragment : Fragment() {
             post = viewModel
             lifecycleOwner = this@PostFragment
         }
-
-            /*retrofit.getPost(postId).enqueue(object : Callback<GetPosts> {
-                override fun onResponse(call: Call<GetPosts>, response: Response<GetPosts>) {
-                    memberId = response.body()!!.memberId
-                    binding.viewTitle.text = response.body()!!.title
-                    binding.viewContent.text = response.body()!!.contents
-                    binding.postDate.text = response.body()!!.date
-                    binding.likeCount.text = response.body()!!.count.toString()
-
-                    retrofit.getMember(memberId).enqueue(object : Callback<User> {
-                        override fun onResponse(call: Call<User>, response: Response<User>) {
-                            binding.writer.text = response.body()!!.nickname
-                        }
-
-                        override fun onFailure(call: Call<User>, t: Throwable) {
-                            TODO("Not yet implemented")
-                        }
-                    })
-                }
-
-                override fun onFailure(call: Call<GetPosts>, t: Throwable) {
-                    TODO("Not yet implemented")
-                }
-            })*/
 
         // 키보드 올라 왔을 때 화면 가리는 것 방지하는 코드
         keyboardVisibilityUtils = KeyboardVisibilityUtils(requireActivity().window,

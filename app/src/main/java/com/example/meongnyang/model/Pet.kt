@@ -24,3 +24,11 @@ data class PetModel(
     val ddayadopt: Int,
     val conimalId: Int
 )
+data class myPet(
+    val name: String,
+    val gender: String,
+    val species: String,
+    val ddaybirth: Int,
+    val ddayadopt: Int,
+    val conimalImg: String
+)

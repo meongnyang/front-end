@@ -27,8 +27,17 @@ class ResultActivity : AppCompatActivity() {
         // 이미지 띄우기
         val intent = intent
         val bytes = intent.getByteArrayExtra("image")
+        val result = intent.getStringExtra("result")
         val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes!!.size)
         binding.resultImg.setImageBitmap(bitmap)
+
+        if (result != "무증상") {
+            binding.resultTitle.text = "피부 질환이 있는 것 같아요"
+            binding.resultName.text = "⚠️ ${result}(으)로 의심돼요 ⚠️"
+        } else {
+            binding.resultTitle.text = "피부 질환을 찾지 못했어요"
+            binding.resultName.text = "앞으로도 피부 관리에 힘써주세요!"
+        }
 
         // 메뉴 클릭 시 이동
         binding.goFeedBtn.setOnClickListener {

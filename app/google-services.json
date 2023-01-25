@@ -7,7 +7,7 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:817516534972:android:ce2b4126811c380f53c4b9",
+        "mobilesdk_app_id": "1:817516534972:android:338ec65e769fcabb53c4b9",
         "android_client_info": {
           "package_name": "com.example.meongnyang"
         }
@@ -19,14 +19,6 @@
           "android_info": {
             "package_name": "com.example.meongnyang",
             "certificate_hash": "91300663707c8ec122bc2f8685fced519aef2b9e"
-          }
-        },
-        {
-          "client_id": "817516534972-7fdicigd3t3mhmemae8k0k2mqgcac3b7.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.meongnyang",
-            "certificate_hash": "abc14ae6f9dd739bceb22a36b2f06c68e8e707bb"
           }
         },
         {

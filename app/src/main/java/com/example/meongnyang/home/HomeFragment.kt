@@ -65,13 +65,4 @@ class HomeFragment : Fragment() {
 
         return binding?.root
     }
-
-    fun strType(type: Int): String {
-        var strType = ""
-        strType = if (type == 1) {
-            "견"
-        } else "묘"
-
-        return strType
-    }
 }
