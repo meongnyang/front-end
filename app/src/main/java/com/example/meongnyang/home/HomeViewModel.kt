@@ -1,62 +1,57 @@
 package com.example.meongnyang.home
 
-import android.database.sqlite.SQLiteDatabase
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.meongnyang.DB.DBManager
+import android.util.Log
+import androidx.lifecycle.*
 import com.example.meongnyang.api.RetrofitApi
-import com.example.meongnyang.model.Pet
+import com.example.meongnyang.model.Id
 import com.example.meongnyang.model.PetModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.launch
-import org.json.JSONException
-import org.json.JSONObject
 import retrofit2.Call
-import java.text.SimpleDateFormat
-import java.util.*
+import retrofit2.Callback
+import retrofit2.Response
 
-class HomeViewModel : ViewModel() {
-    /*val name : MutableLiveData<String> by lazy { MutableLiveData<String>() }
+class HomeViewModel: ViewModel() {
+    val retrofit = RetrofitApi.create()
+
+    var fbAuth = FirebaseAuth.getInstance()
+    var fbFirestore = FirebaseFirestore.getInstance()
+    val uid = fbAuth.uid.toString()
+
+    val name : MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val strType : MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val count : MutableLiveData<String> by lazy { MutableLiveData<String>() }
 
-    fun userID() {
-        CoroutineScope(Dispatchers.IO).launch {
+    init {
+        viewModelScope.launch {
+            var id = Id()
+            fbFirestore!!.collection("users").document(uid).get()
+                .addOnSuccessListener { documentsSnapshot ->
+                    id = documentsSnapshot.toObject<Id>()!!
 
+                    retrofit.getPet(id.conimalId!!).enqueue(object : Callback<PetModel> {
+                        override fun onResponse(call: Call<PetModel>, response: Response<PetModel>) {
+                            name.value = response.body()!!.name
+                            strType.value = strType(response.body()!!.type)
+                            count.value = response.body()!!.ddayadopt.toString()
+
+                            Log.d("pet", response.body()!!.name)
+                            Log.d("pet", response.body()!!.type.toString())
+                            Log.d("pet", response.body()!!.ddayadopt.toString())
+                        }
+
+                        override fun onFailure(call: Call<PetModel>, t: Throwable) {
+                            TODO("Not yet implemented")
+                        }
+                    })
+                }
         }
     }
 
-    val jsonStr = "{\"conimalId\":1, \"type\": 1, \"name\":\"만두\", \"gender\": \"여아\", \"neutering\": 1, \"birth\": \"2019-03-16\", \"adopt\":\"2019-06-14\", \"species\": \"비숑프리제\", \"img\": \"img.png\"}"
-
-    val petInfo = JSONObject(jsonStr)
-
-
-    val conimalId = petInfo.getInt("conimalId")
-    val type = petInfo.getInt("type")
-    val petName = petInfo.getString("name")
-    val gender = petInfo.getString("gender")
-    val neutering = petInfo.getInt("neutering")
-    val birth = petInfo.getString("birth")
-    val adopt = petInfo.getString("adopt")
-    val species = petInfo.getString("species")
-    val img = petInfo.getString("img")
-
-    private val pet = Pet(type, petName, gender, neutering, birth, adopt, species, img)
-
-    init {
-        viewModelScope.launch {
-            name.value = pet.name
-            strType.value = strType(pet.type)
-            count.value = dayCount(pet.adopt)
-        }
-    }*/
-
-    // 함수는 다른 곳에 만들어 주기
     // 숫자를 견, 묘로 바꿔주는 함수
-    /*private fun strType(type: Int): String {
+    fun strType(type: Int): String {
         var strType = ""
         strType = if (type == 1) {
             "견"
@@ -64,22 +59,4 @@ class HomeViewModel : ViewModel() {
 
         return strType
     }
-
-    // 입양 후 날짜 카운트 함수
-    private fun dayCount(adopt: String): String {
-        val formatter = SimpleDateFormat("yyyy-MM-dd")
-        val adoptDate = formatter.parse(adopt)
-
-        val today = Calendar.getInstance().apply {
-            set(Calendar.HOUR_OF_DAY, 0)
-            set(Calendar.MINUTE, 0)
-            set(Calendar.SECOND, 0)
-            set(Calendar.MILLISECOND, 0)
-        }.time.time
-
-        val diff = today - adoptDate.time
-        val count = (diff / (24*60*60*1000) + 1).toString()
-
-        return count
-    }*/
 }

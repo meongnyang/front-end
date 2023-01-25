@@ -14,7 +14,7 @@ data class PetModel(
     val memberId: Int,
     val type: Int,
     val name: String,
-    val gender: Int,
+    val gender: String,
     val neutering: Int,
     val img: String,
     val speciesName: String,

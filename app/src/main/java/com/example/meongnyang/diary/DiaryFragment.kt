@@ -70,7 +70,7 @@ class DiaryFragment : Fragment() {
             // 토스트 메시지 띄워주고 건강 화면으로 이동해 주기
             // 나중에는 데이터 모델로 만들어서 서버에 보내 주는 것 구현해야 함
             Toast.makeText(context, "저장되었습니다!", Toast.LENGTH_SHORT).show()
-            (activity as NaviActivity).replaceFragment(HealthFragment())
+            (activity as NaviActivity).replace(HealthFragment())
         }
 
         // 키보드 올라 왔을 때 화면 가리는 것 방지하는 코드

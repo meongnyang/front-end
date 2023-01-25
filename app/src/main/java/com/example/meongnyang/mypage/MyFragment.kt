@@ -33,7 +33,7 @@ class MyFragment : Fragment() {
 
         // 닉네임 변경 화면으로 이동하기
         binding.modifyProfile.setOnClickListener {
-            (activity as NaviActivity).replaceFragment(ModifyFragment())
+            (activity as NaviActivity).replace(ModifyFragment())
         }
         // 반려동물 추가하기
         binding.addPet.setOnClickListener {

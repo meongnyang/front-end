@@ -13,15 +13,16 @@ import com.example.meongnyang.R
 import com.example.meongnyang.api.RetrofitApi
 import com.example.meongnyang.databinding.CommuFragmentWriteBinding
 import com.example.meongnyang.model.GetPosts
+import com.example.meongnyang.model.PetModel
 import com.example.meongnyang.model.PostModel
-import com.example.meongnyang.model.PostResult
+import com.example.meongnyang.mypage.KeyboardVisibilityUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import kotlin.properties.Delegates
 
 class WriteFragment : Fragment() {
     private lateinit var binding: CommuFragmentWriteBinding
+    var type = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,6 +34,10 @@ class WriteFragment : Fragment() {
             container,
             false
         )
+
+        val bundle = arguments
+        var memberId = bundle?.getInt("memberId")!!
+        var conimalId = bundle?.getInt("conimalId")!!
 
         val retrofit = RetrofitApi.create() // 서버와 통신 연결
 
@@ -50,8 +55,17 @@ class WriteFragment : Fragment() {
             var title = binding.postTitle.editText?.text.toString()
             var contents = binding.postContent.editText?.text.toString()
             var img = "" // 일단 이미지는 나중에... ㅠㅠ
-            val type = 1 // 일단 강아지라고 해놓자...
-            val memberId = 9 // 얘도 일단 임시로, 나중엔 서버한테 받아서 가져와야 해용
+
+            retrofit.getPet(conimalId).enqueue(object: Callback<PetModel> {
+                override fun onResponse(call: Call<PetModel>, response: Response<PetModel>) {
+                    type = response.body()!!.type
+                }
+
+                override fun onFailure(call: Call<PetModel>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+            })
+
             val data = PostModel(category, type, title, contents, img)
 
             retrofit.createPost(data, memberId).enqueue(object: Callback<GetPosts> {
@@ -65,7 +79,8 @@ class WriteFragment : Fragment() {
                     Log.d("error", t.message.toString())
                 }
             })
-            (activity as NaviActivity).replaceFragment(CommuFragment())
+
+            (activity as NaviActivity).replace(CommuFragment())
         }
 
         return binding.root

@@ -12,6 +12,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.example.meongnyang.databinding.ActivityNaviBinding
 import com.example.meongnyang.community.CommuFragment
+import com.example.meongnyang.community.PostFragment
 import com.example.meongnyang.diary.DiaryFragment
 import com.example.meongnyang.feed.FeedFragment
 import com.example.meongnyang.health.*
@@ -40,29 +41,27 @@ class NaviActivity : AppCompatActivity() {
 
         val intent = intent
         val fragName = intent.getStringExtra("fragment")
-        val memberId = intent.getIntExtra("memberId", 0)
-        val conimalId = intent.getIntExtra("conimalId", 0)
 
         if (fragName != null) {
             Log.d("fragment", fragName)
             when (fragName) {
                 "feed" -> {
-                    replaceFragment(FeedFragment())
+                    replace(FeedFragment())
                 }
                 "qna" -> {
-                    replaceFragment(QnaFragment())
+                    replace(QnaFragment())
                 }
             }
         } else {
-            replaceFragment(HomeFragment())
+            replace(HomeFragment())
         }
 
         binding.navigationView.setOnItemSelectedListener { item ->
             when(item.itemId) {
-                R.id.homeFragment -> replaceFragment(HomeFragment())
-                R.id.healthFragment -> replaceFragment(HealthFragment())
-                R.id.myFragment -> replaceFragment(MyFragment())
-                R.id.communityFragment -> replaceFragment(CommuFragment())
+                R.id.homeFragment -> replace(HomeFragment())
+                R.id.healthFragment -> replace(HealthFragment())
+                R.id.myFragment -> replace(MyFragment())
+                R.id.communityFragment -> replace(CommuFragment())
             }
             true
         }
@@ -98,20 +97,20 @@ class NaviActivity : AppCompatActivity() {
         }
         qnaBtn.setOnClickListener {
             closeMenu()
-            replaceFragment(QnaFragment())
+            replace(QnaFragment())
         }
         feedBtn.setOnClickListener {
             closeMenu()
-            replaceFragment(FeedFragment())
+            replace(FeedFragment())
         }
         healthDiaryBtn.setOnClickListener {
             closeMenu()
-            replaceFragment(DiaryFragment())
+            replace(HealthFragment())
         }
         communityBtn.setOnClickListener {
             // 커뮤니티 화면으로 가긴 하는데 하단바,, 자동으로 옮기는 법 없나,,
             closeMenu()
-            replaceFragment(CommuFragment())
+            replace(CommuFragment())
         }
     }
 
@@ -122,7 +121,17 @@ class NaviActivity : AppCompatActivity() {
     }
 
     // 프래그먼트 전환 이벤트
-    fun replaceFragment(fragment: Fragment) {
+    /*fun replaceFragment(fragment: Fragment, memberId: Int, conimalId: Int) {
+        val bundle = Bundle()
+        bundle.putInt("memberId", memberId)
+        bundle.putInt("conimalId", conimalId)
+        val goFragment = fragment
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.mainFrameLayout, goFragment).commit()
+    }*/
+
+    fun replace(fragment: Fragment) {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.mainFrameLayout, fragment).commit()

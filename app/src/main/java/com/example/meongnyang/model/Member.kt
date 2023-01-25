@@ -25,6 +25,6 @@ data class User(
 )
 
 data class Id(
-    val memberId: Int,
-    val conimalId: Int
+    val memberId: Int? = null,
+    val conimalId: Int? = null
 )

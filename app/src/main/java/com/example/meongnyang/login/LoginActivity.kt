@@ -36,7 +36,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var ggBtn: Button
     private lateinit var kkoBtn: Button
     private lateinit var kakaoCallback: (OAuthToken?, Throwable?) -> Unit
-    private lateinit var userEmail: String
 
     private var auth: FirebaseAuth? = null // 객체의 공유 인스턴스
     private lateinit var client: GoogleSignInClient
@@ -64,16 +63,6 @@ class LoginActivity : AppCompatActivity() {
 
         client = GoogleSignIn.getClient(this, gso)
 
-        // 사용자 정보 요청
-        UserApiClient.instance.me { user, error ->
-            if (error != null) {
-
-            } else if (user != null) {
-                userEmail = user.kakaoAccount?.email.toString()
-                Log.d("email", user.kakaoAccount?.email.toString())
-            }
-        }
-
         // 카카오 로그인 유지하기
         UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
             if (error != null) {
@@ -81,7 +70,6 @@ class LoginActivity : AppCompatActivity() {
             } else if (tokenInfo != null) {
                 // 홈 화면으로 넘어가기
                 var intent = Intent(this, NaviActivity::class.java)
-                //intent.putExtra("email", userEmail)
                 startActivity(intent)
             }
         }
@@ -120,7 +108,8 @@ class LoginActivity : AppCompatActivity() {
             } else if (token != null) {
                 Toast.makeText(this, "멍냥백서 가입 성공!", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, NicknameActivity::class.java)
-                intent.putExtra("email", userEmail)
+                var mail = kkoEmail()
+                intent.putExtra("email", mail)
                 startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
                 finish()
             }
@@ -175,6 +164,19 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, task.exception?.message, Toast.LENGTH_LONG).show()
             }
         }
+    }
+
+    private fun kkoEmail(): String {
+        var email = ""
+        // 사용자 정보 요청
+        UserApiClient.instance.me { user, error ->
+            if (error != null) {
+
+            } else if (user != null) {
+                email = user.kakaoAccount?.email.toString()
+            }
+        }
+        return email
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

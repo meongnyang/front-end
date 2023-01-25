@@ -27,14 +27,15 @@
             android:id="@+id/categoryTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginRight="40dp"
             android:fontFamily="@font/gothic"
             android:gravity="center"
             android:text="카테고리"
             android:textColor="#252525"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/listImage"
-            app:layout_constraintHorizontal_bias="0.063"
+            app:layout_constraintRight_toLeftOf="@id/titleTV"
             app:layout_constraintStart_toStartOf="@+id/listImage"
             app:layout_constraintTop_toTopOf="@+id/listImage" />
 
@@ -42,7 +43,7 @@
             android:id="@+id/titleTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="42dp"
+            android:layout_marginStart="40dp"
             android:layout_marginEnd="220dp"
             android:fontFamily="@font/gothic"
             android:gravity="center"
@@ -51,6 +52,7 @@
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@id/listImage"
             app:layout_constraintEnd_toEndOf="@+id/listImage"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/categoryTV"
             app:layout_constraintTop_toTopOf="@id/listImage" />
     </androidx.constraintlayout.widget.ConstraintLayout>

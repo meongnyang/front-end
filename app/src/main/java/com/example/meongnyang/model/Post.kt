@@ -26,7 +26,3 @@ data class PostModel(
     val contents: String,
     val img: String
 )
-
-data class PostResult(
-    var result: String? = null
-)

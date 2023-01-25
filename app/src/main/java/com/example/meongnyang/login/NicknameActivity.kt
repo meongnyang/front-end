@@ -41,6 +41,7 @@ class NicknameActivity : AppCompatActivity() {
 
             // 서버에 유저 정보 등록
             val user = PostUser(nickname, email!!, pass)
+            //val user = PostUser(nickname, "test@mail.com", pass)
 
             retrofit.userSignUp(user).enqueue(object: Callback<UserModel> {
                 override fun onResponse(call: Call<UserModel>, response: Response<UserModel>) {

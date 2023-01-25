@@ -63,6 +63,11 @@ interface RetrofitApi {
         @Body jsonparams: PostModel,
         @Path("memberId") memberId: Int
     ): Call<GetPosts>
+    // 게시글 자세히 보기
+    @GET("posts/{postId}")
+    fun getPost(
+        @Path("postId") postId: Int
+    ): Call<GetPosts>
 
     companion object {
         private const val BASE_URL = "http://43.201.122.215:8080/"

@@ -18,8 +18,12 @@ import com.example.meongnyang.NaviActivity
 import com.example.meongnyang.R
 import com.example.meongnyang.api.RetrofitApi
 import com.example.meongnyang.databinding.LoginActivityEnrollBinding
+import com.example.meongnyang.model.Id
 import com.example.meongnyang.model.Pet
 import com.example.meongnyang.model.PetModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserInfo
+import com.google.firebase.firestore.FirebaseFirestore
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,8 +31,8 @@ import java.util.*
 
 class EnrollActivity : AppCompatActivity() {
     private lateinit var binding: LoginActivityEnrollBinding
-    lateinit var myHelper: myDBHelper
-    lateinit var database: SQLiteDatabase
+    private var fbAuth: FirebaseAuth? = null
+    var fbFirestore: FirebaseFirestore? = null
     var birthString = ""
     var adoptString = ""
     var birth = ""
@@ -37,19 +41,12 @@ class EnrollActivity : AppCompatActivity() {
     var neutering = 0
     var species = ""
     var name = ""
-    var conimalId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = LoginActivityEnrollBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val typeIntent = intent
-
-        // 견묘/멤버아이디 받아오기
-        var type = typeIntent.getIntExtra("type", 0)
-        var memberId = typeIntent.getIntExtra("memberId", 0)
 
         val retrofit = RetrofitApi.create()
 
@@ -112,51 +109,38 @@ class EnrollActivity : AppCompatActivity() {
             }
         }
 
+        val typeIntent = intent
+
+        // 견묘/멤버아이디 받아오기
+        var type = typeIntent.getIntExtra("type", 0)
+        var member = typeIntent.getIntExtra("memberId", 0)
+
         // 저장 버튼 클릭 시 반려동물 정보 저장
         binding.enrollBtn.setOnClickListener {
             name = binding.nameEdit.text.toString()
 
-            Log.d("pet", type.toString())
-            Log.d("pet", name)
-            Log.d("pet", gender.toString())
-            Log.d("pet", neutering.toString())
-            Log.d("pet", birth)
-            Log.d("pet", adopt)
-            Log.d("pet", species)
-
             val pet = Pet(type, name, gender, neutering, birth, adopt, species)
-            retrofit.enrollPet(memberId, pet).enqueue(object: Callback<PetModel> {
+            retrofit.enrollPet(member, pet).enqueue(object: Callback<PetModel> {
                 override fun onResponse(call: Call<PetModel>, response: Response<PetModel>) {
-                    Log.d("Post", response.body().toString())
-                    Log.d("Post", response.body()!!.conimalId.toString())
-                    conimalId = response.body()!!.conimalId
+                    var conimalId = response.body()!!.conimalId
+                    var memberId = typeIntent.getIntExtra("memberId", 0)
+
+                    // firebase에 memberid, conimalid 저장
+                    fbAuth = FirebaseAuth.getInstance()
+                    fbFirestore = FirebaseFirestore.getInstance()
+                    var user = Id(memberId, conimalId)
+
+                    fbFirestore?.collection("users")?.document(fbAuth?.uid.toString())?.set(user)
                 }
 
                 override fun onFailure(call: Call<PetModel>, t: Throwable) {
                     Log.d("Post", "error, ${t}")
                 }
             })
-            // 반려동물 정보 저장, memberId와 conimalId 넘겨줌 메인 화면으로 넘어감
-            /*myHelper = myDBHelper(this)
-            database = myHelper.writableDatabase
-            database.execSQL("INSERT INTO personnel VALUES (${memberId}, ${conimalId});")
-            database.close()*/
-            Toast.makeText(this, "정보 저장 완료!", Toast.LENGTH_SHORT).show()
 
-            val intent = Intent(this, NaviActivity::class.java)
-            intent.putExtra("memberId", memberId)
-            intent.putExtra("conimalId", conimalId)
+            Toast.makeText(this@EnrollActivity, "정보 저장 완료!", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this@EnrollActivity, NaviActivity::class.java)
             startActivity(intent)
-        }
-    }
-    inner class myDBHelper(context: Context) : SQLiteOpenHelper(context, "personnel", null, 1) {
-        override fun onCreate(db: SQLiteDatabase?) {
-            db!!.execSQL("CREATE TABLE personnel (memberId INTEGER PRIMARY KEY, conimalId INTEGER);")
-        }
-
-        override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-            db!!.execSQL("DROP TABLE IF EXISTS personnel")
-            onCreate(db)
         }
     }
 }

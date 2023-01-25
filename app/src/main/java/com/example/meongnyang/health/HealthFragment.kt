@@ -43,19 +43,19 @@ class HealthFragment : Fragment() {
             startActivity(intent)
         }
         binding.qnaBtn.setOnClickListener {
-            (activity as NaviActivity).replaceFragment(QnaFragment())
+            (activity as NaviActivity).replace(QnaFragment())
         }
         binding.hospitalBtn.setOnClickListener {
             val intent = Intent(context, com.example.meongnyang.map.MapActivity::class.java)
             startActivity(intent)
         }
         binding.feedBtn.setOnClickListener {
-            (activity as NaviActivity).replaceFragment(FeedFragment())
+            (activity as NaviActivity).replace(FeedFragment())
         }
 
         // 건강기록부 작성 화면으로
         binding.diaryView.setOnClickListener {
-            (activity as NaviActivity).replaceFragment(DiaryFragment())
+            (activity as NaviActivity).replace(DiaryFragment())
         }
 
         // 건강기록부 데이터 있으면 text 없애기

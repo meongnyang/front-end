@@ -1,5 +1,6 @@
 package com.example.meongnyang.community
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -14,14 +15,15 @@ import com.example.meongnyang.R
 import com.example.meongnyang.api.RetrofitApi
 import com.example.meongnyang.databinding.CommuFragmentMainBinding
 import com.example.meongnyang.model.*
+import net.daum.mf.map.api.MapPoint
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.http.POST
 
 class CommuFragment : Fragment() {
     // dataBinding, ViewModel
     private lateinit var binding: CommuFragmentMainBinding
-    private val model: CommuViewModel by activityViewModels()
 
     private lateinit var postList: ArrayList<GetPosts> // 게시물들 담을 배열
     private val listItems = arrayListOf<Post>() // 리사이클러뷰 아이템
@@ -37,10 +39,6 @@ class CommuFragment : Fragment() {
             container,
             false
         )
-        binding.apply {
-            posts = model
-            lifecycleOwner = this@CommuFragment
-        }
 
         postList = arrayListOf()
 
@@ -57,6 +55,12 @@ class CommuFragment : Fragment() {
         postListAdapter.setItemClickListener(object : PostListAdapter.OnItemClickListener {
             override fun onClick(v: View, position: Int) {
                 // 여기에 구현
+                val bundle = Bundle()
+                val postId = position + 1
+                bundle.putInt("postId", postId)
+                val postFragment = PostFragment()
+                postFragment.arguments = bundle
+                (activity as NaviActivity).replace(postFragment)
             }
         })
 
@@ -93,7 +97,7 @@ class CommuFragment : Fragment() {
         }
 
         binding.writeBtn.setOnClickListener {
-            (activity as NaviActivity).replaceFragment(WriteFragment())
+            (activity as NaviActivity).replace(WriteFragment())
         }
 
         return binding.root

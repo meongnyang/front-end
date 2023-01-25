@@ -42,7 +42,8 @@
             android:theme="@style/MyDatePickerStyle"/>
         <activity
             android:name=".login.NicknameActivity"
-            android:exported="false" />
+            android:exported="false" >
+        </activity>
         <activity
             android:name=".login.LoginActivity"
             android:exported="true">
