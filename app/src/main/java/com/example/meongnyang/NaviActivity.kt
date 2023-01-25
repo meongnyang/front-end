@@ -12,8 +12,6 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.example.meongnyang.databinding.ActivityNaviBinding
 import com.example.meongnyang.community.CommuFragment
-import com.example.meongnyang.community.PostFragment
-import com.example.meongnyang.diary.DiaryFragment
 import com.example.meongnyang.feed.FeedFragment
 import com.example.meongnyang.health.*
 import com.example.meongnyang.home.HomeFragment
@@ -21,7 +19,6 @@ import com.example.meongnyang.map.MapActivity
 import com.example.meongnyang.map.PlayMapActivity
 import com.example.meongnyang.mypage.MyFragment
 import com.example.meongnyang.qna.QnaFragment
-import com.example.meongnyang.skin.CameraActivity
 import com.example.meongnyang.skin.SkinMainActivity
 
 class NaviActivity : AppCompatActivity() {
@@ -119,17 +116,6 @@ class NaviActivity : AppCompatActivity() {
         val drawer : DrawerLayout = findViewById(R.id.side_menu)
         drawer.closeDrawer(Gravity.RIGHT)
     }
-
-    // 프래그먼트 전환 이벤트
-    /*fun replaceFragment(fragment: Fragment, memberId: Int, conimalId: Int) {
-        val bundle = Bundle()
-        bundle.putInt("memberId", memberId)
-        bundle.putInt("conimalId", conimalId)
-        val goFragment = fragment
-        val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.mainFrameLayout, goFragment).commit()
-    }*/
 
     fun replace(fragment: Fragment) {
         val fragmentManager = supportFragmentManager

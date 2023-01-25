@@ -36,10 +36,6 @@ class HomeViewModel: ViewModel() {
                             name.value = response.body()!!.name
                             strType.value = strType(response.body()!!.type)
                             count.value = response.body()!!.ddayadopt.toString()
-
-                            Log.d("pet", response.body()!!.name)
-                            Log.d("pet", response.body()!!.type.toString())
-                            Log.d("pet", response.body()!!.ddayadopt.toString())
                         }
 
                         override fun onFailure(call: Call<PetModel>, t: Throwable) {
