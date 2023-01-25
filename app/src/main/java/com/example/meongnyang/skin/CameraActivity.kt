@@ -5,11 +5,11 @@ import android.Manifest.permission.CAMERA
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
-import android.graphics.drawable.BitmapDrawable
 import android.hardware.Camera
 import android.net.Uri
 import android.os.Bundle
@@ -23,9 +23,14 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.meongnyang.databinding.SkinActivityCameraBinding
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
+import org.pytorch.LiteModuleLoader
+import org.pytorch.IValue
+import org.pytorch.Module
+import org.pytorch.torchvision.TensorImageUtils
 import java.io.*
 
 class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.PictureCallback {
+    private var mModule: Module? = null
 
     private lateinit var binding: SkinActivityCameraBinding
 
@@ -152,6 +157,7 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
 
     // resultActivity로 사진 보내주기
     private fun sendImg(bytes: ByteArray) {
+
         val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
 
         // 224x224로 크기 조절
@@ -159,14 +165,14 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
 
         // 90도 회전시키기
         val matrix = Matrix()
-        matrix.postRotate(90f)
+        matrix.postRotate(0f)
 
         val result = Bitmap.createBitmap(resized, 0, 0, resized.width, resized.height, matrix, true)
-
         camera!!.startPreview()
 
         val stream = ByteArrayOutputStream()
         result.compress(Bitmap.CompressFormat.PNG, 100, stream)
+
         val byte = stream.toByteArray()
 
         saveImage(byte) // 압축한 거 저장해 보기
@@ -204,8 +210,37 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
         startActivityForResult(intent, OPEN_GALLERY)
     }
 
+    fun assetFilePath(context: Context, assetName: String?): String? {
+        val file = File(context.filesDir, assetName)
+        if (file.exists() && file.length() > 0) {
+            return file.absolutePath
+        }
+        context.assets.open(assetName!!).use { `is` ->
+            FileOutputStream(file).use { os ->
+                val buffer = ByteArray(4 * 1024)
+                var read: Int
+                while (`is`.read(buffer).also { read = it } != -1) {
+                    os.write(buffer, 0, read)
+                }
+                os.flush()
+            }
+            return file.absolutePath
+        }
+    }
+
     // 갤러리에서 사진 가져오기
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+        Toast.makeText(this, "Let's Start", Toast.LENGTH_SHORT).show()
+
+        val classList = mutableMapOf<Int, String>()
+        classList[0] = "구진, 플라크"
+        classList[1] = "비듬, 각질, 상피성잔고리"
+        classList[2] = "태선화, 과다색소침착"
+        classList[3] = "농포, 여드름"
+        classList[4] = "미란, 궤양"
+        classList[5] = "결절, 종괴"
+        classList[6] = "무증상"
         super.onActivityResult(requestCode, resultCode, data)
 
         if (resultCode == Activity.RESULT_OK) {
@@ -232,8 +267,32 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
                     val resizedBitmap: Bitmap =
                         Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true)
 
-                    resizedBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+                    // model
 
+                    if (mModule == null) {
+                        mModule = LiteModuleLoader.load(assetFilePath(this, "petScriptv5.ptl"))
+                        Toast.makeText(this, "model Start", Toast.LENGTH_SHORT).show()
+                    }
+
+                    val inputTensor = TensorImageUtils.bitmapToFloat32Tensor(
+                        resizedBitmap,
+                        TensorImageUtils.TORCHVISION_NORM_MEAN_RGB, TensorImageUtils.TORCHVISION_NORM_STD_RGB
+                    )
+//
+                    val outputTensor = mModule!!.forward(IValue.from(inputTensor)).toTensor()
+                    val scores = outputTensor.dataAsFloatArray
+//
+                    var maxScore = -Float.MAX_VALUE
+                    var maxScoreIdx = -1
+                    for (i in scores.indices) {
+                        if (scores[i] > maxScore) {
+                            maxScore = scores[i]
+                            maxScoreIdx = i
+                        }
+                    }
+                    Toast.makeText(this, classList[maxScoreIdx].toString(), Toast.LENGTH_SHORT).show()
+
+                    resizedBitmap.compress(Bitmap.CompressFormat.PNG, 60, stream)
                     val bytes = stream.toByteArray()
 
                     val intent = Intent(this, ResultActivity::class.java)
@@ -264,4 +323,5 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
         }
         camera!!.parameters = parameters
     }
+
 }
