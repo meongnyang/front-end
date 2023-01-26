@@ -280,18 +280,6 @@
                         android:textSize="10dp" />
 
                     <TextView
-                        android:id="@+id/textView16"
-                        android:layout_width="145dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/gothic"
-                        android:lineSpacingExtra="3dp"
-                        android:text="매일매일 잊지 말고\n건강기록부 작성해요"
-                        android:textSize="10dp" />
-
-                    <TextView
                         android:id="@+id/textView15"
                         android:layout_width="145dp"
                         android:layout_height="wrap_content"
@@ -301,6 +289,18 @@
                         android:fontFamily="@font/gothic"
                         android:lineSpacingExtra="3dp"
                         android:text="다양한 질문들과\n전문가의 답변을 한눈에"
+                        android:textSize="10dp" />
+
+                    <TextView
+                        android:id="@+id/textView16"
+                        android:layout_width="145dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/gothic"
+                        android:lineSpacingExtra="3dp"
+                        android:text="매일매일 잊지 말고\n건강기록부 작성해요"
                         android:textSize="10dp" />
 
                     <TextView

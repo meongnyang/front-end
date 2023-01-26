@@ -26,7 +26,8 @@ data class User(
 
 data class Id(
     val memberId: Int? = null,
-    val conimalId: Int? = null
+    val conimalId: Int? = null,
+    val recordId: Int? = null
 )
 
 data class allPet(

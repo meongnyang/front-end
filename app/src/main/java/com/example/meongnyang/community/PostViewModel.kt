@@ -16,11 +16,6 @@ import retrofit2.Response
 
 class PostViewModel(postId: Int) : ViewModel() {
     val retrofit = RetrofitApi.create()
-    //private var memberId: Int = 0
-    //private val comments = ArrayList<CommentModel>()
-    //private val _commentList = MutableLiveData<ArrayList<CommentModel>>()
-    //val commentList : LiveData<ArrayList<CommentModel>>
-    //get() = _commentList
 
     val title : MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val contents : MutableLiveData<String> by lazy { MutableLiveData<String>() }
@@ -43,23 +38,6 @@ class PostViewModel(postId: Int) : ViewModel() {
                     TODO("Not yet implemented")
                 }
             })
-            /*retrofit.getComments(postId).enqueue(object : Callback<List<Comment>> {
-                override fun onResponse(
-                    call: Call<List<Comment>>,
-                    response: Response<List<Comment>>
-                ) {
-                    for (documents in response.body()!!) {
-                        var comment = CommentModel(documents.nickname, documents.contents)
-                        Log.d("comment", comment.toString())
-                        comments.add(comment)
-                    }
-                    _commentList.value = comments
-                }
-
-                override fun onFailure(call: Call<List<Comment>>, t: Throwable) {
-                    TODO("Not yet implemented")
-                }
-            })*/
         }
     }
 }

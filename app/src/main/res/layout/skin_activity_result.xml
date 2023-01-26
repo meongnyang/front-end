@@ -213,9 +213,12 @@
 
                 <TextView
                     android:id="@+id/reasonText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="300dp"
+                    android:layout_height="90dp"
+                    android:fontFamily="@font/gothic"
+                    android:lineSpacingExtra="2dp"
                     android:text=""
+                    android:textColor="#303030"
                     app:layout_constraintBottom_toBottomOf="@+id/resonBox"
                     app:layout_constraintEnd_toEndOf="@+id/resonBox"
                     app:layout_constraintHorizontal_bias="0.481"
@@ -225,9 +228,12 @@
 
                 <TextView
                     android:id="@+id/manageText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="300dp"
+                    android:layout_height="90dp"
+                    android:fontFamily="@font/gothic"
+                    android:lineSpacingExtra="2dp"
                     android:text=""
+                    android:textColor="#303030"
                     app:layout_constraintBottom_toBottomOf="@+id/manageBox"
                     app:layout_constraintEnd_toEndOf="@+id/manageBox"
                     app:layout_constraintStart_toStartOf="@+id/manageBox"

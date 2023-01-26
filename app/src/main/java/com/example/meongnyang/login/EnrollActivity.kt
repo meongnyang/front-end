@@ -128,7 +128,7 @@ class EnrollActivity : AppCompatActivity() {
                     // firebase에 memberid, conimalid 저장
                     fbAuth = FirebaseAuth.getInstance()
                     fbFirestore = FirebaseFirestore.getInstance()
-                    var user = Id(memberId, conimalId)
+                    var user = Id(memberId, conimalId, 0)
 
                     fbFirestore?.collection("users")?.document(fbAuth?.uid.toString())?.set(user)
                 }

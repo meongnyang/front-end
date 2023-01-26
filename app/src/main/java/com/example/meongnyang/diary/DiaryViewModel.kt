@@ -3,25 +3,41 @@ package com.example.meongnyang.diary
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.meongnyang.api.RetrofitApi
+import com.example.meongnyang.model.DiaryModel
 import com.example.meongnyang.model.PostDiary
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class DiaryViewModel : ViewModel() {
+class DiaryViewModel(recordId: Int) : ViewModel() {
+
     val meal : MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val voiding : MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val voidReason : MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val excretion : MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val excReason : MutableLiveData<String> by lazy { MutableLiveData<String>() }
 
-    private val diary = PostDiary(1, 1, 1, 2, "오줌에 피가 섞여 있었음", 2, "설사 증상을 보임")
 
     init {
         viewModelScope.launch {
-            meal.value = mealToStr(diary.meal)
-            voiding.value = voidingToStr(diary.voiding)
-            voidReason.value = diary.voidReason
-            excretion.value = excretionToStr(diary.excretion)
-            excReason.value = diary.excReason
+            val retrofit = RetrofitApi.create()
+
+            retrofit.showDiary(recordId).enqueue(object : Callback<DiaryModel> {
+                override fun onResponse(call: Call<DiaryModel>, response: Response<DiaryModel>) {
+                    val diary = response.body()!!
+                    meal.value = mealToStr(diary.meal)
+                    voiding.value = voidingToStr(diary.voiding)
+                    voidReason.value = diary.voiding_reason
+                    excretion.value = excretionToStr(diary.excretion)
+                    excReason.value = diary.excretion_reason
+                }
+
+                override fun onFailure(call: Call<DiaryModel>, t: Throwable) {
+
+                }
+            })
         }
     }
 

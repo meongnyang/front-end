@@ -1,14 +1,10 @@
 package com.example.meongnyang.mypage
 
-import android.app.Activity
-import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bumptech.glide.Glide
 import com.example.meongnyang.api.RetrofitApi
-import com.example.meongnyang.login.NicknameActivity
 import com.example.meongnyang.model.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -17,8 +13,6 @@ import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.text.SimpleDateFormat
-import java.util.*
 
 class MypageViewModel: ViewModel() {
 
@@ -71,6 +65,7 @@ class MypageViewModel: ViewModel() {
                             TODO("Not yet implemented")
                         }
                     })
+
                 }
         }
     }

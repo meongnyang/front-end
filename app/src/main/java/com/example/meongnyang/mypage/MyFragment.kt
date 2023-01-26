@@ -2,6 +2,7 @@ package com.example.meongnyang.mypage
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,6 +34,9 @@ class MyFragment : Fragment() {
     var fbFirestore = FirebaseFirestore.getInstance()
     val uid = fbAuth.uid.toString()
 
+    var userImg = ""
+    var petImg = ""
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,22 +48,23 @@ class MyFragment : Fragment() {
             false
         )
 
-        var id = Id()
         fbFirestore!!.collection("users").document(uid).get()
             .addOnSuccessListener { documentsSnapshot ->
-                id = documentsSnapshot.toObject<Id>()!!
+                var id = documentsSnapshot.toObject<Id>()!!
 
                 retrofit.getMember(id.memberId!!).enqueue(object : Callback<allPet> {
                     override fun onResponse(call: Call<allPet>, response: Response<allPet>) {
-                        Glide.with(this@MyFragment).load(response.body()!!.memberImg).into(binding.userProfile)
-                        Glide.with(this@MyFragment).load(response.body()!!.conimals[0].conimalImg).into(binding.petProfile)
+                        petImg = response.body()!!.conimals[0].conimalImg
+                        userImg = response.body()!!.memberImg
                     }
-
                     override fun onFailure(call: Call<allPet>, t: Throwable) {
                         TODO("Not yet implemented")
                     }
                 })
             }
+
+        //Glide.with(this@MyFragment).load("http://localhost/image/image.png").into(binding.userProfile)
+        //Glide.with(this@MyFragment).load("http://localhost/image/image.png").into(binding.petProfile)
 
         binding.apply {
             mypage = model

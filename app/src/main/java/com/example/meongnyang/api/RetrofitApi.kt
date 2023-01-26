@@ -31,6 +31,8 @@ interface RetrofitApi {
     // 건강기록부 API
     @POST("records/{memberId}/{conimalId}")
     fun writeDiary(
+        @Path ("memberId") memberId: Int,
+        @Path ("conimalId") conimalId: Int,
         @Body diary: PostDiary
     ): Call<DiaryModel>
 
@@ -42,11 +44,10 @@ interface RetrofitApi {
         @Body diary: PostDiary
     ): Call<DiaryModel>
 
-    @GET("records/{memberId}/{conimalId}")
+    @GET("records/{recordId}")
     fun showDiary(
-        @Path("memberId") memberId: Int,
-        @Path("conimalId") conimalId: Long
-    ): Call<ShowDiary>
+        @Path("recordId") recordId: Int,
+    ): Call<DiaryModel>
 
     // 반려동물 API
     @POST("conimals/{memberId}")
@@ -90,7 +91,6 @@ interface RetrofitApi {
     ): Call<Comment>
 
     // 피부병 관련
-    //@Headers("Content-Type: application/json")
     @POST("disease")
     fun getDisease(
         @Body name: Name

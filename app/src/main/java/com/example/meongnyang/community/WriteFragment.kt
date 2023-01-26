@@ -76,7 +76,7 @@ class WriteFragment : Fragment() {
 
                     val data = PostModel(category, type, title, contents, img)
 
-                    retrofit.createPost(data, id.conimalId!!).enqueue(object: Callback<GetPosts> {
+                    retrofit.createPost(data, id.memberId!!).enqueue(object: Callback<GetPosts> {
                         override fun onResponse(call: Call<GetPosts>, response: Response<GetPosts>) {
                             if (!response.body().toString().isEmpty()) {
                                 Log.d("result", response.body().toString())
