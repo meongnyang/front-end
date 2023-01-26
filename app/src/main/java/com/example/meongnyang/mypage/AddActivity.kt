@@ -48,7 +48,7 @@ class AddActivity : AppCompatActivity() {
         }
 
         // 스피너 설정
-        val speciesAdapter = ArrayAdapter.createFromResource(this, R.array.species_array, android.R.layout.simple_spinner_dropdown_item)
+        val speciesAdapter = ArrayAdapter.createFromResource(this, R.array.dog_species_array, android.R.layout.simple_spinner_dropdown_item)
         speciesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.selectSpecies.adapter = speciesAdapter // 어댑터와 연결
 

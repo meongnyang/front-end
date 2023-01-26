@@ -29,7 +29,7 @@ class PostListAdapter(val postList: ArrayList<Post>): RecyclerView.Adapter<PostL
     }
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        val categoryName: TextView = itemView.findViewById(R.id.categoryTV)
+        val categoryName: TextView = itemView.findViewById(R.id.comment)
         val title: TextView = itemView.findViewById(R.id.titleTV)
     }
 

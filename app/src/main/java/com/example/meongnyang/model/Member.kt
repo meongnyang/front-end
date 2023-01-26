@@ -35,3 +35,7 @@ data class allPet(
     val memberId: Int,
     val conimals: List<myPet>
 )
+
+data class Update(
+    val nickname: String
+)

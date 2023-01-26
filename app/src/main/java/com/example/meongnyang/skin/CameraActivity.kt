@@ -157,6 +157,15 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
 
     // resultActivity로 사진 보내주기
     private fun sendImg(bytes: ByteArray) {
+        val classList = mutableMapOf<Int, String>()
+        classList[0] = "구진, 플라크"
+        classList[1] = "비듬, 각질, 상피성잔고리"
+        classList[2] = "태선화, 과다색소침착"
+        classList[3] = "농포, 여드름"
+        classList[4] = "미란, 궤양"
+        classList[5] = "결절, 종괴"
+        classList[6] = "무증상"
+
 
         val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
 
@@ -177,8 +186,35 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
 
         saveImage(byte) // 압축한 거 저장해 보기
 
+        // model
+        if (mModule == null) {
+            mModule = LiteModuleLoader.load(assetFilePath(this, "petScriptv5.ptl"))
+        }
+
+        val inputTensor = TensorImageUtils.bitmapToFloat32Tensor(
+            result,
+            TensorImageUtils.TORCHVISION_NORM_MEAN_RGB, TensorImageUtils.TORCHVISION_NORM_STD_RGB
+        )
+//
+        val outputTensor = mModule!!.forward(IValue.from(inputTensor)).toTensor()
+        val scores = outputTensor.dataAsFloatArray
+//
+        var maxScore = -Float.MAX_VALUE
+        var maxScoreIdx = -1
+        for (i in scores.indices) {
+            if (scores[i] > maxScore) {
+                maxScore = scores[i]
+                maxScoreIdx = i
+            }
+        }
+        Toast.makeText(this, classList[maxScoreIdx].toString(), Toast.LENGTH_SHORT).show()
+
+        result.compress(Bitmap.CompressFormat.PNG, 60, stream)
+        val bytes = stream.toByteArray()
+
         val intent = Intent(this, ResultActivity::class.java)
-        intent.putExtra("image", byte)
+        intent.putExtra("image", bytes)
+        intent.putExtra("result", classList[maxScoreIdx].toString())
         startActivity(intent)
     }
 
@@ -268,7 +304,6 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
                     // model
                     if (mModule == null) {
                         mModule = LiteModuleLoader.load(assetFilePath(this, "petScriptv5.ptl"))
-                        Toast.makeText(this, "model Start", Toast.LENGTH_SHORT).show()
                     }
 
                     val inputTensor = TensorImageUtils.bitmapToFloat32Tensor(

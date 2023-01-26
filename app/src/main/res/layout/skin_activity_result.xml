@@ -96,7 +96,7 @@
                     tools:srcCompat="@tools:sample/avatars" />
 
                 <ImageView
-                    android:id="@+id/result1"
+                    android:id="@+id/resonBox"
                     android:layout_width="382dp"
                     android:layout_height="147dp"
                     android:layout_marginStart="13dp"
@@ -109,7 +109,7 @@
                     app:srcCompat="@drawable/ic_result_box" />
 
                 <ImageView
-                    android:id="@+id/result2"
+                    android:id="@+id/manageBox"
                     android:layout_width="382dp"
                     android:layout_height="147dp"
                     android:layout_marginTop="16dp"
@@ -117,7 +117,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.481"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/result1"
+                    app:layout_constraintTop_toBottomOf="@+id/resonBox"
                     app:srcCompat="@drawable/ic_result_box" />
 
                 <TextView
@@ -131,7 +131,7 @@
                     android:textSize="17sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/result2" />
+                    app:layout_constraintTop_toBottomOf="@id/manageBox" />
 
                 <Button
                     android:id="@+id/goMapBtn"
@@ -195,9 +195,9 @@
                     android:fontFamily="@font/gothic"
                     android:text="피부병 발생 원인 및 유의사항"
                     android:textSize="13sp"
-                    app:layout_constraintEnd_toEndOf="@+id/result1"
-                    app:layout_constraintStart_toStartOf="@+id/result1"
-                    app:layout_constraintTop_toTopOf="@+id/result1" />
+                    app:layout_constraintEnd_toEndOf="@+id/resonBox"
+                    app:layout_constraintStart_toStartOf="@+id/resonBox"
+                    app:layout_constraintTop_toTopOf="@+id/resonBox" />
 
                 <TextView
                     android:id="@+id/textView29"
@@ -207,30 +207,30 @@
                     android:fontFamily="@font/gothic"
                     android:text="피부병 완화를 위해 힘써야 할 것"
                     android:textSize="13sp"
-                    app:layout_constraintEnd_toEndOf="@+id/result2"
-                    app:layout_constraintStart_toStartOf="@+id/result2"
-                    app:layout_constraintTop_toTopOf="@+id/result2" />
+                    app:layout_constraintEnd_toEndOf="@+id/manageBox"
+                    app:layout_constraintStart_toStartOf="@+id/manageBox"
+                    app:layout_constraintTop_toTopOf="@+id/manageBox" />
 
                 <TextView
-                    android:id="@+id/textView23"
+                    android:id="@+id/reasonText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
-                    app:layout_constraintBottom_toBottomOf="@+id/result1"
-                    app:layout_constraintEnd_toEndOf="@+id/result1"
+                    android:text=""
+                    app:layout_constraintBottom_toBottomOf="@+id/resonBox"
+                    app:layout_constraintEnd_toEndOf="@+id/resonBox"
                     app:layout_constraintHorizontal_bias="0.481"
-                    app:layout_constraintStart_toStartOf="@+id/result1"
+                    app:layout_constraintStart_toStartOf="@+id/resonBox"
                     app:layout_constraintTop_toBottomOf="@+id/textView27"
                     app:layout_constraintVertical_bias="0.386" />
 
                 <TextView
-                    android:id="@+id/textView25"
+                    android:id="@+id/manageText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
-                    app:layout_constraintBottom_toBottomOf="@+id/result2"
-                    app:layout_constraintEnd_toEndOf="@+id/result2"
-                    app:layout_constraintStart_toStartOf="@+id/result2"
+                    android:text=""
+                    app:layout_constraintBottom_toBottomOf="@+id/manageBox"
+                    app:layout_constraintEnd_toEndOf="@+id/manageBox"
+                    app:layout_constraintStart_toStartOf="@+id/manageBox"
                     app:layout_constraintTop_toBottomOf="@+id/textView29"
                     app:layout_constraintVertical_bias="0.34" />
 

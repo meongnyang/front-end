@@ -13,6 +13,7 @@ import com.example.meongnyang.NaviActivity
 import com.example.meongnyang.R
 import com.example.meongnyang.api.RetrofitApi
 import com.example.meongnyang.databinding.MypageFragmentMyBinding
+import com.example.meongnyang.login.TypeActivity
 import com.example.meongnyang.model.Id
 import com.example.meongnyang.model.User
 import com.example.meongnyang.model.allPet
@@ -42,26 +43,27 @@ class MyFragment : Fragment() {
             container,
             false
         )
+
+        var id = Id()
+        fbFirestore!!.collection("users").document(uid).get()
+            .addOnSuccessListener { documentsSnapshot ->
+                id = documentsSnapshot.toObject<Id>()!!
+
+                retrofit.getMember(id.memberId!!).enqueue(object : Callback<allPet> {
+                    override fun onResponse(call: Call<allPet>, response: Response<allPet>) {
+                        Glide.with(this@MyFragment).load(response.body()!!.memberImg).into(binding.userProfile)
+                        Glide.with(this@MyFragment).load(response.body()!!.conimals[0].conimalImg).into(binding.petProfile)
+                    }
+
+                    override fun onFailure(call: Call<allPet>, t: Throwable) {
+                        TODO("Not yet implemented")
+                    }
+                })
+            }
+
         binding.apply {
             mypage = model
             lifecycleOwner = this@MyFragment
-
-            var id = Id()
-            fbFirestore!!.collection("users").document(uid).get()
-                .addOnSuccessListener { documentsSnapshot ->
-                    id = documentsSnapshot.toObject<Id>()!!
-
-                    retrofit.getMember(id.memberId!!).enqueue(object : Callback<allPet> {
-                        override fun onResponse(call: Call<allPet>, response: Response<allPet>) {
-                            Glide.with(this@MyFragment).load(response.body()!!.memberImg).into(binding.userProfile)
-                            Glide.with(this@MyFragment).load(response.body()!!.conimals[0].conimalImg).into(binding.petProfile)
-                        }
-
-                        override fun onFailure(call: Call<allPet>, t: Throwable) {
-                            TODO("Not yet implemented")
-                        }
-                    })
-                }
         }
 
         // 닉네임 변경 화면으로 이동하기
@@ -70,7 +72,7 @@ class MyFragment : Fragment() {
         }
         // 반려동물 추가하기
         binding.addPet.setOnClickListener {
-            val intent = Intent(context, AddActivity::class.java)
+            val intent = Intent(context, TypeActivity::class.java)
             startActivity(intent)
         }
         // 메인 반려동물 변경

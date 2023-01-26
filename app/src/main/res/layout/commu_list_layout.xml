@@ -24,7 +24,7 @@
             app:srcCompat="@drawable/ic_commu_list" />
 
         <TextView
-            android:id="@+id/categoryTV"
+            android:id="@+id/comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="28dp"
@@ -53,7 +53,7 @@
             app:layout_constraintBottom_toBottomOf="@id/listImage"
             app:layout_constraintEnd_toEndOf="@+id/listImage"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/categoryTV"
+            app:layout_constraintStart_toEndOf="@+id/comment"
             app:layout_constraintTop_toTopOf="@id/listImage" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,5 +1,6 @@
 package com.example.meongnyang.skin
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -7,18 +8,29 @@ import android.graphics.Matrix
 import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import com.example.meongnyang.NaviActivity
 import com.example.meongnyang.R
+import com.example.meongnyang.api.RetrofitApi
 import com.example.meongnyang.databinding.FragmentHealthBinding
 import com.example.meongnyang.databinding.SkinActivityResultBinding
 import com.example.meongnyang.feed.FeedFragment
 import com.example.meongnyang.home.HomeFragment
 import com.example.meongnyang.map.MapActivity
+import com.example.meongnyang.model.Name
+import com.example.meongnyang.model.Result
 import com.example.meongnyang.qna.QnaFragment
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
 
 class ResultActivity : AppCompatActivity() {
     private lateinit var binding: SkinActivityResultBinding
+    var result = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -27,17 +39,30 @@ class ResultActivity : AppCompatActivity() {
         // 이미지 띄우기
         val intent = intent
         val bytes = intent.getByteArrayExtra("image")
-        val result = intent.getStringExtra("result")
+        result = intent.getStringExtra("result").toString()
         val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes!!.size)
         binding.resultImg.setImageBitmap(bitmap)
 
-        if (result != "무증상") {
-            binding.resultTitle.text = "피부 질환이 있는 것 같아요"
-            binding.resultName.text = "⚠️ ${result}(으)로 의심돼요 ⚠️"
-        } else {
-            binding.resultTitle.text = "피부 질환을 찾지 못했어요"
-            binding.resultName.text = "앞으로도 피부 관리에 힘써주세요!"
-        }
+        Log.d("pet", result)
+
+        val retrofit = RetrofitApi.create()
+
+        var result = Name(result)
+
+        retrofit.getDisease(result).enqueue(object : Callback<Result> {
+            override fun onResponse(call: Call<Result>, response: Response<Result>) {
+                if (response.isSuccessful) {
+                    binding.resultTitle.text = "피부 질환이 있는 것 같아요"
+                    binding.resultName.text = "⚠️ ${response.body()!!.name}(으)로 의심돼요 ⚠️"
+                    binding.reasonText.text = response.body()!!.reason
+                    binding.manageText.text = response.body()!!.manage
+                }
+            }
+            override fun onFailure(call: Call<Result>, t: Throwable) {
+                Log.d("error", t.message.toString())
+
+            }
+        })
 
         // 메뉴 클릭 시 이동
         binding.goFeedBtn.setOnClickListener {
@@ -58,5 +83,9 @@ class ResultActivity : AppCompatActivity() {
             intent.putExtra("fragment", "qna")
             startActivity(intent)
         }
+    }
+
+    private fun showResult(result: String) {
+
     }
 }

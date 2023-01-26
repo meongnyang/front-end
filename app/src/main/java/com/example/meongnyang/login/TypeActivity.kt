@@ -18,7 +18,7 @@ class TypeActivity : AppCompatActivity() {
         setContentView(R.layout.login_activity_type)
 
         val intent = intent
-        var memberId = intent.getIntExtra("memberId", 1) // 아무것도 없으면 그냥 0 집어넣기
+        var memberId = intent.getIntExtra("memberId", 0) // 아무것도 없으면 그냥 0 집어넣기
         Log.d("memberid", memberId.toString())
 
         dogBtn = findViewById(R.id.dogBtn)
@@ -46,7 +46,7 @@ class TypeActivity : AppCompatActivity() {
                 startActivity(typeintent)
             } else {
                 Log.d("type", type.toString())
-                val typeintent = Intent(this, EnrollActivity::class.java)
+                val typeintent = Intent(this, CatEnrollActivity::class.java)
                 typeintent.putExtra("type", type)
                 typeintent.putExtra("memberId", memberId)
                 startActivity(typeintent)

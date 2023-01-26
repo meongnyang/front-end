@@ -22,7 +22,7 @@ import retrofit2.Response
 import retrofit2.http.POST
 
 class CommuFragment : Fragment() {
-    // dataBinding, ViewModel
+    // dataBinding
     private lateinit var binding: CommuFragmentMainBinding
 
     private lateinit var postList: ArrayList<GetPosts> // 게시물들 담을 배열
@@ -54,13 +54,10 @@ class CommuFragment : Fragment() {
         // 리스트 아이템 클릭 시 해당 글 자세히 보기
         postListAdapter.setItemClickListener(object : PostListAdapter.OnItemClickListener {
             override fun onClick(v: View, position: Int) {
-                // 여기에 구현
-                val bundle = Bundle()
                 val postId = postList.size - position
-                bundle.putInt("postId", postId)
-                val postFragment = PostFragment()
-                postFragment.arguments = bundle
-                (activity as NaviActivity).replace(postFragment)
+                val intent = Intent(context, PostActivity::class.java)
+                intent.putExtra("postId", postId)
+                startActivity(intent)
             }
         })
 

@@ -58,6 +58,19 @@ class MypageViewModel: ViewModel() {
                             TODO("Not yet implemented")
                         }
                     })
+
+                    retrofit.getPet(id.conimalId!!).enqueue(object : Callback<PetModel> {
+                        override fun onResponse(
+                            call: Call<PetModel>,
+                            response: Response<PetModel>
+                        ) {
+                            petBirth.value = response.body()!!.birth
+                        }
+
+                        override fun onFailure(call: Call<PetModel>, t: Throwable) {
+                            TODO("Not yet implemented")
+                        }
+                    })
                 }
         }
     }

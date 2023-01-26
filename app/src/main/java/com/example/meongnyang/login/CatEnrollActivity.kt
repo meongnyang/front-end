@@ -29,7 +29,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
 
-class EnrollActivity : AppCompatActivity() {
+class CatEnrollActivity : AppCompatActivity() {
     private lateinit var binding: LoginActivityEnrollBinding
     private var fbAuth: FirebaseAuth? = null
     var fbFirestore: FirebaseFirestore? = null
@@ -93,7 +93,7 @@ class EnrollActivity : AppCompatActivity() {
         }
 
         // 스피너 설정
-        val speciesAdapter = ArrayAdapter.createFromResource(this, R.array.dog_species_array, android.R.layout.simple_spinner_dropdown_item)
+        val speciesAdapter = ArrayAdapter.createFromResource(this, R.array.cat_species_array, android.R.layout.simple_spinner_dropdown_item)
         speciesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.selectSpecies.adapter = speciesAdapter // 어댑터와 연결
 
@@ -138,8 +138,8 @@ class EnrollActivity : AppCompatActivity() {
                 }
             })
 
-            Toast.makeText(this@EnrollActivity, "정보 저장 완료!", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this@EnrollActivity, NaviActivity::class.java)
+            Toast.makeText(this@CatEnrollActivity, "정보 저장 완료!", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this@CatEnrollActivity, NaviActivity::class.java)
             startActivity(intent)
         }
     }

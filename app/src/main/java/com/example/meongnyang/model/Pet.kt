@@ -3,7 +3,7 @@ package com.example.meongnyang.model
 data class Pet(
     val type: Int,
     val name: String,
-    val gender: Int,
+    val gender: String,
     val neutering: Int,
     val birth: String,
     val adopt: String,

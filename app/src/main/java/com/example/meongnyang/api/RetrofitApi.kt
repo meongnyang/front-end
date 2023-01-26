@@ -7,6 +7,7 @@ import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.*
 
 interface RetrofitApi {
@@ -15,26 +16,32 @@ interface RetrofitApi {
     fun userSignUp(
         @Body postUser: PostUser
     ): Call<UserModel>
+
     @GET("mypage/{memberId}")
     fun getMember(
         @Path("memberId") memberId: Int
     ): Call<allPet>
+
+    @FormUrlEncoded
     @PATCH("members/update")
-    fun userUpdate(
-        @Body img: String
-    ): Call<User>
+    fun memberUpdate(
+        @Field("nickname") nickname: String
+    ): Call<Update>
 
     // 건강기록부 API
     @POST("records/{memberId}/{conimalId}")
     fun writeDiary(
         @Body diary: PostDiary
     ): Call<DiaryModel>
+
+    @FormUrlEncoded
     @PATCH("records/update/{memberId}/{conimalId}")
     fun updateDiary(
         @Path ("memberId", encoded = true) memberId: Int,
         @Path ("conimalId", encoded = true) conimalId: Int,
         @Body diary: PostDiary
     ): Call<DiaryModel>
+
     @GET("records/{memberId}/{conimalId}")
     fun showDiary(
         @Path("memberId") memberId: Int,
@@ -68,6 +75,26 @@ interface RetrofitApi {
     fun getPost(
         @Path("postId") postId: Int
     ): Call<GetPosts>
+    // 댓글 보기
+    @GET("comments/{postId}")
+    fun getComments(
+        @Path("postId") postId: Int
+    ): Call<List<Comment>>
+
+    // 댓글 작성하기
+    @POST("comments/{memberId}/{postId}")
+    fun writeComment(
+        @Path("memberId") memberId: Int,
+        @Path("postId") postId: Int,
+        @Body comments: String
+    ): Call<Comment>
+
+    // 피부병 관련
+    //@Headers("Content-Type: application/json")
+    @POST("disease")
+    fun getDisease(
+        @Body name: Name
+    ): Call<Result>
 
     companion object {
         private const val BASE_URL = "http://43.201.122.215:8080/"
@@ -78,6 +105,7 @@ interface RetrofitApi {
             return Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(ScalarsConverterFactory.create())
                 .build()
                 .create(RetrofitApi::class.java)
         }

@@ -16,7 +16,8 @@ data class GetPosts(
     val img: String,
     val memberId: Int,
     val date: String,
-    val time: String
+    val time: String,
+    val nickname: String
 )
 
 data class PostModel(
@@ -25,4 +26,18 @@ data class PostModel(
     val title: String,
     val contents: String,
     val img: String
+)
+
+data class Comment(
+    val commentId: Int,
+    val contents: String,
+    val memberId: Int,
+    val postId: Int,
+    val nickname: String
+)
+
+data class CommentModel(
+    val nickname: String,
+    val contents: String
+    //val profile: String
 )
