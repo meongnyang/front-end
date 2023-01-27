@@ -11,7 +11,7 @@
         android:layout_width="113dp"
         android:layout_height="52dp"
         android:layout_marginStart="149dp"
-        android:layout_marginTop="172dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="149dp"
         android:background="@drawable/ic_click"
         android:fontFamily="@font/gothic"
@@ -20,7 +20,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
     <ImageView
         android:id="@+id/imageView15"
@@ -52,32 +52,46 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="28dp"
         android:fontFamily="@font/gothic"
         android:lineSpacingExtra="4dp"
-        android:text="여기에 우리 기술 설명? 적어주면 좋을 듯\n그냥 이것저것 적어두면 좋을 것 같습니다롱\n우리는어떤데이터를활용해사진한장으로어쩌구"
-        android:textColor="#000000"
-        android:textSize="17sp"
+        android:text="피부병 증상별로 각 2000개의 이미지 수집,\n이를 사용하여 피부병 확인 모델 구현"
+        android:textColor="#656565"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintHorizontal_bias="0.061"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView15" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView25" />
 
     <TextView
         android:id="@+id/textView19"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="196dp"
+        android:layout_marginTop="92dp"
         android:layout_marginEnd="28dp"
         android:fontFamily="@font/gothic"
+        android:gravity="center"
         android:lineSpacingExtra="4dp"
-        android:text="예쁘게 배경 만들어서~ 적으면 조을 거 같아용~ \n스크롤 하게 만들어두 좋고.. \n쭉쭉 큼직큼직 설명해 두는 느낌으로?"
+        android:text="직접 만들어낸 모델을 이용해 구현한\n👇 피부병 검사를 체험해 보세요!"
         android:textColor="#000000"
         android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView15" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView25" />
+
+    <ImageView
+        android:id="@+id/imageView25"
+        android:layout_width="339dp"
+        android:layout_height="289dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView15"
+        app:srcCompat="@drawable/skin_img" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

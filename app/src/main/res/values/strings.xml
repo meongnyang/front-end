@@ -14,6 +14,7 @@
     <string name="category">1일 1자랑</string>
     <string name="add_title">반려동물 추가하기 🐶🐱</string>
     <string name="type_title">당신의 반려동물은?</string>
+    <string name="dday">우리가 함께한 지 +%s일</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -43,26 +43,13 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="232dp"
             android:fontFamily="@font/gothic"
-            android:text="우리가 함께한 지 +"
+            android:text="@{@string/dday(pet.count)}"
             android:textColor="#1C1C43"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title_msg" />
 
-        <TextView
-            android:id="@+id/days"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:layout_marginBottom="35dp"
-            android:fontFamily="@font/gothic"
-            android:text="@{pet.count}"
-            android:textColor="#1C1C43"
-            app:layout_constraintBottom_toTopOf="@+id/lineImg"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/dayText" />
 
         <ImageView
             android:id="@+id/lineImg"

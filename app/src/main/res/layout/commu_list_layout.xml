@@ -27,7 +27,7 @@
             android:id="@+id/comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
+            android:layout_marginStart="24dp"
             android:layout_marginRight="40dp"
             android:fontFamily="@font/gothic"
             android:gravity="center"
@@ -43,7 +43,7 @@
             android:id="@+id/titleTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="55dp"
             android:layout_marginEnd="220dp"
             android:fontFamily="@font/gothic"
             android:gravity="center"
@@ -54,7 +54,8 @@
             app:layout_constraintEnd_toEndOf="@+id/listImage"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/comment"
-            app:layout_constraintTop_toTopOf="@id/listImage" />
+            app:layout_constraintTop_toTopOf="@id/listImage"
+            app:layout_constraintVertical_bias="0.52" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

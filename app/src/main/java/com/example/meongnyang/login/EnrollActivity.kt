@@ -51,7 +51,7 @@ class EnrollActivity : AppCompatActivity() {
         val retrofit = RetrofitApi.create()
 
         // 성별 선택
-        if (binding.femaleRadio.isSelected) {
+        if (binding.femaleRadio.isChecked) {
             gender = "여아"
         } else {
             gender = "남아"
