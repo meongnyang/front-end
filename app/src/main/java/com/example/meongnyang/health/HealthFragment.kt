@@ -36,8 +36,6 @@ class HealthFragment : Fragment() {
     var fbFirestore = FirebaseFirestore.getInstance()
     val uid = fbAuth.uid.toString()
 
-    //var recordId = 0
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,8 +51,8 @@ class HealthFragment : Fragment() {
             .addOnSuccessListener { documentsSnapshot ->
                 var id = documentsSnapshot.toObject<Id>()!!
                 if (id.recordId != 0) {
-                    binding.clickText.visibility = View.INVISIBLE
-                    binding.noDataText.visibility = View.INVISIBLE
+                    binding.clickText.visibility = View.GONE
+                    binding.noDataText.visibility = View.GONE
                     binding.mealText.visibility = View.VISIBLE
                     binding.voidText.visibility = View.VISIBLE
                     binding.excText.visibility = View.VISIBLE
@@ -70,39 +68,11 @@ class HealthFragment : Fragment() {
                 } else {
                     binding.clickText.visibility = View.VISIBLE
                     binding.noDataText.visibility = View.VISIBLE
-                    binding.mealText.visibility = View.INVISIBLE
-                    binding.voidText.visibility = View.INVISIBLE
-                    binding.excText.visibility = View.INVISIBLE
+                    binding.mealText.visibility = View.GONE
+                    binding.voidText.visibility = View.GONE
+                    binding.excText.visibility = View.GONE
                 }
             }
-
-        /*val bundle = arguments
-        if (bundle?.getInt("recordId") != null) {
-            recordId = bundle!!.getInt("recordId")
-        }
-
-        if (recordId != 0) {
-            binding.clickText.visibility = View.INVISIBLE
-            binding.noDataText.visibility = View.INVISIBLE
-            binding.mealText.visibility = View.VISIBLE
-            binding.voidText.visibility = View.VISIBLE
-            binding.excText.visibility = View.VISIBLE
-
-            viewModelFactory = DiaryViewModelFactory(recordId)
-            viewModel = ViewModelProvider(this@HealthFragment,
-                viewModelFactory).get(DiaryViewModel::class.java)
-
-            binding.apply {
-                diary = viewModel
-                lifecycleOwner = this@HealthFragment
-            }
-        } else {
-            binding.clickText.visibility = View.VISIBLE
-            binding.noDataText.visibility = View.VISIBLE
-            binding.mealText.visibility = View.INVISIBLE
-            binding.voidText.visibility = View.INVISIBLE
-            binding.excText.visibility = View.INVISIBLE
-        }*/
 
         // 메뉴 화면 이동
         binding.skinCheckBtn.setOnClickListener {

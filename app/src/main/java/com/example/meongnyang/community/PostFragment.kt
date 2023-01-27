@@ -33,6 +33,10 @@ class PostFragment : Fragment() {
     private val listItems = arrayListOf<CommentModel>() // 리사이클러뷰 아이템
     private val commentListAdapter = CommentListAdpater(listItems) // adapter
 
+    var fbAuth = FirebaseAuth.getInstance()
+    var fbFirestore = FirebaseFirestore.getInstance()
+    val uid = fbAuth.uid.toString()
+
     var postId = 0
     var memberId = 0
 
@@ -64,11 +68,17 @@ class PostFragment : Fragment() {
             writeComment(postId, comment!!)
         } else showComment(postId)
 
+        binding.likeBtn.setOnClickListener {
+            updateCount(postId)
+            Toast.makeText(context, "좋아요 완료!", Toast.LENGTH_SHORT).show()
+        }
+
 
         binding.apply {
             post = viewModel
             lifecycleOwner = this@PostFragment
         }
+
 
         // 키보드 올라 왔을 때 화면 가리는 것 방지하는 코드
         keyboardVisibilityUtils = KeyboardVisibilityUtils(requireActivity().window,
@@ -107,10 +117,6 @@ class PostFragment : Fragment() {
         })
     }
     private fun writeComment(postId: Int, comment: String) {
-        var fbAuth = FirebaseAuth.getInstance()
-        var fbFirestore = FirebaseFirestore.getInstance()
-        val uid = fbAuth.uid.toString()
-
         fbFirestore!!.collection("users").document(uid).get()
             .addOnSuccessListener { documentsSnapshot ->
                 var id = documentsSnapshot.toObject<Id>()!!
@@ -122,6 +128,22 @@ class PostFragment : Fragment() {
                     }
 
                     override fun onFailure(call: Call<Comment>, t: Throwable) {
+                        TODO("Not yet implemented")
+                    }
+                })
+            }
+    }
+
+    private fun updateCount(postId: Int) {
+        fbFirestore!!.collection("users").document(uid).get()
+            .addOnSuccessListener { documentsSnapshot ->
+                var id = documentsSnapshot.toObject<Id>()!!
+                retrofit.updateLikes(id.memberId!!, postId).enqueue(object : Callback<Count> {
+                    override fun onResponse(call: Call<Count>, response: Response<Count>) {
+                        (activity as PostActivity).sendId(postId)
+                    }
+
+                    override fun onFailure(call: Call<Count>, t: Throwable) {
                         TODO("Not yet implemented")
                     }
                 })

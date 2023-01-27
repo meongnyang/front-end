@@ -54,10 +54,20 @@ class CommuFragment : Fragment() {
         // 리스트 아이템 클릭 시 해당 글 자세히 보기
         postListAdapter.setItemClickListener(object : PostListAdapter.OnItemClickListener {
             override fun onClick(v: View, position: Int) {
-                val postId = postList.size - position
-                val intent = Intent(context, PostActivity::class.java)
-                intent.putExtra("postId", postId)
-                startActivity(intent)
+                val retrofit = RetrofitApi.create()
+                var title = Title(listItems[position].title)
+                retrofit.findPostId(title).enqueue(object : Callback<PostId> {
+                    override fun onFailure(call: Call<PostId>, t: Throwable) {
+
+                    }
+
+                    override fun onResponse(call: Call<PostId>, response: Response<PostId>) {
+                        val postId = response.body()!!.postId
+                        val intent = Intent(context, PostActivity::class.java)
+                        intent.putExtra("postId", postId)
+                        startActivity(intent)
+                    }
+                })
             }
         })
 

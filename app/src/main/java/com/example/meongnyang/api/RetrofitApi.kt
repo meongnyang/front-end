@@ -65,6 +65,12 @@ interface RetrofitApi {
     fun findPosts(
     ): Call <List<GetPosts>>
 
+    // postId 반환
+    @POST("posts/findid")
+    fun findPostId(
+        @Body title: Title
+    ): Call<PostId>
+
     // 게시글 작성하기
     @POST("posts/{memberId}")
     fun createPost(
@@ -89,6 +95,13 @@ interface RetrofitApi {
         @Path("postId") postId: Int,
         @Body comments: String
     ): Call<Comment>
+
+    // 좋아요 기능
+    @POST("likes/{memberId}/{postId}")
+    fun updateLikes(
+        @Path("memberId") memberId: Int,
+        @Path("postId") postId: Int
+    ): Call<Count>
 
     // 피부병 관련
     @POST("disease")

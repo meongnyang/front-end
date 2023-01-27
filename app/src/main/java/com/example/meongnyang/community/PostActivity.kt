@@ -37,7 +37,7 @@ class PostActivity : AppCompatActivity() {
             sendContent(postId, comment)
         }
     }
-    private fun sendId(postId: Int) {
+    fun sendId(postId: Int) {
         val bundle = Bundle()
         bundle.putInt("postId", postId)
         val postFragment = PostFragment()

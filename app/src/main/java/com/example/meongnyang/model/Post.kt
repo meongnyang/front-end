@@ -41,3 +41,15 @@ data class CommentModel(
     val contents: String
     //val profile: String
 )
+
+data class Count (
+    val count: Int
+)
+
+data class Title (
+    val title: String
+)
+
+data class PostId (
+    val postId: Int
+    )
