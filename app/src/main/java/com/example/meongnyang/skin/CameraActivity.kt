@@ -187,7 +187,7 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
 
         // model
         if (mModule == null) {
-            mModule = LiteModuleLoader.load(assetFilePath(this, "petScriptv5.ptl"))
+            mModule = LiteModuleLoader.load(assetFilePath(this, "petScript100.ptl"))
         }
 
         val inputTensor = TensorImageUtils.bitmapToFloat32Tensor(
@@ -302,7 +302,7 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
 
                     // model
                     if (mModule == null) {
-                        mModule = LiteModuleLoader.load(assetFilePath(this, "petScriptv5.ptl"))
+                        mModule = LiteModuleLoader.load(assetFilePath(this, "petScript100.ptl"))
                     }
 
                     val inputTensor = TensorImageUtils.bitmapToFloat32Tensor(
@@ -321,7 +321,6 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
                             maxScoreIdx = i
                         }
                     }
-                    Toast.makeText(this, classList[maxScoreIdx].toString(), Toast.LENGTH_SHORT).show()
 
                     resizedBitmap.compress(Bitmap.CompressFormat.PNG, 60, stream)
                     val bytes = stream.toByteArray()
