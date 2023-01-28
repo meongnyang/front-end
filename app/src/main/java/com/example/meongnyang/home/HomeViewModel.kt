@@ -39,7 +39,7 @@ class HomeViewModel: ViewModel() {
                         }
 
                         override fun onFailure(call: Call<PetModel>, t: Throwable) {
-                            TODO("Not yet implemented")
+                            Log.d("error", t.toString())
                         }
                     })
                 }

@@ -7,9 +7,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Matrix
+import android.graphics.*
 import android.hardware.Camera
 import android.net.Uri
 import android.os.Bundle
@@ -23,11 +21,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.meongnyang.databinding.SkinActivityCameraBinding
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
-import org.pytorch.LiteModuleLoader
 import org.pytorch.IValue
+import org.pytorch.LiteModuleLoader
 import org.pytorch.Module
 import org.pytorch.torchvision.TensorImageUtils
 import java.io.*
+
 
 class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.PictureCallback {
     private var mModule: Module? = null
@@ -176,7 +175,7 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
         val matrix = Matrix()
         matrix.postRotate(0f)
 
-        val result = Bitmap.createBitmap(resized, 0, 0, resized.width, resized.height, matrix, true)
+        val result = grayScale(Bitmap.createBitmap(resized, 0, 0, resized.width, resized.height, matrix, true))
         camera!!.startPreview()
 
         val stream = ByteArrayOutputStream()
@@ -207,7 +206,6 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
                 maxScoreIdx = i
             }
         }
-        Toast.makeText(this, classList[maxScoreIdx].toString(), Toast.LENGTH_SHORT).show()
 
         result.compress(Bitmap.CompressFormat.PNG, 60, stream)
         val bytes = stream.toByteArray()
@@ -299,7 +297,8 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
                     matrix.postRotate(90f)
 
                     val resizedBitmap: Bitmap =
-                        Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true)
+                        grayScale(Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true))
+
 
                     // model
                     if (mModule == null) {
@@ -357,4 +356,18 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
         camera!!.parameters = parameters
     }
 
+
+    private fun grayScale(orgBitmap: Bitmap): Bitmap {
+        val width = orgBitmap.width
+        val height = orgBitmap.height
+        val bmpGrayScale = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_4444)
+        val canvas = Canvas(bmpGrayScale)
+        val paint = Paint()
+        val colorMatrix = ColorMatrix()
+        colorMatrix.setSaturation(0f)
+        val colorMatrixFilter = ColorMatrixColorFilter(colorMatrix)
+        paint.colorFilter = colorMatrixFilter
+        canvas.drawBitmap(orgBitmap, 0f, 0f, paint)
+        return bmpGrayScale
+    }
 }

@@ -58,7 +58,7 @@ class MyFragment : Fragment() {
                         userImg = response.body()!!.memberImg
                     }
                     override fun onFailure(call: Call<allPet>, t: Throwable) {
-                        TODO("Not yet implemented")
+                        Log.d("error", t.toString())
                     }
                 })
             }
