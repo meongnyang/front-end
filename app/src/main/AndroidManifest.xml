@@ -30,6 +30,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".qna.QnaPostActivity"
+            android:exported="false" />
+        <activity
             android:name=".community.PostActivity"
             android:exported="false" />
         <activity
@@ -45,7 +48,7 @@
             android:theme="@style/MyDatePickerStyle" />
         <activity
             android:name=".login.NicknameActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".login.LoginActivity"
             android:exported="true">

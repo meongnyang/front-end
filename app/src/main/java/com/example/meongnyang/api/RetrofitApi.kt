@@ -109,6 +109,22 @@ interface RetrofitApi {
         @Body name: Name
     ): Call<Result>
 
+    // 사료
+    @GET("feed/type/{typeId}")
+    fun getFeed(
+        @Path("typeId") typeId: Int
+    ): Call<List<Feed>>
+
+    // 수의사 질의응답
+    @GET("qna")
+    fun getAllQna(
+    ): Call<List<Qna>>
+
+    @GET("qna/{qnaId}")
+    fun getQna(
+        @Path("qnaId") qnaId: Int
+    ): Call<QnaModel>
+
     companion object {
         private const val BASE_URL = "http://43.201.122.215:8080/"
 

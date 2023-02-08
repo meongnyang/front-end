@@ -239,8 +239,8 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
     // 갤러리 열기
     private val OPEN_GALLERY = 1
     private fun openGallery() {
-        val intent: Intent = Intent(Intent.ACTION_GET_CONTENT)
-        intent.setType("image/*")
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.type = ("image/*")
         startActivityForResult(intent, OPEN_GALLERY)
     }
 

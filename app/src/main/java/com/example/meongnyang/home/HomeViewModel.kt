@@ -2,6 +2,7 @@ package com.example.meongnyang.home
 
 import android.util.Log
 import androidx.lifecycle.*
+import com.example.meongnyang.Dialog.ProgressDialog
 import com.example.meongnyang.api.RetrofitApi
 import com.example.meongnyang.model.Id
 import com.example.meongnyang.model.PetModel
@@ -26,10 +27,9 @@ class HomeViewModel: ViewModel() {
 
     init {
         viewModelScope.launch {
-            var id = Id()
             fbFirestore!!.collection("users").document(uid).get()
                 .addOnSuccessListener { documentsSnapshot ->
-                    id = documentsSnapshot.toObject<Id>()!!
+                    var id = documentsSnapshot.toObject<Id>()!!
 
                     retrofit.getPet(id.conimalId!!).enqueue(object : Callback<PetModel> {
                         override fun onResponse(call: Call<PetModel>, response: Response<PetModel>) {

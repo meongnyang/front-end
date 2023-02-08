@@ -1,13 +1,23 @@
 package com.example.meongnyang.login
 
+import android.Manifest
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Matrix
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Base64.NO_WRAP
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
@@ -21,12 +31,20 @@ import com.example.meongnyang.databinding.LoginActivityEnrollBinding
 import com.example.meongnyang.model.Id
 import com.example.meongnyang.model.Pet
 import com.example.meongnyang.model.PetModel
+import com.example.meongnyang.skin.ResultActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserInfo
 import com.google.firebase.firestore.FirebaseFirestore
+import com.gun0912.tedpermission.PermissionListener
+import com.gun0912.tedpermission.normal.TedPermission
+import org.pytorch.IValue
+import org.pytorch.LiteModuleLoader
+import org.pytorch.torchvision.TensorImageUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.ByteArrayOutputStream
+import java.io.InputStream
 import java.util.*
 
 class EnrollActivity : AppCompatActivity() {
@@ -49,6 +67,13 @@ class EnrollActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val retrofit = RetrofitApi.create()
+
+        // 프로필 사진 선택
+        binding.circleIv.setOnClickListener {
+            checkPermission {
+
+            }
+        }
 
         // 성별 선택
         if (binding.femaleRadio.isChecked) {
@@ -141,6 +166,62 @@ class EnrollActivity : AppCompatActivity() {
             Toast.makeText(this@EnrollActivity, "정보 저장 완료!", Toast.LENGTH_SHORT).show()
             val intent = Intent(this@EnrollActivity, NaviActivity::class.java)
             startActivity(intent)
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun checkPermission(logic: () -> Unit) {
+        TedPermission.create()
+            .setPermissionListener(object : PermissionListener {
+                // 권한이 허용되었을 때
+                override fun onPermissionGranted() {
+                    logic()
+                }
+
+                // 권한이 거부됐을 때
+                override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
+                    Toast.makeText(this@EnrollActivity, "권한 거부됨", Toast.LENGTH_SHORT).show()
+                }
+            })
+            .setRationaleMessage("카메라 권한이 필요한 서비스입니다.")
+            .setDeniedMessage("카메라 권한을 허용해 주세요! [설정] > [앱 및 알림] > [고급] > [앱 권한]")
+            .setDeniedCloseButtonText("닫기")
+            .setGotoSettingButtonText("설정")
+            .setPermissions(
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.CAMERA
+            )
+            .check()
+    }
+
+    // 갤러리 열기
+    private val OPEN_GALLERY = 1
+    private fun openGallery() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = MediaStore.Images.Media.CONTENT_TYPE
+        intent.type = "image/*"
+        startActivityForResult(intent, OPEN_GALLERY)
+    }
+
+    // 갤러리에서 사진 가져오기
+    override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
+        super.onActivityResult(requestCode, resultCode, intent)
+
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == OPEN_GALLERY) {
+                var currentImageUrl = intent?.data
+
+                try {
+                    val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, currentImageUrl)
+                    val stream = ByteArrayOutputStream()
+
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            } else {
+                Log.d("ActivityResult", "something wrong")
+            }
         }
     }
 }

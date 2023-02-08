@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageView30"
+            android:layout_width="408dp"
+            android:layout_height="109dp"
+            android:layout_marginStart="19dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/answer_box" />
+
+        <TextView
+            android:id="@+id/questionText"
+            android:layout_width="302dp"
+            android:layout_height="53dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/gothic"
+            android:gravity="center"
+            android:lineSpacingExtra="2sp"
+            android:maxLines="3"
+            android:text="강아지가 발을 자꾸 핥아요 이걸 어떻게 해야 할까요?강아지가 발을 자꾸 핥아요 이걸 어떻게 해야 할까요?강아지가 발을 자꾸 핥아요 이걸 어떻게 해야 할까요?강아지가 발을 자꾸 핥아요 이걸 어떻게 해야 할까요?강아지가 발을 자꾸 핥아요 이걸 어떻게 해야 할까요?"
+            android:textColor="#2B2B2B"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView30"
+            app:layout_constraintEnd_toEndOf="@+id/imageView30"
+            app:layout_constraintStart_toStartOf="@+id/imageView30"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
