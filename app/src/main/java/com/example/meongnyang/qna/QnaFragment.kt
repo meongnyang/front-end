@@ -93,7 +93,7 @@ class QnaFragment : Fragment() {
                             listItems.add(item)
                         }
                     }
-                    binding.resultCount.text = listItems.size.toString()
+                    binding.resultCount.text = "검색 결과 ${listItems.size}건"
                     qnaListAdapter.notifyDataSetChanged()
                 }
             }
