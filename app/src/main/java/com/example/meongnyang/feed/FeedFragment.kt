@@ -8,10 +8,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.meongnyang.Dialog.FeedDialog
+import com.example.meongnyang.NaviActivity
 import com.example.meongnyang.R
 import com.example.meongnyang.api.RetrofitApi
 import com.example.meongnyang.community.CommentListAdpater
@@ -24,7 +27,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class FeedFragment : Fragment() {
+open class FeedFragment : Fragment() {
     private lateinit var binding: FragmentFeedBinding
     private lateinit var feedList: ArrayList<Feed> // 사료들 담을 배열
     private val listItems = arrayListOf<FeedModel>() // 리사이클러뷰 아이템
@@ -61,11 +64,18 @@ class FeedFragment : Fragment() {
 
                     override fun onResponse(call: Call<PetModel>, response: Response<PetModel>) {
                         var typeId = response.body()!!.type
-
                         showFeed(typeId)
                     }
                 })
             }
+
+        // 눌렀을 때 상세 정보 띄우기
+        feedListAdapter.setItemClickListener(object: FeedListAdapter.OnItemClickListener {
+            override fun onClick(v: View, position: Int) {
+                val dialog = FeedDialog(context!!)
+                dialog.show(listItems[position].name, listItems[position].material, listItems[position].ingredient)
+            }
+        })
 
         return binding.root
     }
@@ -87,7 +97,11 @@ class FeedFragment : Fragment() {
 
                 listItems.clear()
                 for (document in response.body()!!) {
-                    val item = FeedModel(document.feedId, document.name, document.img, document.efficacy)
+                    var efficacy = ""
+                    for (doc in document.efficacyList) {
+                        efficacy += "${doc.name}, "
+                    }
+                    val item = FeedModel(document.feedId, document.name, document.img, efficacy, document.ingredient, document.material)
                     listItems.add(item)
                 }
                 feedListAdapter.notifyDataSetChanged()

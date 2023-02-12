@@ -115,6 +115,11 @@ interface RetrofitApi {
         @Path("typeId") typeId: Int
     ): Call<List<Feed>>
 
+    @GET("feed/{feedId}")
+    fun getByFeedId(
+        @Path("feedId") feedId: Int
+    ): Call<Feed>
+
     // 수의사 질의응답
     @GET("qna")
     fun getAllQna(

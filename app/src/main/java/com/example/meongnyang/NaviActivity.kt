@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.Gravity
 import android.widget.RelativeLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -30,6 +31,8 @@ class NaviActivity : AppCompatActivity() {
     private lateinit var feedBtn: TextView
     private lateinit var healthDiaryBtn: TextView
     private lateinit var communityBtn: TextView
+
+    var waitTime = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -122,4 +125,15 @@ class NaviActivity : AppCompatActivity() {
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.mainFrameLayout, fragment).commit()
     }
+
+    /*override fun onBackPressed() {
+        if(System.currentTimeMillis() - waitTime >=1500 ) {
+            waitTime = System.currentTimeMillis()
+            Toast.makeText(this,"뒤로가기 버튼을 한번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT).show()
+        } else {
+            moveTaskToBack(true)
+            finish()
+            android.os.Process.killProcess(android.os.Process.myPid())
+        }
+    }*/
 }
