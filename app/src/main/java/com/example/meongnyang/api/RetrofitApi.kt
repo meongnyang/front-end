@@ -120,6 +120,11 @@ interface RetrofitApi {
         @Path("feedId") feedId: Int
     ): Call<Feed>
 
+    @GET("feed/efficacy/{efficacyId}")
+    fun getByEfficacy(
+        @Path("efficacyId") efficacyId: Int
+    ): Call<List<Feed>>
+
     // 수의사 질의응답
     @GET("qna")
     fun getAllQna(

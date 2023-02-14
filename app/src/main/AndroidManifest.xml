@@ -72,7 +72,7 @@
 
                 <data
                     android:host="oauth"
-                    android:scheme="kakao6834c4f27fbbf23e589df95359fe78c9" />
+                    android:scheme="@string/kakao_key" />
             </intent-filter>
         </activity>
         <activity
@@ -100,7 +100,7 @@
         <service android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService" android:enabled="true"/>
         <meta-data
             android:name="com.kakao.sdk.AppKey"
-            android:value="6834c4f27fbbf23e589df95359fe78c9" />
+            android:value="@string/app_key" />
     </application>
 
 </manifest>

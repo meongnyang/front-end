@@ -45,8 +45,6 @@ class NicknameActivity : AppCompatActivity() {
             retrofit.userSignUp(user).enqueue(object: Callback<UserModel> {
                 override fun onResponse(call: Call<UserModel>, response: Response<UserModel>) {
                     if (response.isSuccessful) {
-                        Log.d("Post", response.body().toString()) // 반환값 로그로 찍어 보기
-                        Log.d("Post", response.body()!!.memberId.toString())
                         memberId = response.body()!!.memberId // 할당된 고유 멤버아이디
 
                         val intent = Intent(this@NicknameActivity, TypeActivity::class.java)
