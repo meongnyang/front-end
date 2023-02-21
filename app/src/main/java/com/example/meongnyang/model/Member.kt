@@ -37,6 +37,10 @@ data class allPet(
     val conimals: List<myPet>
 )
 
-data class Update(
+data class Nickname(
     val nickname: String
+)
+
+data class Img(
+    val img: String
 )

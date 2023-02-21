@@ -1,4 +1,4 @@
-package com.example.meongnyang.DB
+package com.example.meongnyang.community.DB
 
 import android.annotation.SuppressLint
 import android.content.ContentValues

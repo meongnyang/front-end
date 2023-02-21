@@ -128,7 +128,7 @@ class PostFragment : Fragment() {
                     }
 
                     override fun onFailure(call: Call<Comment>, t: Throwable) {
-                        TODO("Not yet implemented")
+                        Toast.makeText(context, "작성 실패, 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
                     }
                 })
             }
@@ -144,7 +144,7 @@ class PostFragment : Fragment() {
                     }
 
                     override fun onFailure(call: Call<Count>, t: Throwable) {
-                        TODO("Not yet implemented")
+
                     }
                 })
             }

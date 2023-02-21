@@ -22,11 +22,11 @@ interface RetrofitApi {
         @Path("memberId") memberId: Int
     ): Call<allPet>
 
-    @FormUrlEncoded
-    @PATCH("members/update")
-    fun memberUpdate(
-        @Field("nickname") nickname: String
-    ): Call<Update>
+    @PATCH("members/updateNickName/{memberId}")
+    fun updateNickname(
+        @Path("memberId") memberId: Int,
+        @Body nickname: Nickname
+    ): Call<UserModel>
 
     // 건강기록부 API
     @POST("records/{memberId}/{conimalId}")

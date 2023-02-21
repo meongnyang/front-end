@@ -34,8 +34,6 @@ class HomeFragment : Fragment() {
             false
         )
 
-        //ProgressDialog(activity as NaviActivity).show()
-        //ProgressDialog(activity as NaviActivity).dismiss()
         binding.apply {
             pet = model
             lifecycleOwner = this@HomeFragment

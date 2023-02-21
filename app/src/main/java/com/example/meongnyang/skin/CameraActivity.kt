@@ -194,10 +194,10 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
             result,
             TensorImageUtils.TORCHVISION_NORM_MEAN_RGB, TensorImageUtils.TORCHVISION_NORM_STD_RGB
         )
-//
+
         val outputTensor = mModule!!.forward(IValue.from(inputTensor)).toTensor()
         val scores = outputTensor.dataAsFloatArray
-//
+
         var maxScore = -Float.MAX_VALUE
         var maxScoreIdx = -1
         for (i in scores.indices) {

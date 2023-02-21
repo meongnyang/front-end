@@ -125,15 +125,4 @@ class NaviActivity : AppCompatActivity() {
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.mainFrameLayout, fragment).commit()
     }
-
-    /*override fun onBackPressed() {
-        if(System.currentTimeMillis() - waitTime >=1500 ) {
-            waitTime = System.currentTimeMillis()
-            Toast.makeText(this,"뒤로가기 버튼을 한번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT).show()
-        } else {
-            moveTaskToBack(true)
-            finish()
-            android.os.Process.killProcess(android.os.Process.myPid())
-        }
-    }*/
 }

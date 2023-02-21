@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.example.meongnyang.NaviActivity
 import com.example.meongnyang.R
@@ -34,9 +35,6 @@ class MyFragment : Fragment() {
     var fbFirestore = FirebaseFirestore.getInstance()
     val uid = fbAuth.uid.toString()
 
-    var userImg = ""
-    var petImg = ""
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,42 +46,30 @@ class MyFragment : Fragment() {
             false
         )
 
-        fbFirestore!!.collection("users").document(uid).get()
-            .addOnSuccessListener { documentsSnapshot ->
-                var id = documentsSnapshot.toObject<Id>()!!
+        model.nameData.observe(viewLifecycleOwner, Observer {
+            binding.userName.text = it.toString()
+        })
 
-                retrofit.getMember(id.memberId!!).enqueue(object : Callback<allPet> {
-                    override fun onResponse(call: Call<allPet>, response: Response<allPet>) {
-                        petImg = response.body()!!.conimals[0].conimalImg
-                        userImg = response.body()!!.memberImg
-
-                        Glide.with(this@MyFragment)
-                            .load(userImg)
-                            .override(58, 53)
-                            .placeholder(R.drawable.ic_profile)
-                            .fitCenter()
-                            .into(binding.userProfile)
-
-                        Glide.with(this@MyFragment)
-                            .load("https://meongnyang.s3.ap-northeast-2.amazonaws.com/feed/%EB%8B%A5%EC%8A%A4%ED%9B%88%ED%8A%B8+%EC%96%B4%EB%8D%9C%ED%8A%B8+%ED%8C%8C%EC%9A%B0%EC%B9%98.jpeg")
-                            .placeholder(R.drawable.ic_profile)
-                            .fitCenter()
-                            .into(binding.petProfile)
-                    }
-                    override fun onFailure(call: Call<allPet>, t: Throwable) {
-                        Log.d("error", t.toString())
-                    }
-                })
-            }
-
+        val bundle = arguments
+        if (bundle?.getString("nickname") != null) {
+            var newName = bundle.getString("nickname")
+            model.updateNickname(newName!!)
+        }
+        if (bundle?.getString("userImg") != null) {
+            var newImg = bundle.getString("userImg")
+            model.updateUserImg(newImg!!)
+        }
 
         binding.apply {
             mypage = model
             lifecycleOwner = this@MyFragment
         }
 
-        // 닉네임 변경 화면으로 이동하기
+        // 내 정보 수정 화면으로 이동하기
         binding.modifyProfile.setOnClickListener {
+            (activity as NaviActivity).replace(ModifyFragment())
+        }
+        binding.userView.setOnClickListener {
             (activity as NaviActivity).replace(ModifyFragment())
         }
         // 반려동물 추가하기
