@@ -168,8 +168,8 @@ class LoginActivity : AppCompatActivity() {
                     }
 
                     override fun onResponse(call: Call<MemberId>, response: Response<MemberId>) {
-                        Log.d("id", response.body().toString())
-                        if (response.body()!! != null) {
+                        Log.d("email", response.body().toString())
+                        if (response.body() != null) {
                             var intent = Intent(this@LoginActivity, NaviActivity::class.java)
                             startActivity(intent)
                         } else {

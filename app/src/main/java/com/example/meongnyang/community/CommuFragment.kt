@@ -44,11 +44,10 @@ class CommuFragment : Fragment() {
 
         // 기본값: 모든 카테고리 보이게
         binding.allBtn.isSelected = true
-        showAllPost()
-
 
         binding.postView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.postView.adapter = postListAdapter
+        showAllPost()
 
 
         // 리스트 아이템 클릭 시 해당 글 자세히 보기

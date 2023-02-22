@@ -28,6 +28,7 @@ class PostViewModel(postId: Int) : ViewModel() {
     val like : MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val date : MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val writer: MutableLiveData<String> by lazy { MutableLiveData<String>() }
+    val img: MutableLiveData<String> by lazy { MutableLiveData<String>() }
 
     init {
         viewModelScope.launch {
@@ -38,6 +39,7 @@ class PostViewModel(postId: Int) : ViewModel() {
                     like.value = response.body()!!.count.toString()
                     date.value = response.body()!!.date
                     writer.value = response.body()!!.nickname
+                    img.value = response.body()!!.img
                 }
 
                 override fun onFailure(call: Call<GetPosts>, t: Throwable) {

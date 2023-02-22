@@ -12,10 +12,9 @@ import retrofit2.http.*
 
 interface RetrofitApi {
     // 회원 API
-
-    @GET("members/findId")
+    @POST("members/findId")
     fun findId(
-        @Query("email") email: Email
+        @Body email: Email
     ): Call<MemberId>
 
     @POST("members")

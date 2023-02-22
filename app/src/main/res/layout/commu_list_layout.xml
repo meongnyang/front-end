@@ -25,17 +25,15 @@
 
         <TextView
             android:id="@+id/comment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginRight="40dp"
+            android:layout_width="78dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="5dp"
             android:fontFamily="@font/gothic"
             android:gravity="center"
             android:text="카테고리"
             android:textColor="#252525"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/titleTV"
+            app:layout_constraintBottom_toBottomOf="@+id/listImage"
             app:layout_constraintStart_toStartOf="@+id/listImage"
             app:layout_constraintTop_toTopOf="@+id/listImage" />
 
@@ -43,19 +41,15 @@
             android:id="@+id/titleTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="55dp"
-            android:layout_marginEnd="220dp"
+            android:layout_marginStart="32dp"
             android:fontFamily="@font/gothic"
             android:gravity="center"
             android:text="제목입니당"
             android:textColor="#252525"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@id/listImage"
-            app:layout_constraintEnd_toEndOf="@+id/listImage"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/comment"
-            app:layout_constraintTop_toTopOf="@id/listImage"
-            app:layout_constraintVertical_bias="0.52" />
+            app:layout_constraintTop_toTopOf="@id/listImage" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

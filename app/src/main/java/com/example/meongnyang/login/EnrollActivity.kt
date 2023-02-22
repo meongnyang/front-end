@@ -38,13 +38,13 @@ import com.example.meongnyang.NaviActivity
 import com.example.meongnyang.R
 import com.example.meongnyang.api.RetrofitApi
 import com.example.meongnyang.databinding.LoginActivityEnrollBinding
-import com.example.meongnyang.model.Id
-import com.example.meongnyang.model.Pet
-import com.example.meongnyang.model.PetModel
+import com.example.meongnyang.model.*
+import com.example.meongnyang.mypage.MyFragment
 import com.example.meongnyang.skin.ResultActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserInfo
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.toObject
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
 import org.pytorch.IValue
@@ -58,8 +58,10 @@ import java.util.*
 
 class EnrollActivity : AppCompatActivity() {
     private lateinit var binding: LoginActivityEnrollBinding
-    private var fbAuth: FirebaseAuth? = null
-    var fbFirestore: FirebaseFirestore? = null
+    var fbAuth = FirebaseAuth.getInstance()
+    var fbFirestore = FirebaseFirestore.getInstance()
+    val uid = fbAuth.uid.toString()
+    var memberId = 0
     var birthString = ""
     var adoptString = ""
     var birth = ""
@@ -76,6 +78,12 @@ class EnrollActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val retrofit = RetrofitApi.create()
+
+        fbFirestore!!.collection("users").document(uid).get()
+            .addOnSuccessListener { documentsSnapshot ->
+                var id = documentsSnapshot.toObject<Id>()!!
+                memberId = id.memberId!!
+            }
 
         // 프로필 사진 선택
         binding.petImg.setOnClickListener {
@@ -225,12 +233,8 @@ class EnrollActivity : AppCompatActivity() {
                 try {
                     // 이미지 s3에 올리기
                     uploadImage(fileName, bitmapToFile(bitmap, fileName))
-                    Glide.with(binding.petImg.context)
-                        .load("https://meongnyang.s3.ap-northeast-2.amazonaws.com/conimal/${fileName}")
-                        .placeholder(R.drawable.ic_profile)
-                        .circleCrop()
-                        .transition(DrawableTransitionOptions.withCrossFade())
-                        .into(binding.petImg)
+                    updateImg(memberId, "https://meongnyang.s3.ap-northeast-2.amazonaws.com/conimal/${fileName}")
+
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
@@ -279,5 +283,23 @@ class EnrollActivity : AppCompatActivity() {
             out?.close()
         }
         return file
+    }
+
+    private fun updateImg(memberId: Int, img: String) {
+        val retrofit = RetrofitApi.create()
+        retrofit.updateProfile(memberId, Img(img)).enqueue(object : Callback<UserModel> {
+            override fun onFailure(call: Call<UserModel>, t: Throwable) {
+                Toast.makeText(this@EnrollActivity, "변경 실패, 잠시 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(call: Call<UserModel>, response: Response<UserModel>) {
+                Glide.with(binding.petImg.context)
+                    .load(img)
+                    .placeholder(R.drawable.ic_profile)
+                    .circleCrop()
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .into(binding.petImg)
+            }
+        })
     }
 }
