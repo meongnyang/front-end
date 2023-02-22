@@ -15,6 +15,8 @@ import com.example.meongnyang.NaviActivity
 import com.example.meongnyang.R
 import com.example.meongnyang.api.RetrofitApi
 import com.example.meongnyang.home.HomeFragment
+import com.example.meongnyang.model.Email
+import com.example.meongnyang.model.MemberId
 import com.example.meongnyang.model.PostUser
 import com.example.meongnyang.skin.SkinMainActivity
 import com.google.android.gms.auth.api.Auth
@@ -31,6 +33,10 @@ import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.common.model.AuthErrorCause
 import com.kakao.sdk.user.UserApiClient
+import okhttp3.internal.notify
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.Retrofit
 
 class LoginActivity : AppCompatActivity() {
@@ -155,11 +161,27 @@ class LoginActivity : AppCompatActivity() {
         auth?.signInWithCredential(credential)?.addOnCompleteListener{
                 task ->
             if (task.isSuccessful) {
-                // 로그인 처리
-                Toast.makeText(this, "멍냥백서 가입 성공!", Toast.LENGTH_LONG).show()
-                var intent = Intent(this, NicknameActivity::class.java)
-                intent.putExtra("email", account?.email)
-                startActivity(intent)
+                val retrofit = RetrofitApi.create()
+                retrofit.findId(Email(account?.email!!)).enqueue(object : Callback<MemberId> {
+                    override fun onFailure(call: Call<MemberId>, t: Throwable) {
+
+                    }
+
+                    override fun onResponse(call: Call<MemberId>, response: Response<MemberId>) {
+                        Log.d("id", response.body().toString())
+                        if (response.body()!! != null) {
+                            var intent = Intent(this@LoginActivity, NaviActivity::class.java)
+                            startActivity(intent)
+                        } else {
+                            // 로그인 처리
+                            Toast.makeText(this@LoginActivity, "멍냥백서 가입 성공!", Toast.LENGTH_LONG).show()
+                            var intent = Intent(this@LoginActivity, NicknameActivity::class.java)
+                            intent.putExtra("email", account?.email)
+                            startActivity(intent)
+                        }
+                    }
+                })
+
             } else {
                 // 오류
                 Toast.makeText(this, task.exception?.message, Toast.LENGTH_LONG).show()

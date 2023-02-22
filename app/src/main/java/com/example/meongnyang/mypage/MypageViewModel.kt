@@ -56,8 +56,7 @@ class MypageViewModel: ViewModel() {
                     retrofit.getMember(id.memberId!!).enqueue(object : Callback<allPet> {
                         override fun onResponse(call: Call<allPet>, response: Response<allPet>) {
                             username.value = response.body()!!.nickname
-                            //userImg.value = response.body()!!.memberImg
-                            userImg.value = "https://meongnyang.s3.ap-northeast-2.amazonaws.com/feed/%EB%8B%A5%EC%8A%A4%ED%9B%88%ED%8A%B8+%EC%96%B4%EB%8D%9C%ED%8A%B8+%ED%8C%8C%EC%9A%B0%EC%B9%98.jpeg"
+                            userImg.value = response.body()!!.memberImg
                             var conimal = response.body()!!.conimals
                             dayCount.value = conimal[0].ddayadopt.toString()
                             withCount.value = conimal[0].ddayadopt.toString()
@@ -65,7 +64,8 @@ class MypageViewModel: ViewModel() {
                             petSex.value = conimal[0].gender
                             petSpec.value = conimal[0].species
                             //petImg.value = conimal[0].conimalImg
-                            petImg.value = "https://meongnyang.s3.ap-northeast-2.amazonaws.com/feed/%EB%8B%A5%EC%8A%A4%ED%9B%88%ED%8A%B8+%EC%96%B4%EB%8D%9C%ED%8A%B8+%ED%8C%8C%EC%9A%B0%EC%B9%98.jpeg"
+                            petImg.value =
+                                "https://meongnyang.s3.ap-northeast-2.amazonaws.com/conimal/pet_profile.png"
                         }
 
                         override fun onFailure(call: Call<allPet>, t: Throwable) {

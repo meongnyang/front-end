@@ -44,3 +44,11 @@ data class Nickname(
 data class Img(
     val img: String
 )
+
+data class Email(
+    val email: String
+)
+
+data class MemberId(
+    val memberId: Int
+)

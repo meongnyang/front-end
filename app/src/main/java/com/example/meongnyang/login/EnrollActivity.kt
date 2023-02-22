@@ -23,6 +23,16 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import com.amazonaws.auth.BasicAWSCredentials
+import com.amazonaws.mobileconnectors.s3.transferutility.TransferListener
+import com.amazonaws.mobileconnectors.s3.transferutility.TransferNetworkLossHandler
+import com.amazonaws.mobileconnectors.s3.transferutility.TransferState
+import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility
+import com.amazonaws.regions.Region
+import com.amazonaws.regions.Regions
+import com.amazonaws.services.s3.AmazonS3Client
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.meongnyang.community.DB.DBManager
 import com.example.meongnyang.NaviActivity
 import com.example.meongnyang.R
@@ -43,8 +53,7 @@ import org.pytorch.torchvision.TensorImageUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.ByteArrayOutputStream
-import java.io.InputStream
+import java.io.*
 import java.util.*
 
 class EnrollActivity : AppCompatActivity() {
@@ -69,9 +78,9 @@ class EnrollActivity : AppCompatActivity() {
         val retrofit = RetrofitApi.create()
 
         // 프로필 사진 선택
-        binding.circleIv.setOnClickListener {
+        binding.petImg.setOnClickListener {
             checkPermission {
-
+                openGallery()
             }
         }
 
@@ -198,9 +207,8 @@ class EnrollActivity : AppCompatActivity() {
     // 갤러리 열기
     private val OPEN_GALLERY = 1
     private fun openGallery() {
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = MediaStore.Images.Media.CONTENT_TYPE
-        intent.type = "image/*"
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.type = ("image/*")
         startActivityForResult(intent, OPEN_GALLERY)
     }
 
@@ -211,11 +219,18 @@ class EnrollActivity : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == OPEN_GALLERY) {
                 var currentImageUrl = intent?.data
+                val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, currentImageUrl)
+                val fileName = "MEONGNYANG_" + System.currentTimeMillis() + ".png"
 
                 try {
-                    val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, currentImageUrl)
-                    val stream = ByteArrayOutputStream()
-
+                    // 이미지 s3에 올리기
+                    uploadImage(fileName, bitmapToFile(bitmap, fileName))
+                    Glide.with(binding.petImg.context)
+                        .load("https://meongnyang.s3.ap-northeast-2.amazonaws.com/conimal/${fileName}")
+                        .placeholder(R.drawable.ic_profile)
+                        .circleCrop()
+                        .transition(DrawableTransitionOptions.withCrossFade())
+                        .into(binding.petImg)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
@@ -223,5 +238,46 @@ class EnrollActivity : AppCompatActivity() {
                 Log.d("ActivityResult", "something wrong")
             }
         }
+    }
+
+    private fun uploadImage(fileName: String, file: File) {
+        val awsCredentials = BasicAWSCredentials(getString(R.string.access_key), getString(R.string.secret_key))
+        val s3Client = AmazonS3Client(awsCredentials, Region.getRegion(Regions.AP_NORTHEAST_2))
+
+        val transferUtility = TransferUtility.builder().s3Client(s3Client).context(applicationContext).build()
+        TransferNetworkLossHandler.getInstance(applicationContext)
+
+        val uploadObserver = transferUtility.upload("meongnyang/conimal", fileName, file)
+
+        uploadObserver.setTransferListener(object : TransferListener {
+            override fun onStateChanged(id: Int, state: TransferState) {
+                if (state == TransferState.COMPLETED) {
+
+                }
+            }
+
+            override fun onProgressChanged(id: Int, current: Long, total: Long) {
+                val done = (((current.toDouble() / total) * 100.0).toInt())
+                Log.d("MYTAG", "UPLOAD - - ID: $id, percent done = $done")
+            }
+
+            override fun onError(id: Int, ex: Exception) {
+                Log.d("MYTAG", "UPLOAD ERROR - - ID: $id - - EX: ${ex.message.toString()}")
+            }
+        })
+    }
+
+    private fun bitmapToFile(bitmap: Bitmap, fileName: String): File {
+        var file =  File.createTempFile("image", fileName)
+        var out: OutputStream? = null
+
+        try {
+            file.createNewFile()
+            out = FileOutputStream(file)
+            bitmap.compress(Bitmap.CompressFormat.PNG, 50, out)
+        } finally {
+            out?.close()
+        }
+        return file
     }
 }

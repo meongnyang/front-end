@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.meongnyang.NaviActivity
 import com.example.meongnyang.R
 import com.example.meongnyang.api.RetrofitApi
@@ -50,6 +51,15 @@ class MyFragment : Fragment() {
             binding.userName.text = it.toString()
         })
 
+        model.userData.observe(viewLifecycleOwner, Observer {
+            Glide.with(binding.userProfile.context)
+                .load(it.toString())
+                .placeholder(R.drawable.ic_profile)
+                .circleCrop()
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(binding.userProfile)
+        })
+
         val bundle = arguments
         if (bundle?.getString("nickname") != null) {
             var newName = bundle.getString("nickname")
@@ -57,6 +67,13 @@ class MyFragment : Fragment() {
         }
         if (bundle?.getString("userImg") != null) {
             var newImg = bundle.getString("userImg")
+            Log.d("profile", newImg.toString())
+            Glide.with(binding.userProfile.context)
+                .load(newImg)
+                .placeholder(R.drawable.ic_profile)
+                .circleCrop()
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(binding.userProfile)
             model.updateUserImg(newImg!!)
         }
 

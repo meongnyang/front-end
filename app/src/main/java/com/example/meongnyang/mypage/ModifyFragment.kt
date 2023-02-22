@@ -4,10 +4,8 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
-import android.database.Cursor
-import android.net.Uri
+import android.graphics.Bitmap
 import android.os.Bundle
-import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
@@ -37,13 +35,16 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
 import java.io.FileOutputStream
+import java.io.OutputStream
 
 
 class ModifyFragment : Fragment() {
+    private lateinit var keyboardVisibilityUtils: KeyboardVisibilityUtils
     private lateinit var editName: EditText
     private lateinit var saveBtn: Button
-    private lateinit var profile: de.hdodenhof.circleimageview.CircleImageView
+    private lateinit var profile: ImageView
     private lateinit var editText: TextView
+    private lateinit var modifySV: ScrollView
     var memberId = 0
     var fbAuth = FirebaseAuth.getInstance()
     var fbFirestore = FirebaseFirestore.getInstance()
@@ -54,44 +55,43 @@ class ModifyFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.mypage_fragment_modify, container, false)
-        val retrofit = RetrofitApi.create()
 
         editName = view.findViewById(R.id.editName)
         saveBtn = view.findViewById(R.id.saveBtn)
         profile = view.findViewById(R.id.profile)
         editText = view.findViewById(R.id.editText)
+        modifySV = view.findViewById(R.id.modify_sv)
 
-        checkPermission {
-            // 갤러리에서 선택 클릭했을 때
-            profile.setOnClickListener {
+        fbFirestore!!.collection("users").document(uid).get()
+            .addOnSuccessListener { documentsSnapshot ->
+                var id = documentsSnapshot.toObject<Id>()!!
+                memberId = id.memberId!!
+            }
+
+        profile.setOnClickListener {
+            checkPermission {
                 openGallery()
             }
-            editText.setOnClickListener {
+        }
+        editText.setOnClickListener {
+            checkPermission {
                 openGallery()
             }
         }
 
         saveBtn.setOnClickListener {
-            fbFirestore!!.collection("users").document(uid).get()
-                .addOnSuccessListener { documentsSnapshot ->
-                    var id = documentsSnapshot.toObject<Id>()!!
-
-                    var nickname = editName.text.toString()
-                    retrofit.updateNickname(id.memberId!!, Nickname(nickname)).enqueue(object : Callback<UserModel> {
-                        override fun onFailure(call: Call<UserModel>, t: Throwable) {
-                            Toast.makeText(context, "변경 실패, 잠시 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
-                        }
-
-                        override fun onResponse(call: Call<UserModel>, response: Response<UserModel>) {
-                            val bundle = Bundle()
-                            bundle.putString("nickname", nickname)
-                            val myFragment = MyFragment()
-                            myFragment.arguments = bundle
-                            (activity as NaviActivity).replace(myFragment)
-                        }
-                    })
-                }
+            var nickname = editName.text.toString()
+            updateName(memberId, nickname)
         }
+
+        // 키보드 올라 왔을 때 화면 가리는 것 방지하는 코드
+        keyboardVisibilityUtils = KeyboardVisibilityUtils(requireActivity().window,
+            onShowKeyboard = { keyboardHeight ->
+                modifySV.run {
+                    smoothScrollTo(scrollX, scrollY + keyboardHeight)
+                }
+            })
+
         return view
     }
     @SuppressLint("MissingPermission")
@@ -133,20 +133,14 @@ class ModifyFragment : Fragment() {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == OPEN_GALLERY) {
                 var currentImageUrl = data!!.data
+                val bitmap = MediaStore.Images.Media.getBitmap(activity?.contentResolver, currentImageUrl)
+
                 val fileName = "MEONGNYANG_" + System.currentTimeMillis() + ".png"
-                val inputStream = activity?.contentResolver?.openInputStream(currentImageUrl!!)
-                var file = File.createTempFile("image", fileName)
-                val outStream = FileOutputStream(file)
-                outStream.write(inputStream!!.readBytes())
+
                 try {
                     // 이미지 s3에 올리기
-                    uploadImage(fileName, file)
-                    // 올리고 마이페이지로 돌아가기
-                    val bundle = Bundle()
-                    bundle.putString("userImg", "https://meongnyang.s3.ap-northeast-2.amazonaws.com/person/${fileName}")
-                    val myFragment = MyFragment()
-                    myFragment.arguments = bundle
-                    (activity as NaviActivity).replace(myFragment)
+                    uploadImage(fileName, bitmapToFile(bitmap, fileName))
+                    updateImg(memberId, "https://meongnyang.s3.ap-northeast-2.amazonaws.com/person/${fileName}")
 
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -156,31 +150,6 @@ class ModifyFragment : Fragment() {
                 Log.d("ActivityResult", "something wrong")
             }
         }
-    }
-
-    private fun getRealPathFromURI(contentUri: Uri): String? {
-        if (contentUri.path!!.startsWith("/storage")) {
-            return contentUri.path
-        }
-        val id = DocumentsContract.getDocumentId(contentUri).split(":")[1]
-        val columns = arrayOf(MediaStore.Files.FileColumns.DATA)
-        val selection = MediaStore.Files.FileColumns._ID + " = " + id
-        val cursor: Cursor? = activity?.contentResolver?.query(
-            MediaStore.Files.getContentUri("external"),
-            columns,
-            selection,
-            null,
-            null
-        )
-        try {
-            val columnIndex: Int = cursor!!.getColumnIndex(columns[0])
-            if (cursor!!.moveToFirst()) {
-                return cursor?.getString(columnIndex)
-            }
-        } finally {
-            cursor?.close()
-        }
-        return null
     }
 
     private fun uploadImage(fileName: String, file: File) {
@@ -195,7 +164,7 @@ class ModifyFragment : Fragment() {
         uploadObserver.setTransferListener(object : TransferListener {
             override fun onStateChanged(id: Int, state: TransferState) {
                 if (state == TransferState.COMPLETED) {
-                    //Toast.makeText(this@ModifyFragment, "업로드 완료!", Toast.LENGTH_SHORT).show()
+
                 }
             }
 
@@ -208,6 +177,55 @@ class ModifyFragment : Fragment() {
                 Log.d("MYTAG", "UPLOAD ERROR - - ID: $id - - EX: ${ex.message.toString()}")
             }
         })
+    }
 
+    private fun updateImg(memberId: Int, img: String) {
+        val retrofit = RetrofitApi.create()
+        retrofit.updateProfile(memberId, Img(img)).enqueue(object : Callback<UserModel> {
+            override fun onFailure(call: Call<UserModel>, t: Throwable) {
+                Toast.makeText(context, "변경 실패, 잠시 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(call: Call<UserModel>, response: Response<UserModel>) {
+                // 올리고 마이페이지로 돌아가기
+                val bundle = Bundle()
+                bundle.putString("userImg", img)
+                val myFragment = MyFragment()
+                myFragment.arguments = bundle
+                (activity as NaviActivity).replace(myFragment)
+            }
+        })
+    }
+
+    private fun updateName(memberId: Int, nickname: String) {
+        val retrofit = RetrofitApi.create()
+        retrofit.updateNickname(memberId, Nickname(nickname)).enqueue(object : Callback<UserModel> {
+            override fun onFailure(call: Call<UserModel>, t: Throwable) {
+                Toast.makeText(context, "변경 실패, 잠시 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(call: Call<UserModel>, response: Response<UserModel>) {
+                val bundle = Bundle()
+                bundle.putString("nickname", nickname)
+                val myFragment = MyFragment()
+                myFragment.arguments = bundle
+                (activity as NaviActivity).replace(myFragment)
+            }
+        })
+    }
+
+    private fun bitmapToFile(bitmap: Bitmap, fileName: String): File {
+        //var file = File(path)
+        var file =  File.createTempFile("image", fileName)
+        var out: OutputStream? = null
+
+        try {
+            file.createNewFile()
+            out = FileOutputStream(file)
+            bitmap.compress(Bitmap.CompressFormat.PNG, 70, out)
+        } finally {
+            out?.close()
+        }
+        return file
     }
 }

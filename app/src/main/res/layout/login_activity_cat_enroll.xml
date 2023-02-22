@@ -50,7 +50,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/circle_iv"
+                    android:id="@+id/pet_img"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center"
@@ -79,7 +79,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/textView28"
-                    app:layout_constraintTop_toBottomOf="@+id/circle_iv" />
+                    app:layout_constraintTop_toBottomOf="@+id/pet_img" />
 
                 <Button
                     android:id="@+id/adoptDay"
@@ -247,7 +247,7 @@
                     android:textColor="#000000"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/circle_iv" />
+                    app:layout_constraintTop_toBottomOf="@+id/pet_img" />
 
                 <CheckBox
                     android:id="@+id/neuterCheck"

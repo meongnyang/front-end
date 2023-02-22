@@ -12,6 +12,12 @@ import retrofit2.http.*
 
 interface RetrofitApi {
     // 회원 API
+
+    @GET("members/findId")
+    fun findId(
+        @Query("email") email: Email
+    ): Call<MemberId>
+
     @POST("members")
     fun userSignUp(
         @Body postUser: PostUser
@@ -26,6 +32,12 @@ interface RetrofitApi {
     fun updateNickname(
         @Path("memberId") memberId: Int,
         @Body nickname: Nickname
+    ): Call<UserModel>
+
+    @PATCH("members/updatePhoto/{memberId}")
+    fun updateProfile(
+        @Path("memberId") memberId: Int,
+        @Body img: Img
     ): Call<UserModel>
 
     // 건강기록부 API
