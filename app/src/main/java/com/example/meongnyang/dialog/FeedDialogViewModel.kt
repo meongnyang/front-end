@@ -1,4 +1,4 @@
-package com.example.meongnyang.Dialog
+package com.example.meongnyang.dialog
 
 import androidx.lifecycle.ViewModel
 

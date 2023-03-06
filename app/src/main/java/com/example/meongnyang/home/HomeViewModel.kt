@@ -2,8 +2,8 @@ package com.example.meongnyang.home
 
 import android.util.Log
 import androidx.lifecycle.*
-import com.example.meongnyang.Dialog.ProgressDialog
 import com.example.meongnyang.api.RetrofitApi
+import com.example.meongnyang.model.GetPosts
 import com.example.meongnyang.model.Id
 import com.example.meongnyang.model.PetModel
 import com.google.firebase.auth.FirebaseAuth
@@ -24,6 +24,8 @@ class HomeViewModel: ViewModel() {
     val name : MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val strType : MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val count : MutableLiveData<String> by lazy { MutableLiveData<String>() }
+    val popularDog : MutableLiveData<String> by lazy { MutableLiveData<String>() }
+    val popularCat : MutableLiveData<String> by lazy { MutableLiveData<String>() }
 
     init {
         viewModelScope.launch {
@@ -43,6 +45,25 @@ class HomeViewModel: ViewModel() {
                         }
                     })
                 }
+            retrofit.getPopularPost(1).enqueue(object : Callback<GetPosts> {
+                override fun onFailure(call: Call<GetPosts>, t: Throwable) {
+
+                }
+
+                override fun onResponse(call: Call<GetPosts>, response: Response<GetPosts>) {
+                    popularDog.value = response.body()!!.img
+                }
+            })
+
+            retrofit.getPopularPost(2).enqueue(object : Callback<GetPosts> {
+                override fun onFailure(call: Call<GetPosts>, t: Throwable) {
+
+                }
+
+                override fun onResponse(call: Call<GetPosts>, response: Response<GetPosts>) {
+                    popularCat.value = response.body()!!.img
+                }
+            })
         }
     }
 

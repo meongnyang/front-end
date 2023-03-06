@@ -4,6 +4,7 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import androidx.databinding.BindingAdapter
+import com.example.meongnyang.R
 
 object BindingAdapter {
     @BindingAdapter("imageFromUrl")

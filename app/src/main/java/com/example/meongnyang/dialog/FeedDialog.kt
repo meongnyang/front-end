@@ -1,4 +1,4 @@
-package com.example.meongnyang.Dialog
+package com.example.meongnyang.dialog
 
 import android.app.Dialog
 import android.content.Context

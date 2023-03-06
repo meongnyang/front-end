@@ -93,6 +93,13 @@ interface RetrofitApi {
     fun getPost(
         @Path("postId") postId: Int
     ): Call<GetPosts>
+
+    // 인기 아가들
+    @GET("posts/popular/{type}")
+    fun getPopularPost(
+        @Path("type") type: Int
+    ): Call<GetPosts>
+
     // 댓글 보기
     @GET("comments/{postId}")
     fun getComments(

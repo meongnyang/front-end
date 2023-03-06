@@ -10,7 +10,6 @@ object PostBindingAdapter {
     @JvmStatic fun loadImage(view: ImageView, imageUrl: String?) {
         Glide.with(view.context)
             .load(imageUrl)
-            .transition(DrawableTransitionOptions.withCrossFade())
             .into(view)
     }
 }

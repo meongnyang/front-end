@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.example.meongnyang.Dialog.ProgressDialog
 import com.example.meongnyang.NaviActivity
 import com.example.meongnyang.R
 import com.example.meongnyang.community.CommuFragment
