@@ -36,7 +36,7 @@ class MapActivity : AppCompatActivity() {
 
     companion object {
         const val BASE_URL = "https://dapi.kakao.com/"
-        const val API_KEY = "KakaoAK 048598205d508fada0864a9cff58740f" // REST API 키
+        const val API_KEY = R.string.rest_api // REST API 키
     }
 
     private lateinit var binding: MapActivityHosBinding
@@ -151,7 +151,7 @@ class MapActivity : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val api = retrofit.create(KakaoAPI::class.java)
-        val call = api.getSearchLocationDetail(API_KEY, keyword, X.toString(), Y.toString(), size) // 검색 조건 입력
+        val call = api.getSearchLocationDetail(getString(API_KEY), keyword, X.toString(), Y.toString(), size) // 검색 조건 입력
 
         // API 서버에 요청하기
         call.enqueue(object : Callback<ResultSearchKeyword> {

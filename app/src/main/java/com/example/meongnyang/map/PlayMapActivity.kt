@@ -33,11 +33,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 class PlayMapActivity : AppCompatActivity() {
     private lateinit var playList: ArrayList<Place>
 
-    companion object {
-        const val BASE_URL = "https://dapi.kakao.com/"
-        const val API_KEY = "KakaoAK 048598205d508fada0864a9cff58740f" // REST API 키
-    }
-
     private lateinit var binding: MapActivityPlayBinding
     private val listItems = arrayListOf<MapList>() // 리사이클러뷰 아이템
     private val mapListAdapter = MapListAdapter(listItems)
@@ -51,7 +46,9 @@ class PlayMapActivity : AppCompatActivity() {
         playList = arrayListOf()
 
         // 권한
-        requestPermission()
+        requestPermission {
+
+        }
 
         val mapView = MapView(this@PlayMapActivity)
         val mapViewContainer = findViewById<View>(R.id.map_view) as ViewGroup
@@ -75,12 +72,12 @@ class PlayMapActivity : AppCompatActivity() {
 
     // 위치 권한 받기 및 표시
     @SuppressLint("MissingPermission")
-    private fun requestPermission() {
+    private fun requestPermission(logic: () -> Unit) {
         TedPermission.create()
             .setPermissionListener(object : PermissionListener {
                 // 권한이 허용되었을 때
                 override fun onPermissionGranted() {
-
+                    logic()
                 }
                 // 권한이 거부됐을 때
                 override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
@@ -89,8 +86,6 @@ class PlayMapActivity : AppCompatActivity() {
             })
             .setRationaleMessage("위치 정보 제공이 필요한 서비스입니다.")
             .setDeniedMessage("위치 권한을 허용해 주세요! [설정] > [앱 및 알림] > [고급] > [앱 권한]")
-            .setDeniedCloseButtonText("닫기")
-            .setGotoSettingButtonText("설정")
             .setPermissions(
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -143,7 +138,7 @@ class PlayMapActivity : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val api = retrofit.create(KakaoAPI::class.java)
-        val call = api.getSearchLocationDetail(MapActivity.API_KEY, keyword, X.toString(), Y.toString(), size) // 검색 조건 입력
+        val call = api.getSearchLocationDetail(getString(MapActivity.API_KEY), keyword, X.toString(), Y.toString(), size) // 검색 조건 입력
 
         // API 서버에 요청하기
         call.enqueue(object : Callback<ResultSearchKeyword> {
