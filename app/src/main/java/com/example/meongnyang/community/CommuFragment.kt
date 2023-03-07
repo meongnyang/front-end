@@ -8,18 +8,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.meongnyang.NaviActivity
 import com.example.meongnyang.R
 import com.example.meongnyang.api.RetrofitApi
 import com.example.meongnyang.databinding.CommuFragmentMainBinding
 import com.example.meongnyang.model.*
-import net.daum.mf.map.api.MapPoint
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.http.POST
 
 class CommuFragment : Fragment() {
     // dataBinding
@@ -62,7 +59,7 @@ class CommuFragment : Fragment() {
 
                     override fun onResponse(call: Call<PostId>, response: Response<PostId>) {
                         val postId = response.body()!!.postId
-                        val intent = Intent(context, PostActivity::class.java)
+                        val intent = Intent(context, CommentActivity::class.java)
                         intent.putExtra("postId", postId)
                         startActivity(intent)
                     }

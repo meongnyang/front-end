@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".community.PostActivity">
+    tools:context=".community.CommentActivity">
 
     <FrameLayout
         android:id="@+id/commentFrameLayout"
@@ -38,8 +38,8 @@
 
         <Button
             android:id="@+id/button"
-            android:layout_width="99dp"
-            android:layout_height="56dp"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"
             android:layout_marginBottom="6dp"

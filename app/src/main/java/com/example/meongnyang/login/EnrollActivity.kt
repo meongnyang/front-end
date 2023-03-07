@@ -31,25 +31,16 @@ import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility
 import com.amazonaws.regions.Region
 import com.amazonaws.regions.Regions
 import com.amazonaws.services.s3.AmazonS3Client
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.example.meongnyang.community.DB.DBManager
 import com.example.meongnyang.NaviActivity
 import com.example.meongnyang.R
 import com.example.meongnyang.api.RetrofitApi
 import com.example.meongnyang.databinding.LoginActivityEnrollBinding
 import com.example.meongnyang.model.*
-import com.example.meongnyang.mypage.MyFragment
-import com.example.meongnyang.skin.ResultActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.UserInfo
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
-import org.pytorch.IValue
-import org.pytorch.LiteModuleLoader
-import org.pytorch.torchvision.TensorImageUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -62,6 +53,7 @@ class EnrollActivity : AppCompatActivity() {
     var fbFirestore = FirebaseFirestore.getInstance()
     val uid = fbAuth.uid.toString()
     var memberId = 0
+    var conimalId = 0
     var birthString = ""
     var adoptString = ""
     var birth = ""
@@ -154,17 +146,16 @@ class EnrollActivity : AppCompatActivity() {
         val typeIntent = intent
 
         // 견묘/멤버아이디 받아오기
-        var type = typeIntent.getIntExtra("type", 0)
         var member = typeIntent.getIntExtra("memberId", 0)
 
         // 저장 버튼 클릭 시 반려동물 정보 저장
         binding.enrollBtn.setOnClickListener {
             name = binding.nameEdit.text.toString()
 
-            val pet = Pet(type, name, gender, neutering, birth, adopt, species)
+            val pet = Pet(1, name, gender, neutering, birth, adopt, species)
             retrofit.enrollPet(member, pet).enqueue(object: Callback<PetModel> {
                 override fun onResponse(call: Call<PetModel>, response: Response<PetModel>) {
-                    var conimalId = response.body()!!.conimalId
+                    conimalId = response.body()!!.conimalId
                     var memberId = typeIntent.getIntExtra("memberId", 0)
 
                     // firebase에 memberid, conimalid 저장
@@ -233,7 +224,9 @@ class EnrollActivity : AppCompatActivity() {
                 try {
                     // 이미지 s3에 올리기
                     uploadImage(fileName, bitmapToFile(bitmap, fileName))
-                    updateImg(memberId, "https://meongnyang.s3.ap-northeast-2.amazonaws.com/conimal/${fileName}")
+                    // 화면상에 띄우기
+                    binding.petImg.setImageBitmap(bitmap)
+                    updateImg(conimalId, "https://meongnyang.s3.ap-northeast-2.amazonaws.com/conimal/${fileName}")
 
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -285,20 +278,15 @@ class EnrollActivity : AppCompatActivity() {
         return file
     }
 
-    private fun updateImg(memberId: Int, img: String) {
+    private fun updateImg(conimalId: Int, img: String) {
         val retrofit = RetrofitApi.create()
-        retrofit.updateProfile(memberId, Img(img)).enqueue(object : Callback<UserModel> {
+        retrofit.updateProfile(conimalId, Img(img)).enqueue(object : Callback<UserModel> {
             override fun onFailure(call: Call<UserModel>, t: Throwable) {
                 Toast.makeText(this@EnrollActivity, "변경 실패, 잠시 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
             }
 
             override fun onResponse(call: Call<UserModel>, response: Response<UserModel>) {
-                Glide.with(binding.petImg.context)
-                    .load(img)
-                    .placeholder(R.drawable.ic_profile)
-                    .circleCrop()
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(binding.petImg)
+
             }
         })
     }

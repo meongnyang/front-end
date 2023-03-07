@@ -13,7 +13,6 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import com.example.meongnyang.community.DB.DBManager
 import com.example.meongnyang.NaviActivity
 import com.example.meongnyang.R
 import com.example.meongnyang.api.RetrofitApi
@@ -119,7 +118,7 @@ class CatEnrollActivity : AppCompatActivity() {
         binding.enrollBtn.setOnClickListener {
             name = binding.nameEdit.text.toString()
 
-            val pet = Pet(type, name, gender, neutering, birth, adopt, species)
+            val pet = Pet(2, name, gender, neutering, birth, adopt, species)
             retrofit.enrollPet(member, pet).enqueue(object: Callback<PetModel> {
                 override fun onResponse(call: Call<PetModel>, response: Response<PetModel>) {
                     var conimalId = response.body()!!.conimalId

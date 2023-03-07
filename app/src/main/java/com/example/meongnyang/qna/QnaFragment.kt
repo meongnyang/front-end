@@ -12,16 +12,10 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.meongnyang.NaviActivity
 import com.example.meongnyang.R
 import com.example.meongnyang.api.RetrofitApi
-import com.example.meongnyang.community.CommentListAdpater
-import com.example.meongnyang.community.PostActivity
-import com.example.meongnyang.community.PostFragment
-import com.example.meongnyang.community.PostListAdapter
 import com.example.meongnyang.databinding.QnaFragmentMainBinding
 import com.example.meongnyang.model.*
-import com.example.meongnyang.mypage.KeyboardVisibilityUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

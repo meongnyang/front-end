@@ -95,9 +95,9 @@ interface RetrofitApi {
     ): Call<GetPosts>
 
     // 인기 아가들
-    @GET("posts/popular/{type}")
+    @GET("posts/popular/{typeId}")
     fun getPopularPost(
-        @Path("type") type: Int
+        @Path("typeId") typeId: Int
     ): Call<GetPosts>
 
     // 댓글 보기
@@ -113,6 +113,15 @@ interface RetrofitApi {
         @Path("postId") postId: Int,
         @Body comments: String
     ): Call<Comment>
+
+    // 대댓글 작성하기
+    @POST("comments/{memberId}/{postId}/{commentId}")
+    fun reWriteComment(
+        @Path("memberId") memberId: Int,
+        @Path("postId") postId: Int,
+        @Path("commentId") commentId: Int,
+        @Body comments: String
+    )
 
     // 좋아요 기능
     @POST("likes/{memberId}/{postId}")

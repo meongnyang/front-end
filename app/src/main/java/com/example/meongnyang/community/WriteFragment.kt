@@ -47,8 +47,8 @@ import java.io.OutputStream
 class WriteFragment : Fragment() {
     private lateinit var binding: CommuFragmentWriteBinding
     private lateinit var bitmap: Bitmap
+    private lateinit var data: PostModel
     var type = 0
-
     var fbAuth = FirebaseAuth.getInstance()
     var fbFirestore = FirebaseFirestore.getInstance()
     val uid = fbAuth.uid.toString()
@@ -98,27 +98,25 @@ class WriteFragment : Fragment() {
                     retrofit.getPet(id.conimalId!!).enqueue(object: Callback<PetModel> {
                         override fun onResponse(call: Call<PetModel>, response: Response<PetModel>) {
                             type = response.body()!!.type
+                            data = PostModel(category, type, title, contents, img)
+
+                            retrofit.createPost(data, id.memberId!!).enqueue(object: Callback<GetPosts> {
+                                override fun onResponse(call: Call<GetPosts>, response: Response<GetPosts>) {
+                                    if (!response.body().toString().isEmpty()) {
+                                        Log.d("result", response.body().toString())
+                                    }
+                                }
+                                override fun onFailure(call: Call<GetPosts>, t: Throwable) {
+                                    Log.d("error", "fail")
+                                    Log.d("error", t.message.toString())
+                                }
+                            })
                         }
 
                         override fun onFailure(call: Call<PetModel>, t: Throwable) {
                             TODO("Not yet implemented")
                         }
                     })
-
-                    val data = PostModel(category, type, title, contents, img)
-
-                    retrofit.createPost(data, id.memberId!!).enqueue(object: Callback<GetPosts> {
-                        override fun onResponse(call: Call<GetPosts>, response: Response<GetPosts>) {
-                            if (!response.body().toString().isEmpty()) {
-                                Log.d("result", response.body().toString())
-                            }
-                        }
-                        override fun onFailure(call: Call<GetPosts>, t: Throwable) {
-                            Log.d("error", "fail")
-                            Log.d("error", t.message.toString())
-                        }
-                    })
-
                     (activity as NaviActivity).replace(CommuFragment())
                 }
 

@@ -26,6 +26,8 @@ class HomeViewModel: ViewModel() {
     val count : MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val popularDog : MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val popularCat : MutableLiveData<String> by lazy { MutableLiveData<String>() }
+    val popularDogCnt: MutableLiveData<String> by lazy { MutableLiveData<String>() }
+    val popularCatCnt: MutableLiveData<String> by lazy { MutableLiveData<String>() }
 
     init {
         viewModelScope.launch {
@@ -51,17 +53,29 @@ class HomeViewModel: ViewModel() {
                 }
 
                 override fun onResponse(call: Call<GetPosts>, response: Response<GetPosts>) {
-                    popularDog.value = response.body()!!.img
+                    if (response.body() != null) {
+                        popularDog.value = response.body()!!.img
+                        popularDogCnt.value = response.body()!!.count.toString()
+                    } else {
+                        popularDog.value = ""
+                        popularDogCnt.value = "0"
+                    }
                 }
             })
 
             retrofit.getPopularPost(2).enqueue(object : Callback<GetPosts> {
                 override fun onFailure(call: Call<GetPosts>, t: Throwable) {
-
+                    popularCat.value = ""
                 }
 
                 override fun onResponse(call: Call<GetPosts>, response: Response<GetPosts>) {
-                    popularCat.value = response.body()!!.img
+                    if (response.body() != null) {
+                        popularCat.value = response.body()!!.img
+                        popularCatCnt.value = response.body()!!.count.toString()
+                    } else {
+                        popularCat.value = ""
+                        popularCatCnt.value = "0"
+                    }
                 }
             })
         }

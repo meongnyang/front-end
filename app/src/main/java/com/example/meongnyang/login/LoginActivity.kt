@@ -161,31 +161,25 @@ class LoginActivity : AppCompatActivity() {
         auth?.signInWithCredential(credential)?.addOnCompleteListener{
                 task ->
             if (task.isSuccessful) {
-                /*val retrofit = RetrofitApi.create()
+                val retrofit = RetrofitApi.create()
                 retrofit.findId(Email(account?.email!!)).enqueue(object : Callback<MemberId> {
                     override fun onFailure(call: Call<MemberId>, t: Throwable) {
 
                     }
 
                     override fun onResponse(call: Call<MemberId>, response: Response<MemberId>) {
-                        Log.d("email", response.body().toString())
                         if (response.body() != null) {
                             var intent = Intent(this@LoginActivity, NaviActivity::class.java)
                             startActivity(intent)
                         } else {
-                            // 로그인 처리
+                            // 회원가입 시키기
                             Toast.makeText(this@LoginActivity, "멍냥백서 가입 성공!", Toast.LENGTH_LONG).show()
                             var intent = Intent(this@LoginActivity, NicknameActivity::class.java)
                             intent.putExtra("email", account?.email)
                             startActivity(intent)
                         }
                     }
-                })*/
-                // 로그인 처리
-                Toast.makeText(this@LoginActivity, "멍냥백서 가입 성공!", Toast.LENGTH_LONG).show()
-                var intent = Intent(this@LoginActivity, NicknameActivity::class.java)
-                intent.putExtra("email", account?.email)
-                startActivity(intent)
+                })
 
             } else {
                 // 오류

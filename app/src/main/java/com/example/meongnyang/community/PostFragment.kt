@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.meongnyang.NaviActivity
 import com.example.meongnyang.R
 import com.example.meongnyang.api.RetrofitApi
 import com.example.meongnyang.databinding.CommuFragmentPostBinding
@@ -63,8 +62,15 @@ class PostFragment : Fragment() {
             viewModelFactory).get(PostViewModel::class.java)
 
 
+        // 댓글 달기
         if (bundle!!.getString("contents") != null) {
             var comment = bundle!!.getString("contents")
+            writeComment(postId, comment!!)
+        } else showComment(postId)
+
+        // 대댓글 달기
+        if (bundle!!.getString("reContents") != null) {
+            var comment = bundle!!.getString("reContents")
             writeComment(postId, comment!!)
         } else showComment(postId)
 
@@ -134,13 +140,17 @@ class PostFragment : Fragment() {
             }
     }
 
+    private fun reWriteComment(postId: Int, comment: String) {
+
+    }
+
     private fun updateCount(postId: Int) {
         fbFirestore!!.collection("users").document(uid).get()
             .addOnSuccessListener { documentsSnapshot ->
                 var id = documentsSnapshot.toObject<Id>()!!
                 retrofit.updateLikes(id.memberId!!, postId).enqueue(object : Callback<Count> {
                     override fun onResponse(call: Call<Count>, response: Response<Count>) {
-                        (activity as PostActivity).sendId(postId)
+                        (activity as CommentActivity).sendId(postId)
                     }
 
                     override fun onFailure(call: Call<Count>, t: Throwable) {
