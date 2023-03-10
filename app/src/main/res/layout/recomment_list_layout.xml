@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imageView23"
+                    android:layout_width="380dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginEnd="36dp"
+                    android:layout_marginBottom="8dp"
+                    android:src="@drawable/ic_comment_line"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/list_comment"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/list_comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="7dp"
+                    android:fontFamily="@font/gothic"
+                    android:gravity="center"
+                    android:text="댓글입니다"
+                    android:textColor="#252525"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toEndOf="@+id/imageView4"
+                    app:layout_constraintTop_toBottomOf="@+id/username" />
+
+                <TextView
+                    android:id="@+id/username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/gothic"
+                    android:text="닉네임"
+                    android:textColor="#000000"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/imageView4"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="3dp"
+                    app:layout_constraintBottom_toTopOf="@+id/imageView23"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.325"
+                    app:srcCompat="@drawable/ic_recomment" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

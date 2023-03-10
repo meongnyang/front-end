@@ -20,21 +20,6 @@
             android:layout_height="wrap_content"
             tools:context=".community.PostFragment">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/circle_iv2"
-                android:layout_width="42dp"
-                android:layout_height="42dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="51dp"
-                android:layout_marginEnd="353dp"
-                android:src="@drawable/ic_profile"
-                app:civ_border_overlay="true"
-                app:civ_border_width="2dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView21" />
-
             <ImageView
                 android:id="@+id/imageView21"
                 android:layout_width="wrap_content"
@@ -64,49 +49,43 @@
                 android:id="@+id/writer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="56dp"
-                android:layout_marginEnd="268dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="60dp"
                 android:fontFamily="@font/gothic"
                 android:text="@{post.writer}"
                 android:textColor="#000000"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/circle_iv2"
+                app:layout_constraintStart_toEndOf="@+id/profile_img"
                 app:layout_constraintTop_toBottomOf="@+id/imageView21" />
 
             <TextView
                 android:id="@+id/postDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="15dp"
                 android:layout_marginTop="4dp"
-                android:layout_marginEnd="284dp"
                 android:fontFamily="@font/gothic"
                 android:text="@{post.date}"
                 android:textColor="#606060"
                 android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/circle_iv2"
+                app:layout_constraintStart_toEndOf="@+id/profile_img"
                 app:layout_constraintTop_toBottomOf="@+id/writer" />
 
             <LinearLayout
                 android:id="@+id/linearLayout"
-                android:layout_width="414dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="27dp"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.666"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/circle_iv2">
+                app:layout_constraintTop_toBottomOf="@+id/postDate">
 
                 <TextView
                     android:id="@+id/viewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="17dp"
                     android:fontFamily="@font/gothic"
                     android:text="@{post.title}"
                     android:textColor="#000000"
@@ -119,7 +98,7 @@
                 android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -129,7 +108,7 @@
                     android:id="@+id/viewContent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="17dp"
                     android:fontFamily="@font/gothic"
                     android:text="@{post.contents}"
                     android:textColor="#000000"
@@ -140,7 +119,7 @@
                 android:id="@+id/imgLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="5dp"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -151,8 +130,8 @@
                     android:layout_width="200dp"
                     android:layout_height="200dp"
                     android:layout_gravity="start"
-                    android:layout_marginLeft="30dp"
-                    app:postImgFromUrl="@{post.img}"/>
+                    android:layout_marginLeft="17dp"
+                    app:postImgFromUrl="@{post.img}" />
             </LinearLayout>
 
             <LinearLayout
@@ -184,14 +163,14 @@
                         android:id="@+id/likeCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:layout_marginTop="30dp"
-                        android:layout_marginEnd="302dp"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginBottom="10dp"
                         android:fontFamily="@font/gothic"
                         android:text="@{post.like}"
                         android:textColor="#202020"
-                        android:textSize="16sp"
-                        app:layout_constraintEnd_toStartOf="@+id/likeBtn"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/imageView24"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -214,14 +193,24 @@
                 android:id="@+id/commentView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/likeLayout"
                 tools:ignore="MissingConstraints"
                 tools:listitem="@layout/comment_list_layout">
-                <!--items="@{post.commentList}"-->
 
             </androidx.recyclerview.widget.RecyclerView>
+
+            <ImageView
+                android:id="@+id/profile_img"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="56dp"
+                app:imageFromUrl="@{post.userImg}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView21" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

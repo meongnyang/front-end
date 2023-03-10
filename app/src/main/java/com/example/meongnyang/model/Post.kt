@@ -32,14 +32,29 @@ data class Comment(
     val commentId: Int,
     val contents: String,
     val memberId: Int,
+    val parentId: Int,
     val postId: Int,
-    val nickname: String
+    val nickname: String,
+    val commentList: ArrayList<reCommentModel>,
+    val reComment: Boolean
 )
 
 data class CommentModel(
     val nickname: String,
     val contents: String
-    //val profile: String
+)
+
+data class reCommentModel(
+    val id: Int,
+    val nickname: String,
+    val contents: String,
+    val reComment: Boolean
+)
+
+data class AllComment(
+    val nickname: String,
+    val contents: String,
+    val commentList: ArrayList<reCommentModel>
 )
 
 data class Count (
@@ -53,3 +68,11 @@ data class Title (
 data class PostId (
     val postId: Int
     )
+
+data class CommentId (
+    val commentId: Int
+        )
+
+data class Contents (
+    val contents: String
+        )

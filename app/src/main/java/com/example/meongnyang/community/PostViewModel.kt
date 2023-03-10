@@ -29,6 +29,7 @@ class PostViewModel(postId: Int) : ViewModel() {
     val date : MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val writer: MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val img: MutableLiveData<String> by lazy { MutableLiveData<String>() }
+    val userImg: MutableLiveData<String> by lazy { MutableLiveData<String>() }
 
     init {
         viewModelScope.launch {
@@ -40,6 +41,15 @@ class PostViewModel(postId: Int) : ViewModel() {
                     date.value = response.body()!!.date
                     writer.value = response.body()!!.nickname
                     img.value = response.body()!!.img
+                    retrofit.getMember(response.body()!!.memberId).enqueue(object : Callback<allPet> {
+                        override fun onResponse(call: Call<allPet>, response: Response<allPet>) {
+                            userImg.value = response.body()!!.memberImg
+                        }
+
+                        override fun onFailure(call: Call<allPet>, t: Throwable) {
+
+                        }
+                    })
                 }
 
                 override fun onFailure(call: Call<GetPosts>, t: Throwable) {

@@ -3,6 +3,7 @@ package com.example.meongnyang.community
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import com.example.meongnyang.R
 import com.example.meongnyang.databinding.CommuActivityCommentBinding
 
@@ -21,8 +22,13 @@ class CommentActivity : AppCompatActivity() {
 
         binding.button.setOnClickListener {
             var comment = binding.contentsEdit.text.toString()
-            binding.contentsEdit.text = null
-            sendContent(postId, comment)
+            if (comment == "") {
+                Toast.makeText(this, "내용을 입력해 주세요!", Toast.LENGTH_SHORT).show()
+            } else {
+                binding.contentsEdit.text = null
+                Log.d("comment", comment)
+                sendContent(postId, comment)
+            }
         }
     }
     fun sendId(postId: Int) {

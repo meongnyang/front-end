@@ -106,22 +106,28 @@ interface RetrofitApi {
         @Path("postId") postId: Int
     ): Call<List<Comment>>
 
+    // commentId 반환
+    @POST("comments/findId")
+    fun getCommentId(
+        @Body contents: Contents
+    ): Call<CommentId>
+
     // 댓글 작성하기
     @POST("comments/{memberId}/{postId}")
     fun writeComment(
         @Path("memberId") memberId: Int,
         @Path("postId") postId: Int,
-        @Body comments: String
+        @Body contents: String
     ): Call<Comment>
 
     // 대댓글 작성하기
-    @POST("comments/{memberId}/{postId}/{commentId}")
+    @POST("comments/{memberId}/{commentId}/{postId}")
     fun reWriteComment(
         @Path("memberId") memberId: Int,
-        @Path("postId") postId: Int,
         @Path("commentId") commentId: Int,
-        @Body comments: String
-    )
+        @Path("postId") postId: Int,
+        @Body contents: String
+    ): Call<Comment>
 
     // 좋아요 기능
     @POST("likes/{memberId}/{postId}")

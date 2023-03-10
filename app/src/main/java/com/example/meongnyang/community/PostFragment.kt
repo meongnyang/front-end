@@ -1,5 +1,6 @@
 package com.example.meongnyang.community
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -29,7 +30,7 @@ class PostFragment : Fragment() {
     private lateinit var viewModelFactory: PostViewModelFactory
 
     private lateinit var commentList: ArrayList<Comment> // 댓글들 담을 배열
-    private val listItems = arrayListOf<CommentModel>() // 리사이클러뷰 아이템
+    private val listItems = arrayListOf<AllComment>() // 리사이클러뷰 아이템
     private val commentListAdapter = CommentListAdpater(listItems) // adapter
 
     var fbAuth = FirebaseAuth.getInstance()
@@ -54,6 +55,7 @@ class PostFragment : Fragment() {
 
         val bundle = arguments
         postId = bundle!!.getInt("postId")
+        Log.d("comments: postId", postId.toString())
 
         commentList = arrayListOf()
 
@@ -69,9 +71,13 @@ class PostFragment : Fragment() {
         } else showComment(postId)
 
         // 대댓글 달기
-        if (bundle!!.getString("reContents") != null) {
+        if (bundle!!.getString("reContents") != null && bundle!!.getInt("commentId") != null) {
             var comment = bundle!!.getString("reContents")
-            writeComment(postId, comment!!)
+            Log.d("comments: comment", comment.toString())
+            var commentId = bundle!!.getInt("commentId")
+            Log.d("comments: commentId", commentId.toString())
+            Log.d("comments: postId", postId.toString())
+            writeReComment(commentId, postId, comment!!)
         } else showComment(postId)
 
         binding.likeBtn.setOnClickListener {
@@ -79,12 +85,33 @@ class PostFragment : Fragment() {
             Toast.makeText(context, "좋아요 완료!", Toast.LENGTH_SHORT).show()
         }
 
+        // 댓글 클릭했을 때 대댓글 작성하는 화면으로
+        commentListAdapter.setItemClickListener(object : CommentListAdpater.OnItemClickListener {
+            override fun onClick(v: View, position: Int) {
+                var contents = listItems[position].contents
+                Log.d("comments", contents)
+                retrofit.getCommentId(Contents(contents)).enqueue(object : Callback<CommentId> {
+                    override fun onFailure(call: Call<CommentId>, t: Throwable) {
+
+                    }
+
+                    override fun onResponse(call: Call<CommentId>, response: Response<CommentId>) {
+                        var commentId = response.body()!!.commentId
+                        Log.d("comments", commentId.toString())
+                        val intent = Intent(context, RecommentActivity::class.java)
+                        intent.putExtra("commentId", commentId)
+                        intent.putExtra("postId", postId)
+                        Log.d("comments", postId.toString())
+                        startActivity(intent)
+                    }
+                })
+            }
+        })
 
         binding.apply {
             post = viewModel
             lifecycleOwner = this@PostFragment
         }
-
 
         // 키보드 올라 왔을 때 화면 가리는 것 방지하는 코드
         keyboardVisibilityUtils = KeyboardVisibilityUtils(requireActivity().window,
@@ -108,9 +135,8 @@ class PostFragment : Fragment() {
                     commentList.clear()
                     commentList.addAll(response.body()!!)
                     listItems.clear()
-                    for (document in response.body()!!) {
-                        val item = CommentModel(document.nickname,
-                        document.contents)
+                    for (document in commentList) {
+                        val item = AllComment(document.nickname, document.contents, document.commentList)
                         listItems.add(item)
                     }
                     commentListAdapter.notifyDataSetChanged()
@@ -140,8 +166,24 @@ class PostFragment : Fragment() {
             }
     }
 
-    private fun reWriteComment(postId: Int, comment: String) {
+    private fun writeReComment(commentId: Int, postId: Int, comment: String) {
+        fbFirestore!!.collection("users").document(uid).get()
+            .addOnSuccessListener { documentsSnapshot ->
+                var id = documentsSnapshot.toObject<Id>()!!
 
+                retrofit.reWriteComment(id.memberId!!, commentId, postId, comment).enqueue(object : Callback<Comment> {
+                    override fun onResponse(call: Call<Comment>, response: Response<Comment>) {
+                        Toast.makeText(context, "댓글 작성 완료!", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(context, CommentActivity::class.java)
+                        intent.putExtra("postId", postId)
+                        startActivity(intent)
+                    }
+
+                    override fun onFailure(call: Call<Comment>, t: Throwable) {
+                        Toast.makeText(context, "작성 실패, 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
+                    }
+                })
+            }
     }
 
     private fun updateCount(postId: Int) {

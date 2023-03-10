@@ -30,34 +30,42 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".RecommentActivity"
-            android:exported="false" />
+            android:name=".community.RecommentActivity"
+            android:exported="false"
+            android:noHistory="true"/>
         <activity
             android:name=".login.CatEnrollActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true" />
         <activity
             android:name=".qna.QnaPostActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true" />
         <activity
             android:name=".community.CommentActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true" />
         <activity
             android:name=".NaviActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".login.TypeActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true" />
         <activity
             android:name=".login.EnrollActivity"
             android:exported="false"
-            android:theme="@style/MyDatePickerStyle" />
+            android:theme="@style/MyDatePickerStyle"
+            android:noHistory="true" />
         <activity
             android:name=".login.NicknameActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true" />
         <activity
             android:name=".login.LoginActivity"
-            android:exported="true">
+            android:exported="true"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -80,26 +88,33 @@
         </activity>
         <activity
             android:name=".skin.ResultActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true" />
         <activity
             android:name=".skin.SkinMainActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true" />
         <activity
             android:name=".mypage.ChoiceActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true" />
         <activity
             android:name=".mypage.AddActivity"
             android:exported="false"
-            android:theme="@style/MyDatePickerStyle" />
+            android:theme="@style/MyDatePickerStyle"
+            android:noHistory="true" />
         <activity
             android:name=".map.PlayMapActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true" />
         <activity
             android:name=".map.MapActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true" />
         <activity
             android:name=".skin.CameraActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true" />
 
         <service
             android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService"

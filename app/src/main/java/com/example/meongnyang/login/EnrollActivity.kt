@@ -71,11 +71,11 @@ class EnrollActivity : AppCompatActivity() {
 
         val retrofit = RetrofitApi.create()
 
-        fbFirestore!!.collection("users").document(uid).get()
+        /*fbFirestore!!.collection("users").document(uid).get()
             .addOnSuccessListener { documentsSnapshot ->
                 var id = documentsSnapshot.toObject<Id>()!!
                 memberId = id.memberId!!
-            }
+            }*/
 
         // 프로필 사진 선택
         binding.petImg.setOnClickListener {

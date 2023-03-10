@@ -10,19 +10,39 @@
         android:id="@+id/commentFrameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/commentLayout"
+        android:layout_above="@id/textLayout"
         android:layout_alignParentEnd="true"
-        app:layout_constraintEnd_toEndOf="@id/commentLayout"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/textLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/commentLayout"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/commentLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/textView25"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#D8D8D8"
+            android:fontFamily="@font/gothic"
+            android:padding="5dp"
+            android:text="대댓글 작성 중..." />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/commentLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/commentFrameLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 

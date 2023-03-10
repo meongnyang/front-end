@@ -9,7 +9,7 @@ import com.example.meongnyang.R
 import com.example.meongnyang.model.Post
 
 class PostListAdapter(val postList: ArrayList<Post>): RecyclerView.Adapter<PostListAdapter.ViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostListAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.commu_list_layout, parent, false)
         return ViewHolder(view)
     }
