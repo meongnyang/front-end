@@ -119,7 +119,7 @@
                 android:id="@+id/imgLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="15dp"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -211,6 +211,45 @@
                 app:imageFromUrl="@{post.userImg}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView21" />
+
+            <TextView
+                android:id="@+id/postDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="204dp"
+                android:fontFamily="@font/gothic"
+                android:text="삭제"
+                android:textSize="10sp"
+                android:visibility="invisible"
+                app:layout_constraintStart_toEndOf="@+id/postEdit2"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/postEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="330dp"
+                android:layout_marginTop="204dp"
+                android:fontFamily="@font/gothic"
+                android:text="수정"
+                android:textSize="10sp"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/postEdit2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="204dp"
+                android:fontFamily="@font/gothic"
+                android:text="|"
+                android:textSize="10sp"
+                android:visibility="invisible"
+                app:layout_constraintStart_toEndOf="@+id/postEdit"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

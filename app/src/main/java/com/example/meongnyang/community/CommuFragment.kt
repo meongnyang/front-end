@@ -39,13 +39,14 @@ class CommuFragment : Fragment() {
 
         postList = arrayListOf()
 
-        // 기본값: 모든 카테고리 보이게
-        binding.allBtn.isSelected = true
-
         binding.postView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.postView.adapter = postListAdapter
-        showAllPost()
 
+        (activity as NaviActivity).refresh(CommuFragment())
+
+        // 기본값: 모든 카테고리 보이게
+        binding.allBtn.isSelected = true
+        showAllPost()
 
         // 리스트 아이템 클릭 시 해당 글 자세히 보기
         postListAdapter.setItemClickListener(object : PostListAdapter.OnItemClickListener {

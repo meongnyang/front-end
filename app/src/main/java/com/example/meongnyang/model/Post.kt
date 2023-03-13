@@ -21,11 +21,11 @@ data class GetPosts(
 )
 
 data class PostModel(
-    val category: Int,
-    val type: Int,
-    val title: String,
-    val contents: String,
-    val img: String
+    val category: Int?,
+    val type: Int?,
+    val title: String?,
+    val contents: String?,
+    val img: String?
 )
 
 data class Comment(

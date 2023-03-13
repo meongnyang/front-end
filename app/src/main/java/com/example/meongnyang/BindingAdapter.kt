@@ -11,9 +11,7 @@ object BindingAdapter {
     @JvmStatic fun loadImage(view: ImageView, imageUrl: String?) {
         Glide.with(view.context)
             .load(imageUrl)
-            .placeholder(R.drawable.ic_profile)
             .circleCrop()
-            .transition(DrawableTransitionOptions.withCrossFade())
             .into(view)
     }
 }

@@ -3,6 +3,7 @@ package com.example.meongnyang.api
 import com.example.meongnyang.model.*
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.kakao.network.response.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -92,6 +93,19 @@ interface RetrofitApi {
     @GET("posts/{postId}")
     fun getPost(
         @Path("postId") postId: Int
+    ): Call<GetPosts>
+
+    // 게시글 삭제
+    @DELETE("posts/{postId}")
+    fun deletePost(
+        @Path("postId") postId: Int
+    ): Call<okhttp3.ResponseBody>
+
+    // 게시글 수정
+    @PUT("posts/{postId}")
+    fun editPost(
+        @Path("postId") postId: Int,
+        @Body jsonparams: PostModel
     ): Call<GetPosts>
 
     // 인기 아가들

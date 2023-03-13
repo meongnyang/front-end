@@ -32,8 +32,6 @@ class NaviActivity : AppCompatActivity() {
     private lateinit var healthDiaryBtn: TextView
     private lateinit var communityBtn: TextView
 
-    var waitTime = 0L
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNaviBinding.inflate(layoutInflater)
@@ -50,6 +48,9 @@ class NaviActivity : AppCompatActivity() {
                 }
                 "qna" -> {
                     replace(QnaFragment())
+                }
+                "community" -> {
+                    replace(CommuFragment())
                 }
             }
         } else {
@@ -124,5 +125,11 @@ class NaviActivity : AppCompatActivity() {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.mainFrameLayout, fragment).commit()
+    }
+
+    fun refresh(fragment: Fragment) {
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.detach(fragment).attach(fragment).commit()
     }
 }

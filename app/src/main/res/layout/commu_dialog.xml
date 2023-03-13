@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imageView36"
+            android:layout_width="420dp"
+            android:layout_height="227dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.555"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/delete_dialog" />
+
+        <TextView
+            android:id="@+id/textView44"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="52dp"
+            android:fontFamily="@font/gothic"
+            android:text="게시물을 삭제하시겠습니까?"
+            android:textColor="#000000"
+            android:textSize="17sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.51"
+            app:layout_constraintStart_toStartOf="@+id/imageView36"
+            app:layout_constraintTop_toTopOf="@+id/imageView36" />
+
+        <Button
+            android:id="@+id/cancel_btn"
+            android:layout_width="102dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="88dp"
+            android:layout_marginTop="55dp"
+            android:background="@drawable/ic_save_btn"
+            android:fontFamily="@font/gothic"
+            android:text="취소"
+            android:textColor="#FFFFFF"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView44" />
+
+        <Button
+            android:id="@+id/delete_btn"
+            android:layout_width="102dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="55dp"
+            android:layout_marginEnd="88dp"
+            android:background="@drawable/ic_save_btn"
+            android:fontFamily="@font/gothic"
+            android:text="삭제"
+            android:textColor="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="@+id/imageView36"
+            app:layout_constraintTop_toBottomOf="@+id/textView44" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

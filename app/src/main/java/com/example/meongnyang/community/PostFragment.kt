@@ -1,5 +1,7 @@
 package com.example.meongnyang.community
 
+import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -11,14 +13,18 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.meongnyang.NaviActivity
 import com.example.meongnyang.R
 import com.example.meongnyang.api.RetrofitApi
 import com.example.meongnyang.databinding.CommuFragmentPostBinding
+import com.example.meongnyang.dialog.CommuDialog
+import com.example.meongnyang.dialog.FeedDialog
 import com.example.meongnyang.model.*
 import com.example.meongnyang.mypage.KeyboardVisibilityUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
+import com.kakao.network.response.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -63,6 +69,37 @@ class PostFragment : Fragment() {
         viewModel = ViewModelProvider(this@PostFragment,
             viewModelFactory).get(PostViewModel::class.java)
 
+        // 내가 쓴 글인 경우 수정 | 삭제 보이도록 하기
+        fbFirestore!!.collection("users").document(uid).get()
+            .addOnSuccessListener { documentsSnapshot ->
+                var id = documentsSnapshot.toObject<Id>()!!
+                var memberId = id.memberId
+                retrofit.getPost(postId).enqueue(object : Callback<GetPosts> {
+                    override fun onFailure(call: Call<GetPosts>, t: Throwable) {
+
+                    }
+
+                    override fun onResponse(call: Call<GetPosts>, response: Response<GetPosts>) {
+                        if (memberId == response.body()!!.memberId) {
+                            binding.postEdit.visibility =  View.VISIBLE
+                            binding.postEdit2.visibility = View.VISIBLE
+                            binding.postDelete.visibility = View.VISIBLE
+                        }
+                    }
+                })
+            }
+
+        binding.postEdit.setOnClickListener {
+
+        }
+
+        // 삭제 버튼 눌렀을 때 dialog 띄우기
+        binding.postDelete.setOnClickListener {
+            showDialog()
+            //val dialog = CommuDialog(requireContext())
+            //dialog.delShow(postId)
+        }
+
 
         // 댓글 달기
         if (bundle!!.getString("contents") != null) {
@@ -73,10 +110,7 @@ class PostFragment : Fragment() {
         // 대댓글 달기
         if (bundle!!.getString("reContents") != null && bundle!!.getInt("commentId") != null) {
             var comment = bundle!!.getString("reContents")
-            Log.d("comments: comment", comment.toString())
             var commentId = bundle!!.getInt("commentId")
-            Log.d("comments: commentId", commentId.toString())
-            Log.d("comments: postId", postId.toString())
             writeReComment(commentId, postId, comment!!)
         } else showComment(postId)
 
@@ -200,5 +234,42 @@ class PostFragment : Fragment() {
                     }
                 })
             }
+    }
+
+    private fun editPost(postId: Int) {
+
+    }
+
+    fun deletePost(postId: Int) {
+        retrofit.deletePost(postId).enqueue(object : Callback<okhttp3.ResponseBody> {
+            override fun onFailure(call: Call<okhttp3.ResponseBody>, t: Throwable) {
+
+            }
+
+            override fun onResponse(
+                call: Call<okhttp3.ResponseBody>,
+                response: Response<okhttp3.ResponseBody>
+            ) {
+                val intent = Intent(context, NaviActivity::class.java)
+                intent.putExtra("fragment", "community")
+                startActivity(intent)
+            }
+        })
+    }
+
+    private fun showDialog() {
+        val builder = AlertDialog.Builder(context)
+        builder
+            .setTitle("삭제")
+            .setMessage("게시글을 삭제하시겠어요?")
+            .setIcon(R.drawable.app_icon)
+            .setPositiveButton("삭제") { dialog, which ->
+                deletePost(postId)
+            }
+            .setNegativeButton("취소") { dialog, which ->
+
+            }
+            .create()
+            .show()
     }
 }

@@ -102,8 +102,10 @@ class WriteFragment : Fragment() {
 
                             retrofit.createPost(data, id.memberId!!).enqueue(object: Callback<GetPosts> {
                                 override fun onResponse(call: Call<GetPosts>, response: Response<GetPosts>) {
-                                    if (!response.body().toString().isEmpty()) {
-                                        Log.d("result", response.body().toString())
+                                    if (response.body().toString().isNotEmpty()) {
+                                        val intent = Intent(context, NaviActivity::class.java)
+                                        intent.putExtra("fragment", "community")
+                                        startActivity(intent)
                                     }
                                 }
                                 override fun onFailure(call: Call<GetPosts>, t: Throwable) {
@@ -114,10 +116,8 @@ class WriteFragment : Fragment() {
                         }
 
                         override fun onFailure(call: Call<PetModel>, t: Throwable) {
-                            TODO("Not yet implemented")
                         }
                     })
-                    (activity as NaviActivity).replace(CommuFragment())
                 }
 
         }
