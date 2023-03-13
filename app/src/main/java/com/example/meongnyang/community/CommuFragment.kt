@@ -101,7 +101,9 @@ class CommuFragment : Fragment() {
         }
 
         binding.writeBtn.setOnClickListener {
-            (activity as NaviActivity).replace(WriteFragment())
+            val intent = Intent(context, WriteActivity::class.java)
+            startActivity(intent)
+            //(activity as NaviActivity).replace(WriteFragment())
         }
 
         return binding.root

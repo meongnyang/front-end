@@ -5,16 +5,12 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
 import com.amazonaws.auth.BasicAWSCredentials
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferListener
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferNetworkLossHandler
@@ -26,12 +22,11 @@ import com.amazonaws.services.s3.AmazonS3Client
 import com.example.meongnyang.NaviActivity
 import com.example.meongnyang.R
 import com.example.meongnyang.api.RetrofitApi
-import com.example.meongnyang.databinding.CommuFragmentWriteBinding
+import com.example.meongnyang.databinding.CommuActivityWriteBinding
 import com.example.meongnyang.model.GetPosts
 import com.example.meongnyang.model.Id
 import com.example.meongnyang.model.PetModel
 import com.example.meongnyang.model.PostModel
-import com.example.meongnyang.mypage.KeyboardVisibilityUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
@@ -44,8 +39,9 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
 
-class WriteFragment : Fragment() {
-    private lateinit var binding: CommuFragmentWriteBinding
+class WriteActivity : AppCompatActivity() {
+
+    private lateinit var binding: CommuActivityWriteBinding
     private lateinit var bitmap: Bitmap
     private lateinit var data: PostModel
     var type = 0
@@ -57,22 +53,16 @@ class WriteFragment : Fragment() {
     var fileUrl = ""
     var strCategory = ""
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.commu_fragment_write,
-            container,
-            false
-        )
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = CommuActivityWriteBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val retrofit = RetrofitApi.create() // 서버와 통신 연결
 
         // 스피너 설정
         val categoryAdapter =
-            context?.let {
+            this?.let {
                 ArrayAdapter.createFromResource(it, R.array.category_array, android.R.layout.simple_spinner_dropdown_item)
             }
         categoryAdapter?.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -100,10 +90,11 @@ class WriteFragment : Fragment() {
                             type = response.body()!!.type
                             data = PostModel(category, type, title, contents, img)
 
-                            retrofit.createPost(data, id.memberId!!).enqueue(object: Callback<GetPosts> {
+                            retrofit.createPost(data, id.memberId!!).enqueue(object:
+                                Callback<GetPosts> {
                                 override fun onResponse(call: Call<GetPosts>, response: Response<GetPosts>) {
                                     if (response.body().toString().isNotEmpty()) {
-                                        val intent = Intent(context, NaviActivity::class.java)
+                                        val intent = Intent(this@WriteActivity, NaviActivity::class.java)
                                         intent.putExtra("fragment", "community")
                                         startActivity(intent)
                                     }
@@ -119,10 +110,7 @@ class WriteFragment : Fragment() {
                         }
                     })
                 }
-
         }
-
-        return binding.root
     }
     @SuppressLint("MissingPermission")
     private fun checkPermission(logic: () -> Unit) {
@@ -135,7 +123,7 @@ class WriteFragment : Fragment() {
 
                 // 권한이 거부됐을 때
                 override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
-                    Toast.makeText(context, "권한 거부됨", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@WriteActivity, "권한 거부됨", Toast.LENGTH_SHORT).show()
                 }
             })
             .setRationaleMessage("카메라 권한이 필요한 서비스입니다.")
@@ -163,7 +151,7 @@ class WriteFragment : Fragment() {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == OPEN_GALLERY) {
                 var currentImageUrl = data!!.data
-                bitmap = MediaStore.Images.Media.getBitmap(activity?.contentResolver, currentImageUrl)
+                bitmap = MediaStore.Images.Media.getBitmap(contentResolver, currentImageUrl)
 
                 fileName = "MEONGNYANG_" + System.currentTimeMillis() + ".png"
 
@@ -197,8 +185,8 @@ class WriteFragment : Fragment() {
         val awsCredentials = BasicAWSCredentials(getString(R.string.access_key), getString(R.string.secret_key))
         val s3Client = AmazonS3Client(awsCredentials, Region.getRegion(Regions.AP_NORTHEAST_2))
 
-        val transferUtility = TransferUtility.builder().s3Client(s3Client).context(activity?.applicationContext).build()
-        TransferNetworkLossHandler.getInstance(activity?.applicationContext)
+        val transferUtility = TransferUtility.builder().s3Client(s3Client).context(applicationContext).build()
+        TransferNetworkLossHandler.getInstance(applicationContext)
 
         val uploadObserver = transferUtility.upload("meongnyang/${category}", fileName, file)
 

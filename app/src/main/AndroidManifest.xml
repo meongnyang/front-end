@@ -30,9 +30,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".community.WriteActivity"
+            android:exported="false" />
+        <activity
             android:name=".community.RecommentActivity"
             android:exported="false"
-            android:noHistory="true"/>
+            android:noHistory="true" />
         <activity
             android:name=".login.CatEnrollActivity"
             android:exported="false"
@@ -56,8 +59,8 @@
         <activity
             android:name=".login.EnrollActivity"
             android:exported="false"
-            android:theme="@style/MyDatePickerStyle"
-            android:noHistory="true" />
+            android:noHistory="true"
+            android:theme="@style/MyDatePickerStyle" />
         <activity
             android:name=".login.NicknameActivity"
             android:exported="false"
@@ -101,8 +104,8 @@
         <activity
             android:name=".mypage.AddActivity"
             android:exported="false"
-            android:theme="@style/MyDatePickerStyle"
-            android:noHistory="true" />
+            android:noHistory="true"
+            android:theme="@style/MyDatePickerStyle" />
         <activity
             android:name=".map.PlayMapActivity"
             android:exported="false"
