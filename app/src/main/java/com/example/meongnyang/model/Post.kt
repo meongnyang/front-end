@@ -28,6 +28,12 @@ data class PostModel(
     val img: String?
 )
 
+data class EditPostModel(
+    val category: Int,
+    val title: String,
+    val contents: String
+)
+
 data class Comment(
     val commentId: Int,
     val contents: String,

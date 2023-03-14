@@ -105,7 +105,7 @@ interface RetrofitApi {
     @PUT("posts/{postId}")
     fun editPost(
         @Path("postId") postId: Int,
-        @Body jsonparams: PostModel
+        @Body jsonparams: EditPostModel
     ): Call<GetPosts>
 
     // 인기 아가들

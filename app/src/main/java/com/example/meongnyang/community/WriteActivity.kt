@@ -23,10 +23,7 @@ import com.example.meongnyang.NaviActivity
 import com.example.meongnyang.R
 import com.example.meongnyang.api.RetrofitApi
 import com.example.meongnyang.databinding.CommuActivityWriteBinding
-import com.example.meongnyang.model.GetPosts
-import com.example.meongnyang.model.Id
-import com.example.meongnyang.model.PetModel
-import com.example.meongnyang.model.PostModel
+import com.example.meongnyang.model.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
@@ -59,6 +56,31 @@ class WriteActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val retrofit = RetrofitApi.create() // 서버와 통신 연결
+
+        val intent = intent
+        if (intent.getIntExtra("postId", 0) != 0) {
+            val postId = intent.getIntExtra("postId", 0)
+            retrofit.getPost(postId).enqueue(object : Callback<GetPosts> {
+                override fun onFailure(call: Call<GetPosts>, t: Throwable) {
+
+                }
+
+                override fun onResponse(call: Call<GetPosts>, response: Response<GetPosts>) {
+                    val post = response.body()!!
+                    binding.titleInput.setText(post.title)
+                    binding.contentInput.setText(post.contents)
+                    binding.selectCategory.setSelection(post.category)
+
+                    binding.finishBtn.setOnClickListener {
+                        val category = binding.selectCategory.selectedItemPosition
+                        val title = binding.titleInput.text.toString()
+                        val content = binding.contentInput.text.toString()
+
+                        editPost(postId, category, title, content)
+                    }
+                }
+            })
+        }
 
         // 스피너 설정
         val categoryAdapter =
@@ -221,5 +243,26 @@ class WriteActivity : AppCompatActivity() {
             out?.close()
         }
         return file
+    }
+
+    private fun editPost(postId: Int, category: Int, title: String, contents: String) {
+        val retrofit = RetrofitApi.create()
+        retrofit.editPost(postId, EditPostModel(category, title, contents))
+            .enqueue(object : Callback<GetPosts> {
+                override fun onFailure(call: Call<GetPosts>, t: Throwable) {
+                    Toast.makeText(
+                        this@WriteActivity,
+                        "수정에 실패했습니다. 다시 시도해 주세요.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+                override fun onResponse(call: Call<GetPosts>, response: Response<GetPosts>) {
+                    Toast.makeText(this@WriteActivity, "수정 완료!", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this@WriteActivity, CommentActivity::class.java)
+                    intent.putExtra("postId", postId)
+                    startActivity(intent)
+                }
+            })
     }
 }

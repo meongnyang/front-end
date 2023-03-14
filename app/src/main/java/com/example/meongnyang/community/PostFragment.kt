@@ -91,7 +91,9 @@ class PostFragment : Fragment() {
 
         binding.postEdit.setOnClickListener {
             // 게시물 작성 화면으로 이동, postId 담아서 보내기
-            val intent = Intent(context, NaviActivity::class.java)
+            val intent = Intent(context, WriteActivity::class.java)
+            intent.putExtra("postId", postId)
+            startActivity(intent)
         }
 
         // 삭제 버튼 눌렀을 때 dialog 띄우기
@@ -235,21 +237,6 @@ class PostFragment : Fragment() {
                     }
                 })
             }
-    }
-
-    private fun editPost(postId: Int, category: Int, type: Int, title: String, contents: String, img: String) {
-        retrofit.editPost(postId, PostModel(category, type, title, contents, img)).enqueue(object : Callback<GetPosts> {
-            override fun onFailure(call: Call<GetPosts>, t: Throwable) {
-                Toast.makeText(context, "수정에 실패했습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onResponse(call: Call<GetPosts>, response: Response<GetPosts>) {
-                Toast.makeText(context, "수정 완료!", Toast.LENGTH_SHORT).show()
-                val intent = Intent(context, CommentActivity::class.java)
-                intent.putExtra("postId", postId)
-                startActivity(intent)
-            }
-        })
     }
 
     fun deletePost(postId: Int) {
