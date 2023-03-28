@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/map_view"
         android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </RelativeLayout>
+
+    <CheckBox
+        android:id="@+id/allDayCheck"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:orientation="vertical">
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:background="#00FFFFFF"
+        android:backgroundTint="#8EA1FF"
+        android:fontFamily="@font/gothic"
+        android:text="24시동물병원 보기"
+        android:textStyle="bold" />
 
-        <CheckBox
-            android:id="@+id/allDayCheck"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:fontFamily="@font/gothic"
-            android:text="24시동물병원 보기" />
-
-        <RelativeLayout
-            android:id="@+id/map_view"
-            android:layout_width="match_parent"
-            android:layout_height="442dp">
-
-        </RelativeLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/mapListView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:listitem="@layout/map_maplist_layout" />
-    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mapListView"
+        android:layout_width="match_parent"
+        android:layout_height="236dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        android:background="#00FFFFFF"
+        tools:listitem="@layout/map_maplist_layout" />
 
 </RelativeLayout>

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.meongnyang.R
 import com.example.meongnyang.api.KakaoAPI
 import com.example.meongnyang.databinding.MapActivityPlayBinding
+import com.example.meongnyang.databinding.MapActivityWithBinding
 import com.example.meongnyang.model.MapList
 import com.example.meongnyang.model.Place
 import com.example.meongnyang.model.ResultSearchKeyword
@@ -30,22 +31,22 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-class PlayMapActivity : AppCompatActivity() {
+class WithMapActivity : AppCompatActivity() {
     private lateinit var playList: ArrayList<Place>
 
-    private lateinit var binding: MapActivityPlayBinding
+    private lateinit var binding: MapActivityWithBinding
     private val listItems = arrayListOf<MapList>() // 리사이클러뷰 아이템
     private val mapListAdapter = MapListAdapter(listItems)
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = MapActivityPlayBinding.inflate(layoutInflater)
+        binding = MapActivityWithBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
         // 권한
         requestPermission {
-            val mapView = MapView(this@PlayMapActivity)
+            val mapView = MapView(this@WithMapActivity)
             val mapViewContainer = findViewById<View>(R.id.map_view) as ViewGroup
             mapViewContainer.addView(mapView)
 
@@ -80,7 +81,7 @@ class PlayMapActivity : AppCompatActivity() {
                 }
                 // 권한이 거부됐을 때
                 override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
-                    Toast.makeText(this@PlayMapActivity, "권한 거부됨", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@WithMapActivity, "권한 거부됨", Toast.LENGTH_SHORT).show()
                 }
             })
             .setRationaleMessage("위치 정보 제공이 필요한 서비스입니다.")
@@ -104,7 +105,7 @@ class PlayMapActivity : AppCompatActivity() {
         val uLongitude = userNowLocation?.longitude
 
         mapView.setZoomLevel(7, true)
-        requestSearchLocalDetail(mapView, "반려견놀이터", uLongitude!!.toDouble(), uLatitude!!.toDouble(), 10)
+        requestSearchLocalDetail(mapView, "반려동물동반", uLongitude!!.toDouble(), uLatitude!!.toDouble(), 10)
     }
 
     // 사용자 현재 위치에 점 표시하기
@@ -125,8 +126,7 @@ class PlayMapActivity : AppCompatActivity() {
         val marker = MapPOIItem()
         marker.mapPoint = uNowPosition
         marker.markerType = MapPOIItem.MarkerType.BluePin
-        //marker.selectedMarkerType = MapPOIItem.MarkerType.CustomImage
-        //marker.customSelectedImageResourceId = R.drawable.play_mark
+        marker.selectedMarkerType = MapPOIItem.MarkerType.RedPin
         mapView.addPOIItem(marker)
     }
 
@@ -173,9 +173,8 @@ class PlayMapActivity : AppCompatActivity() {
                     val mapPoint: MapPoint = MapPoint.mapPointWithGeoCoord(x, y)
                     marker.mapPoint = mapPoint
                     marker.markerType = MapPOIItem.MarkerType.CustomImage
-                    marker.customImageResourceId = R.drawable.play_mark
+                    marker.customImageResourceId = R.drawable.with_mark
                     marker.isCustomImageAutoscale = false
-                    //marker.setCustomImageAnchor(0.5f, 1.0f)
                     mapView.addPOIItem(marker)
                 }
 

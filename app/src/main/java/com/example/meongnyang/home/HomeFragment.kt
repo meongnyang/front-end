@@ -16,6 +16,7 @@ import com.example.meongnyang.diary.DiaryFragment
 import com.example.meongnyang.feed.FeedFragment
 import com.example.meongnyang.qna.QnaFragment
 import com.example.meongnyang.map.PlayMapActivity
+import com.example.meongnyang.map.WithMapActivity
 import com.example.meongnyang.skin.SkinMainActivity
 
 class HomeFragment : Fragment() {
@@ -52,6 +53,10 @@ class HomeFragment : Fragment() {
         }
         binding.hospitalMenu.setOnClickListener {
             val intent = Intent(context, com.example.meongnyang.map.MapActivity::class.java)
+            startActivity(intent)
+        }
+        binding.withMapMenu.setOnClickListener {
+            val intent = Intent(context, WithMapActivity::class.java)
             startActivity(intent)
         }
         binding.qnaMenu.setOnClickListener {

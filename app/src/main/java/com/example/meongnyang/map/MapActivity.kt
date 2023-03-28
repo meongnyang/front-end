@@ -185,7 +185,8 @@ class MapActivity : AppCompatActivity() {
 
                     val mapPoint: MapPoint = MapPoint.mapPointWithGeoCoord(x, y)
                     marker.mapPoint = mapPoint
-                    marker.markerType = MapPOIItem.MarkerType.RedPin
+                    marker.markerType = MapPOIItem.MarkerType.CustomImage
+                    marker.customImageResourceId = R.drawable.hospital_mark
                     marker.isCustomImageAutoscale = false
                     mapView.addPOIItem(marker)
                 }

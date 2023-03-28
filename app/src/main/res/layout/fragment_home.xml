@@ -151,6 +151,22 @@
                         android:text="피부병\n확인하기" />
 
                     <Button
+                        android:id="@+id/qnaMenu"
+                        android:layout_width="150dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="top"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/ic_bluerectangle"
+                        android:fontFamily="@font/gothic"
+                        android:gravity="start"
+                        android:lineSpacingExtra="3sp"
+                        android:padding="15dp"
+                        android:text="반려동물\n증상 및 솔루션"
+                        tools:layout_marginLeft="10dp" />
+
+                    <Button
                         android:id="@+id/playMapMenu"
                         android:layout_width="150dp"
                         android:layout_height="100dp"
@@ -166,26 +182,25 @@
                         android:text="반려견\n놀이터 찾기" />
 
                     <Button
-                        android:id="@+id/qnaMenu"
+                        android:id="@+id/withMapMenu"
                         android:layout_width="150dp"
                         android:layout_height="100dp"
                         android:layout_gravity="top"
                         android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
                         android:layout_weight="1"
                         android:background="@drawable/ic_bluerectangle"
                         android:fontFamily="@font/gothic"
                         android:gravity="start"
                         android:lineSpacingExtra="3sp"
                         android:padding="15dp"
-                        android:text="반려동물\n증상 및 솔루션"
-                        tools:layout_marginLeft="10dp" />
+                        android:text="반려견\n동반식당 찾기" />
 
                     <Button
                         android:id="@+id/diaryMenu"
                         android:layout_width="150dp"
                         android:layout_height="100dp"
                         android:layout_gravity="top"
-                        android:layout_marginLeft="10dp"
                         android:layout_marginTop="10dp"
                         android:layout_weight="1"
                         android:background="@drawable/ic_bluerectangle"
@@ -255,6 +270,18 @@
                         android:textSize="10dp" />
 
                     <TextView
+                        android:id="@+id/textView15"
+                        android:layout_width="145dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/gothic"
+                        android:lineSpacingExtra="3dp"
+                        android:text="다양한 질문들과\n전문가의 답변을 한눈에"
+                        android:textSize="10dp" />
+
+                    <TextView
                         android:id="@+id/textView14"
                         android:layout_width="145dp"
                         android:layout_height="wrap_content"
@@ -267,7 +294,7 @@
                         android:textSize="10dp" />
 
                     <TextView
-                        android:id="@+id/textView15"
+                        android:id="@+id/textView18"
                         android:layout_width="145dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
@@ -275,8 +302,9 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/gothic"
                         android:lineSpacingExtra="3dp"
-                        android:text="다양한 질문들과\n전문가의 답변을 한눈에"
+                        android:text="반려동물과 함께\n갈 수 있는 곳은 어디에?"
                         android:textSize="10dp" />
+
 
                     <TextView
                         android:id="@+id/textView16"
