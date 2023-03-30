@@ -18,6 +18,7 @@ import com.example.meongnyang.health.*
 import com.example.meongnyang.home.HomeFragment
 import com.example.meongnyang.map.MapActivity
 import com.example.meongnyang.map.PlayMapActivity
+import com.example.meongnyang.map.WithMapActivity
 import com.example.meongnyang.mypage.MyFragment
 import com.example.meongnyang.qna.QnaFragment
 import com.example.meongnyang.skin.SkinMainActivity
@@ -31,6 +32,7 @@ class NaviActivity : AppCompatActivity() {
     private lateinit var feedBtn: TextView
     private lateinit var healthDiaryBtn: TextView
     private lateinit var communityBtn: TextView
+    private lateinit var withBtn: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,6 +82,7 @@ class NaviActivity : AppCompatActivity() {
         playBtn = findViewById(R.id.playMap)
         qnaBtn = findViewById(R.id.qna)
         feedBtn = findViewById(R.id.feed)
+        withBtn = findViewById(R.id.withMap)
         healthDiaryBtn = findViewById(R.id.healthDiary)
         communityBtn = findViewById(R.id.community)
 
@@ -96,6 +99,10 @@ class NaviActivity : AppCompatActivity() {
             val intent = Intent(this, PlayMapActivity::class.java)
             startActivity(intent)
         }
+        withBtn.setOnClickListener {
+            val intent = Intent(this, WithMapActivity::class.java)
+            startActivity(intent)
+        }
         qnaBtn.setOnClickListener {
             closeMenu()
             replace(QnaFragment())
@@ -109,7 +116,6 @@ class NaviActivity : AppCompatActivity() {
             replace(HealthFragment())
         }
         communityBtn.setOnClickListener {
-            // 커뮤니티 화면으로 가긴 하는데 하단바,, 자동으로 옮기는 법 없나,,
             closeMenu()
             replace(CommuFragment())
         }

@@ -302,7 +302,7 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/gothic"
                         android:lineSpacingExtra="3dp"
-                        android:text="반려동물과 함께\n갈 수 있는 곳은 어디에?"
+                        android:text="반려동물과 함께 갈 수\n있는 식당은 어디에 있을까?"
                         android:textSize="10dp" />
 
 
