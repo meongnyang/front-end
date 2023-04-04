@@ -30,9 +30,6 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".map.WithMapActivity"
-            android:exported="false" />
-        <activity
             android:name=".community.WriteActivity"
             android:exported="false" />
         <activity
@@ -68,6 +65,7 @@
             android:name=".login.NicknameActivity"
             android:exported="false"
             android:noHistory="true" />
+
         <activity
             android:name=".login.LoginActivity"
             android:exported="true"
@@ -109,10 +107,6 @@
             android:exported="false"
             android:noHistory="true"
             android:theme="@style/MyDatePickerStyle" />
-        <activity
-            android:name=".map.PlayMapActivity"
-            android:exported="false"
-            android:noHistory="true" />
         <activity
             android:name=".map.MapActivity"
             android:exported="false"

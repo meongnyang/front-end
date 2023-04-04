@@ -92,7 +92,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView5">
+            app:layout_constraintTop_toBottomOf="@id/textView5"
+            android:scrollbars="none">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -118,7 +119,7 @@
                         android:gravity="start"
                         android:lineSpacingExtra="3sp"
                         android:padding="15dp"
-                        android:text="근처 동물병원\n위치 찾기" />
+                        android:text="반려동물을 위한\n내 주변 장소들" />
 
                     <Button
                         android:id="@+id/FeedMenu"
@@ -167,36 +168,6 @@
                         tools:layout_marginLeft="10dp" />
 
                     <Button
-                        android:id="@+id/playMapMenu"
-                        android:layout_width="150dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="top"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/ic_bluerectangle"
-                        android:fontFamily="@font/gothic"
-                        android:gravity="start"
-                        android:lineSpacingExtra="3sp"
-                        android:padding="15dp"
-                        android:text="반려견\n놀이터 찾기" />
-
-                    <Button
-                        android:id="@+id/withMapMenu"
-                        android:layout_width="150dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="top"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/ic_bluerectangle"
-                        android:fontFamily="@font/gothic"
-                        android:gravity="start"
-                        android:lineSpacingExtra="3sp"
-                        android:padding="15dp"
-                        android:text="반려견\n동반식당 찾기" />
-
-                    <Button
                         android:id="@+id/diaryMenu"
                         android:layout_width="150dp"
                         android:layout_height="100dp"
@@ -242,7 +213,7 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/gothic"
                         android:lineSpacingExtra="3dp"
-                        android:text="내 주변에 있는 동물병원을\n빠르고 쉽게 찾을 수 있어요"
+                        android:text="동물병원, 반려견놀이터,\n반려동물동반식당의 위치를\n찾아볼 수 있어요"
                         android:textSize="10dp" />
 
                     <TextView
@@ -280,31 +251,6 @@
                         android:lineSpacingExtra="3dp"
                         android:text="다양한 질문들과\n전문가의 답변을 한눈에"
                         android:textSize="10dp" />
-
-                    <TextView
-                        android:id="@+id/textView14"
-                        android:layout_width="145dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/gothic"
-                        android:lineSpacingExtra="3dp"
-                        android:text="다른 댕댕이들이랑\n같이 놀자!"
-                        android:textSize="10dp" />
-
-                    <TextView
-                        android:id="@+id/textView18"
-                        android:layout_width="145dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/gothic"
-                        android:lineSpacingExtra="3dp"
-                        android:text="반려동물과 함께 갈 수\n있는 식당은 어디에 있을까?"
-                        android:textSize="10dp" />
-
 
                     <TextView
                         android:id="@+id/textView16"

@@ -17,8 +17,6 @@ import com.example.meongnyang.feed.FeedFragment
 import com.example.meongnyang.health.*
 import com.example.meongnyang.home.HomeFragment
 import com.example.meongnyang.map.MapActivity
-import com.example.meongnyang.map.PlayMapActivity
-import com.example.meongnyang.map.WithMapActivity
 import com.example.meongnyang.mypage.MyFragment
 import com.example.meongnyang.qna.QnaFragment
 import com.example.meongnyang.skin.SkinMainActivity
@@ -79,10 +77,8 @@ class NaviActivity : AppCompatActivity() {
         // 버튼 정의
         hospitalBtn = findViewById(R.id.hospitalMap)
         skinBtn = findViewById(R.id.skinCheck)
-        playBtn = findViewById(R.id.playMap)
         qnaBtn = findViewById(R.id.qna)
         feedBtn = findViewById(R.id.feed)
-        withBtn = findViewById(R.id.withMap)
         healthDiaryBtn = findViewById(R.id.healthDiary)
         communityBtn = findViewById(R.id.community)
 
@@ -93,14 +89,6 @@ class NaviActivity : AppCompatActivity() {
         }
         hospitalBtn.setOnClickListener {
             val intent = Intent(this, MapActivity::class.java)
-            startActivity(intent)
-        }
-        playBtn.setOnClickListener {
-            val intent = Intent(this, PlayMapActivity::class.java)
-            startActivity(intent)
-        }
-        withBtn.setOnClickListener {
-            val intent = Intent(this, WithMapActivity::class.java)
             startActivity(intent)
         }
         qnaBtn.setOnClickListener {

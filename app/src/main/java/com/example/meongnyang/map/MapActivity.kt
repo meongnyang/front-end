@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.meongnyang.R
 import com.example.meongnyang.api.KakaoAPI
-import com.example.meongnyang.databinding.MapActivityHosBinding
+import com.example.meongnyang.databinding.MapActivityLayoutBinding
 import com.example.meongnyang.model.MapList
 import com.example.meongnyang.model.Place
 import com.example.meongnyang.model.ResultSearchKeyword
@@ -31,7 +31,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 class MapActivity : AppCompatActivity() {
-    private lateinit var hospitalList: ArrayList<Place>
+    private lateinit var placeList: ArrayList<Place>
     private lateinit var mapView: MapView
 
     companion object {
@@ -39,14 +39,14 @@ class MapActivity : AppCompatActivity() {
         const val API_KEY = R.string.rest_api // REST API 키
     }
 
-    private lateinit var binding: MapActivityHosBinding
+    private lateinit var binding: MapActivityLayoutBinding
     private val listItems = arrayListOf<MapList>() // 리사이클러뷰 아이템
     private val mapListAdapter = MapListAdapter(listItems)
 
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = MapActivityHosBinding.inflate(layoutInflater)
+        binding = MapActivityLayoutBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
@@ -55,13 +55,63 @@ class MapActivity : AppCompatActivity() {
             val mapViewContainer = findViewById<View>(R.id.map_view) as ViewGroup
             mapViewContainer.addView(mapView)
 
-            hospitalList = arrayListOf()
+            placeList = arrayListOf()
 
             nowLocation(mapView)
-            show(mapView)
 
-            binding.allDayCheck.setOnClickListener {
-                show(mapView)
+            val lm: LocationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+            val userNowLocation: Location? = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+
+            // 위도, 경도
+            val uLatitude = userNowLocation?.latitude
+            val uLongitude = userNowLocation?.longitude
+
+            binding.hospitalBtn.setOnClickListener {
+                nowLocation(mapView)
+
+                binding.hospitalBtn.isSelected = true
+                binding.playBtn.isSelected = false
+                binding.twfHospitalBtn.isSelected = false
+                binding.withBtn.isSelected = false
+
+                mapView.setZoomLevel(4, true)
+                searchPlace(mapView, "동물병원", uLongitude!!.toDouble(), uLatitude!!.toDouble(), 5, "hospital")
+            }
+
+            binding.twfHospitalBtn.setOnClickListener {
+                nowLocation(mapView)
+
+                binding.hospitalBtn.isSelected = false
+                binding.playBtn.isSelected = false
+                binding.twfHospitalBtn.isSelected = true
+                binding.withBtn.isSelected = false
+
+                mapView.setZoomLevel(7, true)
+                searchPlace(mapView, "24시동물병원", uLongitude!!.toDouble(), uLatitude!!.toDouble(), 7, "24hospital")
+            }
+
+            binding.playBtn.setOnClickListener {
+                nowLocation(mapView)
+
+                binding.hospitalBtn.isSelected = false
+                binding.playBtn.isSelected = true
+                binding.twfHospitalBtn.isSelected = false
+                binding.withBtn.isSelected = false
+
+                mapView.setZoomLevel(7, true)
+                searchPlace(mapView, "반려견놀이터", uLongitude!!.toDouble(), uLatitude!!.toDouble(), 7, "play")
+            }
+
+            binding.withBtn.setOnClickListener {
+                nowLocation(mapView)
+
+                binding.hospitalBtn.isSelected = false
+                binding.playBtn.isSelected = false
+                binding.twfHospitalBtn.isSelected = false
+                binding.withBtn.isSelected = true
+
+                mapView.setZoomLevel(7, true)
+                searchPlace(mapView, "반려동물동반", uLongitude!!.toDouble(), uLatitude!!.toDouble(), 7, "with")
             }
 
             // 리사이클러뷰
@@ -101,26 +151,6 @@ class MapActivity : AppCompatActivity() {
             .check()
     }
 
-    @SuppressLint("MissingPermission")
-    private fun show(mapView: MapView) {
-        // 동물병원 보여주기
-        val lm: LocationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        val userNowLocation: Location? = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-
-        // 위도, 경도
-        val uLatitude = userNowLocation?.latitude
-        val uLongitude = userNowLocation?.longitude
-
-        // 24시간 체크했을 때와 안 했을 때 동물병원 마커
-        if (binding.allDayCheck.isChecked) {
-            mapView.setZoomLevel(7, true)
-            requestSearchLocalDetail(mapView, "24시동물병원", uLongitude!!.toDouble(), uLatitude!!.toDouble(), 10)
-        } else {
-            mapView.setZoomLevel(4, true)
-            requestSearchLocalDetail(mapView, "동물병원", uLongitude!!.toDouble(), uLatitude!!.toDouble(), 5)
-        }
-    }
-
     // 사용자 현재 위치에 점 표시하기
     @SuppressLint("MissingPermission")
     private fun nowLocation(mapView: MapView) {
@@ -130,6 +160,8 @@ class MapActivity : AppCompatActivity() {
         val lm: LocationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         val userNowLocation: Location? = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
 
+        mapView.setZoomLevel(1, true)
+
         // 위도, 경도
         val uLatitude = userNowLocation?.latitude
         val uLongitude = userNowLocation?.longitude
@@ -138,14 +170,14 @@ class MapActivity : AppCompatActivity() {
         // 현 위치에 마커 찍기
         val marker = MapPOIItem()
         marker.mapPoint = uNowPosition
-        marker.markerType = MapPOIItem.MarkerType.BluePin
+        marker.markerType = MapPOIItem.MarkerType.YellowPin
         marker.selectedMarkerType = MapPOIItem.MarkerType.RedPin
         mapView.addPOIItem(marker)
     }
 
     // 반경 5km 이내 위치 찾기
     @SuppressLint("MissingPermission")
-    private fun requestSearchLocalDetail(mapView: MapView, keyword: String, X: Double, Y: Double, size: Int) {
+    private fun searchPlace(mapView: MapView, keyword: String, X: Double, Y: Double, size: Int, where: String) {
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -160,9 +192,9 @@ class MapActivity : AppCompatActivity() {
                 response: Response<ResultSearchKeyword>
             ) {
                 // 통신 성공 (검색 결과는 response.body()에 담겨 있음)
-                hospitalList.clear()
+                placeList.clear()
                 mapView.removeAllPOIItems()
-                hospitalList.addAll(response.body()!!.documents)
+                placeList.addAll(response.body()!!.documents)
 
                 listItems.clear()
                 for (document in response.body()!!.documents) {
@@ -176,7 +208,7 @@ class MapActivity : AppCompatActivity() {
                 mapListAdapter.notifyDataSetChanged()
 
                 var tagNum = 20
-                for (place: Place in hospitalList) {
+                for (place: Place in placeList) {
                     val marker = MapPOIItem()
                     marker.itemName = place.place_name
                     marker.tag = tagNum++
@@ -186,7 +218,20 @@ class MapActivity : AppCompatActivity() {
                     val mapPoint: MapPoint = MapPoint.mapPointWithGeoCoord(x, y)
                     marker.mapPoint = mapPoint
                     marker.markerType = MapPOIItem.MarkerType.CustomImage
-                    marker.customImageResourceId = R.drawable.hospital_mark
+                    when (where) {
+                        "hospital" -> {
+                            marker.customImageResourceId = R.drawable.hospital_mark
+                        }
+                        "24hospital" -> {
+                            marker.customImageResourceId = R.drawable.hospital_mark
+                        }
+                        "play" -> {
+                            marker.customImageResourceId = R.drawable.play_mark
+                        }
+                        "with" -> {
+                            marker.customImageResourceId = R.drawable.with_mark
+                        }
+                    }
                     marker.isCustomImageAutoscale = false
                     mapView.addPOIItem(marker)
                 }

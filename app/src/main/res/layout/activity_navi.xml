@@ -103,39 +103,7 @@
                 android:layout_height="35dp"
                 android:layout_gravity="center"
                 android:fontFamily="@font/gothic"
-                android:text="근처 동물병원 찾기 🤒"
-                android:textColor="@color/black"
-                android:textSize="15dp" />
-            <ImageView
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="17dp"
-                android:src="@drawable/ic_line1" />
-
-            <TextView
-                android:id="@+id/playMap"
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:layout_gravity="center"
-                android:fontFamily="@font/gothic"
-                android:text="반려견 놀이터 찾기 🎢"
-                android:textColor="@color/black"
-                android:textSize="15dp" />
-            <ImageView
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="17dp"
-                android:src="@drawable/ic_line1" />
-
-            <TextView
-                android:id="@+id/withMap"
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:layout_gravity="center"
-                android:fontFamily="@font/gothic"
-                android:text="반려동물 동반식당 찾기 🍚"
+                android:text="반려동물을 위한 내 주변 지도 🗺️"
                 android:textColor="@color/black"
                 android:textSize="15dp" />
             <ImageView
