@@ -62,6 +62,7 @@ class EnrollActivity : AppCompatActivity() {
     var neutering = 0
     var species = ""
     var name = ""
+    var category: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,20 +83,6 @@ class EnrollActivity : AppCompatActivity() {
             checkPermission {
                 openGallery()
             }
-        }
-
-        // 성별 선택
-        if (binding.femaleRadio.isChecked) {
-            gender = "여아"
-        } else {
-            gender = "남아"
-        }
-
-        // 중성화 여부
-        if (binding.neuterCheck.isChecked) {
-            neutering = 1 // 했음
-        } else {
-            neutering = 2 // 안 했음
         }
 
 
@@ -152,7 +139,35 @@ class EnrollActivity : AppCompatActivity() {
         binding.enrollBtn.setOnClickListener {
             name = binding.nameEdit.text.toString()
 
-            val pet = Pet(1, name, gender, neutering, birth, adopt, species)
+            // 성별 선택
+            gender = if (binding.femaleRadio.isChecked) {
+                "여아"
+            } else {
+                "남아"
+            }
+
+            // 중성화 여부
+            neutering = if (binding.neuterCheck.isChecked) {
+                1 // 했음
+            } else {
+                2 // 안 했음
+            }
+
+            // 크기 선택
+            category = if (binding.bigSize.isChecked) {
+                3
+            } else if (binding.middleSize.isChecked) {
+                2
+            } else {
+                1
+            }
+
+            Log.d("pet", gender)
+            Log.d("pet", neutering.toString())
+            Log.d("pet", category.toString())
+
+
+            val pet = Pet(1, name, gender, neutering, birth, adopt, species, category)
             retrofit.enrollPet(member, pet).enqueue(object: Callback<PetModel> {
                 override fun onResponse(call: Call<PetModel>, response: Response<PetModel>) {
                     conimalId = response.body()!!.conimalId

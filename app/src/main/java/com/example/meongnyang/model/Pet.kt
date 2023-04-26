@@ -8,6 +8,7 @@ data class Pet(
     val birth: String,
     val adopt: String,
     val speciesName: String,
+    val category: Long
 )
 
 data class PetModel(
@@ -22,6 +23,7 @@ data class PetModel(
     val adopt: String,
     val ddaybirth: Int,
     val ddayadopt: Int,
+    val category: Int,
     val conimalId: Int
 )
 data class myPet(

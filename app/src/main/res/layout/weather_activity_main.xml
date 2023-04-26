@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="walk"
+            type="com.example.meongnyang.weather.WeatherViewModel" />
+    </data>
+    <ScrollView
+        android:id="@+id/sv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="#E2EAFF">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".weather.WeatherActivity">
+
+            <ImageView
+                android:id="@+id/imageView33"
+                android:layout_width="395dp"
+                android:layout_height="585dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/myLocation"
+                app:srcCompat="@drawable/weather_box" />
+
+            <TextView
+                android:id="@+id/textView47"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="166dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginEnd="167dp"
+                android:fontFamily="@font/gothic"
+                android:text="현재 내 위치"
+                android:textColor="#777777"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/myLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="131dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="131dp"
+                android:fontFamily="@font/gothic"
+                android:text=""
+                android:textColor="#161C57"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView47" />
+
+            <ImageView
+                android:id="@+id/imageView34"
+                android:layout_width="461dp"
+                android:layout_height="173dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView33"
+                app:srcCompat="@drawable/weather_box2" />
+
+            <TextView
+                android:id="@+id/textView49"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="56dp"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/gothic"
+                android:text="산책지수란?"
+                android:textColor="#000000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/imageView34"
+                app:layout_constraintTop_toTopOf="@+id/imageView34" />
+
+            <TextView
+                android:id="@+id/textView50"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/gothic"
+                android:text="산책지수에 대한 설명 적어주기"
+                android:textColor="#000000"
+                app:layout_constraintEnd_toEndOf="@+id/imageView34"
+                app:layout_constraintHorizontal_bias="0.208"
+                app:layout_constraintStart_toStartOf="@+id/imageView34"
+                app:layout_constraintTop_toBottomOf="@+id/textView49" />
+
+            <TextView
+                android:id="@+id/textView51"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:fontFamily="@font/gothic"
+                android:text="오늘의 산책지수는"
+                android:textColor="#090909"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/imageView33" />
+
+            <TextView
+                android:id="@+id/index"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/gothic"
+                android:text="@{walk.index}"
+                android:textColor="#1A2B98"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/imageView33"
+                app:layout_constraintStart_toStartOf="@+id/imageView33"
+                app:layout_constraintTop_toBottomOf="@+id/imageView38" />
+
+            <TextView
+                android:id="@+id/textView53"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="96dp"
+                android:layout_marginTop="48dp"
+                android:fontFamily="@font/gothic"
+                android:text="오늘의 날씨"
+                android:textColor="#353535"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/imageView33"
+                app:layout_constraintTop_toBottomOf="@+id/index" />
+
+            <TextView
+                android:id="@+id/textView54"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="72dp"
+                android:layout_marginTop="48dp"
+                android:fontFamily="@font/gothic"
+                android:text="현재 온도"
+                android:textColor="#353535"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/textView53"
+                app:layout_constraintTop_toBottomOf="@+id/index" />
+
+            <TextView
+                android:id="@+id/temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="105dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/gothic"
+                android:gravity="center"
+                android:text="@{walk.temperature}"
+                android:textColor="#3A7CFF"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/textView55"
+                app:layout_constraintTop_toBottomOf="@+id/textView54" />
+
+            <TextView
+                android:id="@+id/textView55"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="112dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/gothic"
+                android:text="맑음"
+                android:textColor="#3A7CFF"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/imageView33"
+                app:layout_constraintTop_toBottomOf="@+id/textView53" />
+
+            <ImageView
+                android:id="@+id/imageView37"
+                android:layout_width="365dp"
+                android:layout_height="6dp"
+                android:layout_marginTop="25dp"
+                app:layout_constraintEnd_toEndOf="@+id/imageView33"
+                app:layout_constraintStart_toStartOf="@+id/imageView33"
+                app:layout_constraintTop_toBottomOf="@+id/temperature"
+                app:srcCompat="@drawable/ic_comment_line" />
+
+            <ImageView
+                android:id="@+id/imageView38"
+                android:layout_width="72dp"
+                android:layout_height="74dp"
+                android:layout_marginTop="28dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView51"
+                app:srcCompat="@drawable/nice" />
+
+            <TextView
+                android:id="@+id/textView59"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:fontFamily="@font/gothic"
+                android:text="현재 대기 수준은..."
+                android:textColor="#393939"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@+id/imageView33"
+                app:layout_constraintStart_toStartOf="@+id/imageView33"
+                app:layout_constraintTop_toBottomOf="@+id/imageView37" />
+
+            <TextView
+                android:id="@+id/textView61"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="68dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/gothic"
+                android:text="초미세먼지"
+                android:textColor="#393939"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/textView60"
+                app:layout_constraintTop_toBottomOf="@+id/textView59" />
+
+            <TextView
+                android:id="@+id/textView62"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="68dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/gothic"
+                android:text="오존"
+                android:textColor="#393939"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/textView61"
+                app:layout_constraintTop_toBottomOf="@+id/textView59" />
+
+            <TextView
+                android:id="@+id/textView60"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="52dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/gothic"
+                android:text="미세먼지"
+                android:textColor="#393939"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/imageView33"
+                app:layout_constraintTop_toBottomOf="@+id/textView59" />
+
+            <TextView
+                android:id="@+id/pm25"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/gothic"
+                android:gravity="center"
+                android:text="@{walk.pm25}"
+                android:textColor="#315DFF"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toStartOf="@+id/o3"
+                app:layout_constraintStart_toEndOf="@+id/pm10"
+                app:layout_constraintTop_toBottomOf="@+id/textView61" />
+
+            <TextView
+                android:id="@+id/o3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="87dp"
+                android:fontFamily="@font/gothic"
+                android:gravity="center"
+                android:text="@{walk.o3}"
+                android:textColor="#315DFF"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="@+id/imageView33"
+                app:layout_constraintTop_toBottomOf="@+id/textView62" />
+
+            <TextView
+                android:id="@+id/pm10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="65dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/gothic"
+                android:gravity="center"
+                android:text="@{walk.pm10}"
+                android:textColor="#315DFF"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="@+id/imageView33"
+                app:layout_constraintTop_toBottomOf="@+id/textView60" />
+
+            <TextView
+                android:id="@+id/explanation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="44dp"
+                android:fontFamily="@font/gothic"
+                android:gravity="center"
+                android:text="@{walk.explanation}"
+                android:textColor="#315DFF"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/imageView33"
+                app:layout_constraintTop_toBottomOf="@+id/pm25" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+</layout>

@@ -1,16 +1,10 @@
 package com.example.meongnyang.community
 
-import android.util.Log
-import android.widget.Toast
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.meongnyang.api.RetrofitApi
 import com.example.meongnyang.model.*
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -18,10 +12,6 @@ import retrofit2.Response
 
 class PostViewModel(postId: Int) : ViewModel() {
     val retrofit = RetrofitApi.create()
-
-    var fbAuth = FirebaseAuth.getInstance()
-    var fbFirestore = FirebaseFirestore.getInstance()
-    val uid = fbAuth.uid.toString()
 
     val title : MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val contents : MutableLiveData<String> by lazy { MutableLiveData<String>() }

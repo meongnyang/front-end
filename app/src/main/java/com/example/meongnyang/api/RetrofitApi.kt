@@ -182,6 +182,13 @@ interface RetrofitApi {
         @Path("qnaId") qnaId: Int
     ): Call<QnaModel>
 
+    // 산책지수
+    @POST("walk/{category}")
+    fun walkScore(
+        @Path("category") category: Int,
+        @Body location: Walk
+    ): Call<Score>
+
     companion object {
         private const val BASE_URL = "http://43.201.122.215:8080/"
 

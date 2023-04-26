@@ -118,7 +118,7 @@ class CatEnrollActivity : AppCompatActivity() {
         binding.enrollBtn.setOnClickListener {
             name = binding.nameEdit.text.toString()
 
-            val pet = Pet(2, name, gender, neutering, birth, adopt, species)
+            val pet = Pet(2, name, gender, neutering, birth, adopt, species, 1)
             retrofit.enrollPet(member, pet).enqueue(object: Callback<PetModel> {
                 override fun onResponse(call: Call<PetModel>, response: Response<PetModel>) {
                     var conimalId = response.body()!!.conimalId

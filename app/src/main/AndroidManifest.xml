@@ -30,6 +30,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".weather.WeatherActivity"
+            android:exported="false" />
+        <activity
             android:name=".community.WriteActivity"
             android:exported="false" />
         <activity
@@ -65,7 +68,6 @@
             android:name=".login.NicknameActivity"
             android:exported="false"
             android:noHistory="true" />
-
         <activity
             android:name=".login.LoginActivity"
             android:exported="true"

@@ -9,400 +9,499 @@
             type="com.example.meongnyang.home.HomeViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".home.HomeFragment">
+        android:scrollbars="none">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".home.HomeFragment">
 
-        <TextView
-            android:id="@+id/title_msg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="44dp"
-            android:layout_marginEnd="113dp"
-            android:fontFamily="@font/gothic"
-            android:lineSpacingExtra="5sp"
-            android:text="@{@string/title(pet.name, pet.strType)}"
-            android:textColor="#000000"
-            android:textSize="26sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <TextView
-            android:id="@+id/dayText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="232dp"
-            android:fontFamily="@font/gothic"
-            android:text="@{@string/dday(pet.count)}"
-            android:textColor="#1C1C43"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title_msg" />
-
-
-        <ImageView
-            android:id="@+id/lineImg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="35dp"
-            android:layout_marginEnd="30dp"
-            android:src="@drawable/ic_line1"
-            app:layout_constraintBottom_toTopOf="@+id/textView5"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.454"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/dayText" />
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="25dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="35dp"
-            android:layout_marginEnd="219dp"
-            android:layout_marginBottom="10dp"
-            android:fontFamily="@font/gothic"
-            android:gravity="center"
-            android:text="무엇을 찾고 계신가요❓"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/scroll"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lineImg" />
-
-        <HorizontalScrollView
-            android:id="@+id/scroll"
-            android:layout_width="0dp"
-            android:layout_height="165dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView5"
-            android:scrollbars="none">
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/title_msg"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="44dp"
+                android:layout_marginEnd="113dp"
+                android:fontFamily="@font/gothic"
+                android:lineSpacingExtra="5sp"
+                android:text="@{@string/title(pet.name, pet.strType)}"
+                android:textColor="#000000"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <LinearLayout
-                    android:id="@+id/LinearLayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
 
-                    <Button
-                        android:id="@+id/hospitalMenu"
-                        android:layout_width="150dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="top"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/ic_bluerectangle"
-                        android:fontFamily="@font/gothic"
-                        android:gravity="start"
-                        android:lineSpacingExtra="3sp"
-                        android:padding="15dp"
-                        android:text="반려동물을 위한\n내 주변 장소들" />
+            <TextView
+                android:id="@+id/dayText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="232dp"
+                android:fontFamily="@font/gothic"
+                android:text="@{@string/dday(pet.count)}"
+                android:textColor="#1C1C43"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title_msg" />
 
-                    <Button
-                        android:id="@+id/FeedMenu"
-                        android:layout_width="150dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="top"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/ic_bluerectangle"
-                        android:fontFamily="@font/gothic"
-                        android:gravity="start"
-                        android:lineSpacingExtra="3sp"
-                        android:padding="15dp"
-                        android:text="우리 아이의\n사료 성분은?" />
 
-                    <Button
-                        android:id="@+id/skinMenu"
-                        android:layout_width="150dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="top"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/ic_bluerectangle"
-                        android:fontFamily="@font/gothic"
-                        android:gravity="start"
-                        android:lineSpacingExtra="3sp"
-                        android:padding="15dp"
-                        android:text="피부병\n확인하기" />
+            <ImageView
+                android:id="@+id/lineImg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="35dp"
+                android:layout_marginEnd="30dp"
+                android:src="@drawable/ic_line1"
+                app:layout_constraintBottom_toTopOf="@+id/textView5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.454"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dayText" />
 
-                    <Button
-                        android:id="@+id/qnaMenu"
-                        android:layout_width="150dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="top"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/ic_bluerectangle"
-                        android:fontFamily="@font/gothic"
-                        android:gravity="start"
-                        android:lineSpacingExtra="3sp"
-                        android:padding="15dp"
-                        android:text="반려동물\n증상 및 솔루션"
-                        tools:layout_marginLeft="10dp" />
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="35dp"
+                android:layout_marginEnd="219dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/gothic"
+                android:gravity="center"
+                android:text="무엇을 찾고 계신가요❓"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/scroll"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lineImg" />
 
-                    <Button
-                        android:id="@+id/diaryMenu"
-                        android:layout_width="150dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="top"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/ic_bluerectangle"
-                        android:fontFamily="@font/gothic"
-                        android:gravity="start"
-                        android:lineSpacingExtra="3sp"
-                        android:padding="15dp"
-                        android:text="건강기록부\n작성하기" />
-
-                    <Button
-                        android:id="@+id/commuMenu"
-                        android:layout_width="150dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="top"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/ic_bluerectangle"
-                        android:fontFamily="@font/gothic"
-                        android:gravity="start"
-                        android:lineSpacingExtra="3sp"
-                        android:padding="15dp"
-                        android:text="커뮤니티" />
-
-                </LinearLayout>
+            <HorizontalScrollView
+                android:id="@+id/scroll"
+                android:layout_width="0dp"
+                android:layout_height="165dp"
+                android:scrollbars="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textView5">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/textView12"
-                        android:layout_width="145dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/gothic"
-                        android:lineSpacingExtra="3dp"
-                        android:text="동물병원, 반려견놀이터,\n반려동물동반식당의 위치를\n찾아볼 수 있어요"
-                        android:textSize="10dp" />
+                    <LinearLayout
+                        android:id="@+id/LinearLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/textView11"
-                        android:layout_width="145dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/gothic"
-                        android:lineSpacingExtra="3dp"
-                        android:text="내가 먹이고 있는 사료의 성분과\n우리 아이에게 알맞는 사료를 \n추천받을 수 있어요"
-                        android:textSize="10dp" />
+                        <Button
+                            android:id="@+id/hospitalMenu"
+                            android:layout_width="150dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="top"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/ic_bluerectangle"
+                            android:fontFamily="@font/gothic"
+                            android:gravity="start"
+                            android:lineSpacingExtra="3sp"
+                            android:padding="15dp"
+                            android:text="반려동물을 위한\n내 주변 장소들" />
 
-                    <TextView
-                        android:id="@+id/textView13"
-                        android:layout_width="145dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/gothic"
-                        android:lineSpacingExtra="3dp"
-                        android:text="사진 한 장으로\n피부병 진단을 받아보세요"
-                        android:textSize="10dp" />
+                        <Button
+                            android:id="@+id/FeedMenu"
+                            android:layout_width="150dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="top"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/ic_bluerectangle"
+                            android:fontFamily="@font/gothic"
+                            android:gravity="start"
+                            android:lineSpacingExtra="3sp"
+                            android:padding="15dp"
+                            android:text="우리 아이의\n사료 성분은?" />
 
-                    <TextView
-                        android:id="@+id/textView15"
-                        android:layout_width="145dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/gothic"
-                        android:lineSpacingExtra="3dp"
-                        android:text="다양한 질문들과\n전문가의 답변을 한눈에"
-                        android:textSize="10dp" />
+                        <Button
+                            android:id="@+id/WeatherMenu"
+                            android:layout_width="150dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="top"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/ic_bluerectangle"
+                            android:fontFamily="@font/gothic"
+                            android:gravity="start"
+                            android:lineSpacingExtra="3sp"
+                            android:padding="15dp"
+                            android:text="산책 지수\n자세히 보러 가기" />
 
-                    <TextView
-                        android:id="@+id/textView16"
-                        android:layout_width="145dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/gothic"
-                        android:lineSpacingExtra="3dp"
-                        android:text="매일매일 잊지 말고\n건강기록부 작성해요"
-                        android:textSize="10dp" />
+                        <Button
+                            android:id="@+id/skinMenu"
+                            android:layout_width="150dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="top"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/ic_bluerectangle"
+                            android:fontFamily="@font/gothic"
+                            android:gravity="start"
+                            android:lineSpacingExtra="3sp"
+                            android:padding="15dp"
+                            android:text="피부병\n확인하기" />
 
-                    <TextView
-                        android:id="@+id/textView17"
-                        android:layout_width="145dp"
+                        <Button
+                            android:id="@+id/qnaMenu"
+                            android:layout_width="150dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="top"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/ic_bluerectangle"
+                            android:fontFamily="@font/gothic"
+                            android:gravity="start"
+                            android:lineSpacingExtra="3sp"
+                            android:padding="15dp"
+                            android:text="반려동물\n증상 및 솔루션"
+                            tools:layout_marginLeft="10dp" />
+
+                        <Button
+                            android:id="@+id/diaryMenu"
+                            android:layout_width="150dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="top"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/ic_bluerectangle"
+                            android:fontFamily="@font/gothic"
+                            android:gravity="start"
+                            android:lineSpacingExtra="3sp"
+                            android:padding="15dp"
+                            android:text="건강기록부\n작성하기" />
+
+                        <Button
+                            android:id="@+id/commuMenu"
+                            android:layout_width="150dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="top"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="15dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/ic_bluerectangle"
+                            android:fontFamily="@font/gothic"
+                            android:gravity="start"
+                            android:lineSpacingExtra="3sp"
+                            android:padding="15dp"
+                            android:text="커뮤니티" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/gothic"
-                        android:lineSpacingExtra="3dp"
-                        android:text="자유롭게 소통하고\n귀여운 반려동물도 자랑해 봐요"
-                        android:textSize="10dp" />
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView12"
+                            android:layout_width="145dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/gothic"
+                            android:lineSpacingExtra="3dp"
+                            android:text="동물병원, 반려견놀이터,\n반려동물동반식당의 위치를\n찾아볼 수 있어요"
+                            android:textSize="10dp" />
+
+                        <TextView
+                            android:id="@+id/textView11"
+                            android:layout_width="145dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/gothic"
+                            android:lineSpacingExtra="3dp"
+                            android:text="내가 먹이고 있는 사료의 성분과\n우리 아이에게 알맞는 사료를 \n추천받을 수 있어요"
+                            android:textSize="10dp" />
+
+                        <TextView
+                            android:id="@+id/textView18"
+                            android:layout_width="145dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/gothic"
+                            android:lineSpacingExtra="3dp"
+                            android:text="아이들이 산책해도\n괜찮은 날씨일까?"
+                            android:textSize="10dp" />
+
+                        <TextView
+                            android:id="@+id/textView13"
+                            android:layout_width="145dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/gothic"
+                            android:lineSpacingExtra="3dp"
+                            android:text="사진 한 장으로\n피부병 진단을 받아보세요"
+                            android:textSize="10dp" />
+
+                        <TextView
+                            android:id="@+id/textView15"
+                            android:layout_width="145dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/gothic"
+                            android:lineSpacingExtra="3dp"
+                            android:text="다양한 질문들과\n전문가의 답변을 한눈에"
+                            android:textSize="10dp" />
+
+                        <TextView
+                            android:id="@+id/textView16"
+                            android:layout_width="145dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/gothic"
+                            android:lineSpacingExtra="3dp"
+                            android:text="매일매일 잊지 말고\n건강기록부 작성해요"
+                            android:textSize="10dp" />
+
+                        <TextView
+                            android:id="@+id/textView17"
+                            android:layout_width="145dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/gothic"
+                            android:lineSpacingExtra="3dp"
+                            android:text="자유롭게 소통하고\n귀여운 반려동물도 자랑해 봐요"
+                            android:textSize="10dp" />
+                    </LinearLayout>
+
                 </LinearLayout>
+            </HorizontalScrollView>
 
-            </LinearLayout>
-        </HorizontalScrollView>
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="28dp"
+                android:fontFamily="@font/gothic"
+                android:text="오늘의 인기 아가들 🔥"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scroll" />
 
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="25dp"
-            android:fontFamily="@font/gothic"
-            android:text="오늘의 인기 아가들 🔥"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scroll" />
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_babiesrec"
+                app:layout_constraintEnd_toStartOf="@+id/imageView3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="16dp"
-            android:src="@drawable/ic_babiesrec"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageView3"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView8"
-            app:layout_constraintVertical_bias="0.312" />
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="50dp"
+                android:src="@drawable/ic_babiesrec"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginBottom="16dp"
-            android:src="@drawable/ic_babiesrec"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView2"
-            app:layout_constraintTop_toBottomOf="@+id/textView8"
-            app:layout_constraintVertical_bias="0.312" />
+            <TextView
+                android:id="@+id/popular_first_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/gothic"
+                android:text="@{@string/dog_count(pet.popularDogCnt)}"
+                android:textColor="#000000"
+                android:textSize="10sp"
+                app:layout_constraintStart_toStartOf="@+id/imageView2"
+                app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
-        <TextView
-            android:id="@+id/popular_first_num"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/gothic"
-            android:text="@{@string/dog_count(pet.popularDogCnt)}"
-            android:textColor="#000000"
-            android:textSize="10sp"
-            app:layout_constraintStart_toStartOf="@+id/imageView2"
-            app:layout_constraintTop_toTopOf="@+id/imageView2" />
+            <TextView
+                android:id="@+id/popular_second_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/gothic"
+                android:text="@{@string/cat_count(pet.popularCatCnt)}"
+                android:textColor="#000000"
+                android:textSize="10sp"
+                app:layout_constraintStart_toStartOf="@+id/imageView3"
+                app:layout_constraintTop_toTopOf="@+id/imageView3" />
 
-        <TextView
-            android:id="@+id/popular_second_num"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/gothic"
-            android:text="@{@string/cat_count(pet.popularCatCnt)}"
-            android:textColor="#000000"
-            android:textSize="10sp"
-            app:layout_constraintStart_toStartOf="@+id/imageView3"
-            app:layout_constraintTop_toTopOf="@+id/imageView3" />
+            <ImageView
+                android:id="@+id/first_dog"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+                app:layout_constraintEnd_toEndOf="@+id/imageView2"
+                app:layout_constraintStart_toStartOf="@+id/imageView2"
+                app:layout_constraintTop_toTopOf="@+id/imageView2"
+                app:popularImgFromUrl="@{pet.popularDog}" />
 
-        <ImageView
-            android:id="@+id/first_dog"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            app:popularImgFromUrl="@{pet.popularDog}"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-            app:layout_constraintEnd_toEndOf="@+id/imageView2"
-            app:layout_constraintStart_toStartOf="@+id/imageView2"
-            app:layout_constraintTop_toTopOf="@+id/imageView2" />
+            <ImageView
+                android:id="@+id/first_cat"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+                app:layout_constraintEnd_toEndOf="@+id/imageView3"
+                app:layout_constraintStart_toStartOf="@+id/imageView3"
+                app:layout_constraintTop_toTopOf="@+id/imageView3"
+                app:popularImgFromUrl="@{pet.popularCat}" />
 
-        <ImageView
-            android:id="@+id/first_cat"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            app:popularImgFromUrl="@{pet.popularCat}"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-            app:layout_constraintEnd_toEndOf="@+id/imageView3"
-            app:layout_constraintStart_toStartOf="@+id/imageView3"
-            app:layout_constraintTop_toTopOf="@+id/imageView3" />
+            <TextView
+                android:id="@+id/first_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/gothic"
+                android:text="오늘의 강아지"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+                app:layout_constraintEnd_toEndOf="@+id/imageView2"
+                app:layout_constraintHorizontal_bias="0.49"
+                app:layout_constraintStart_toStartOf="@+id/imageView2"
+                app:layout_constraintTop_toBottomOf="@+id/first_dog"
+                app:layout_constraintVertical_bias="0.846" />
 
-        <TextView
-            android:id="@+id/first_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="10dp"
-            android:fontFamily="@font/gothic"
-            android:text="오늘의 강아지"
-            android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-            app:layout_constraintEnd_toEndOf="@+id/imageView2"
-            app:layout_constraintHorizontal_bias="0.49"
-            app:layout_constraintStart_toStartOf="@+id/imageView2"
-            app:layout_constraintTop_toBottomOf="@+id/first_dog"
-            app:layout_constraintVertical_bias="0.846" />
+            <TextView
+                android:id="@+id/second_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/gothic"
+                android:text="오늘의 고양이"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+                app:layout_constraintEnd_toEndOf="@+id/imageView3"
+                app:layout_constraintHorizontal_bias="0.481"
+                app:layout_constraintStart_toStartOf="@+id/imageView3"
+                app:layout_constraintTop_toBottomOf="@+id/first_cat"
+                app:layout_constraintVertical_bias="0.714" />
 
-        <TextView
-            android:id="@+id/second_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="10dp"
-            android:fontFamily="@font/gothic"
-            android:text="오늘의 고양이"
-            android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-            app:layout_constraintEnd_toEndOf="@+id/imageView3"
-            app:layout_constraintHorizontal_bias="0.481"
-            app:layout_constraintStart_toStartOf="@+id/imageView3"
-            app:layout_constraintTop_toBottomOf="@+id/first_cat"
-            app:layout_constraintVertical_bias="0.714" />
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="120dp"
+                android:layout_marginTop="65dp"
+                android:fontFamily="@font/gothic"
+                android:text="오늘의 산책 지수는? 🌤️"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="350dp"
+                android:layout_height="133dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="31dp"
+                android:layout_marginBottom="25dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView14"
+                app:srcCompat="@drawable/weather_rec" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/imageView22"
+                android:layout_width="53dp"
+                android:layout_height="57dp"
+                android:layout_marginStart="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+                app:layout_constraintStart_toStartOf="@+id/imageView5"
+                app:layout_constraintTop_toTopOf="@+id/imageView5"
+                app:srcCompat="@drawable/nice" />
 
+            <TextView
+                android:id="@+id/textView43"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/gothic"
+                android:text="16℃"
+                android:textColor="#000000"
+                android:textSize="24sp"
+                app:layout_constraintStart_toEndOf="@+id/imageView22"
+                app:layout_constraintTop_toTopOf="@+id/imageView5" />
+
+            <TextView
+                android:id="@+id/textView45"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="6dp"
+                android:fontFamily="@font/gothic"
+                android:text="오늘은 나가서 마음껏 산책을 즐겨요!"
+                android:textColor="#232323"
+                app:layout_constraintStart_toEndOf="@+id/imageView22"
+                app:layout_constraintTop_toBottomOf="@+id/textView43" />
+
+            <TextView
+                android:id="@+id/textView46"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/gothic"
+                android:text="아주 좋음"
+                android:textColor="#142F50"
+                android:textSize="11sp"
+                app:layout_constraintEnd_toEndOf="@+id/imageView5"
+                app:layout_constraintTop_toTopOf="@+id/imageView5" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>

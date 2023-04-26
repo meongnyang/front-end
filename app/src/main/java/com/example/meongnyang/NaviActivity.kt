@@ -20,17 +20,17 @@ import com.example.meongnyang.map.MapActivity
 import com.example.meongnyang.mypage.MyFragment
 import com.example.meongnyang.qna.QnaFragment
 import com.example.meongnyang.skin.SkinMainActivity
+import com.example.meongnyang.weather.WeatherActivity
 
 class NaviActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNaviBinding
     private lateinit var hospitalBtn: TextView
     private lateinit var skinBtn: TextView
-    private lateinit var playBtn: TextView
     private lateinit var qnaBtn: TextView
     private lateinit var feedBtn: TextView
     private lateinit var healthDiaryBtn: TextView
     private lateinit var communityBtn: TextView
-    private lateinit var withBtn: TextView
+    private lateinit var weatherBtn: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,6 +81,7 @@ class NaviActivity : AppCompatActivity() {
         feedBtn = findViewById(R.id.feed)
         healthDiaryBtn = findViewById(R.id.healthDiary)
         communityBtn = findViewById(R.id.community)
+        weatherBtn = findViewById(R.id.weahter)
 
         // 사이드 메뉴 클릭 시
         skinBtn.setOnClickListener {
@@ -106,6 +107,10 @@ class NaviActivity : AppCompatActivity() {
         communityBtn.setOnClickListener {
             closeMenu()
             replace(CommuFragment())
+        }
+        weatherBtn.setOnClickListener {
+            val intent = Intent(this, WeatherActivity::class.java)
+            startActivity(intent)
         }
     }
 

@@ -55,7 +55,7 @@
                     android:layout_height="100dp"
                     android:layout_gravity="center"
                     android:layout_marginStart="140dp"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="30dp"
                     android:layout_marginEnd="141dp"
                     android:src="@drawable/ic_profile"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -67,7 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="36dp"
+                    android:layout_marginTop="27dp"
                     android:layout_marginEnd="112dp"
                     android:backgroundTint="#5C71AF"
                     android:ems="10"
@@ -122,6 +122,19 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView36" />
 
+                <TextView
+                    android:id="@+id/textView48"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginTop="46dp"
+                    android:fontFamily="@font/gothic"
+                    android:text="크기"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView37" />
+
                 <Button
                     android:id="@+id/birthDay"
                     android:layout_width="200dp"
@@ -156,7 +169,7 @@
                     android:id="@+id/enrollBtn"
                     android:layout_width="103dp"
                     android:layout_height="44dp"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="50dp"
                     android:layout_marginBottom="32dp"
                     android:background="@drawable/ic_save_btn"
                     android:fontFamily="@font/gothic"
@@ -165,7 +178,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/selectSpecies" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView48" />
 
                 <Spinner
                     android:id="@+id/selectSpecies"
@@ -239,7 +252,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="56dp"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="40dp"
                     android:fontFamily="@font/gothic"
                     android:text="이름"
                     android:textColor="#000000"
@@ -257,6 +270,39 @@
                     android:text="했음"
                     app:layout_constraintStart_toEndOf="@+id/textView30"
                     app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginTop="28dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toEndOf="@+id/textView48"
+                    app:layout_constraintTop_toBottomOf="@+id/selectSpecies">
+
+                    <RadioButton
+                        android:id="@+id/small_size"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="7dp"
+                        android:fontFamily="@font/gothic"
+                        android:text="소형견" />
+
+                    <RadioButton
+                        android:id="@+id/middle_size"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="7dp"
+                        android:fontFamily="@font/gothic"
+                        android:text="중형견" />
+
+                    <RadioButton
+                        android:id="@+id/big_size"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/gothic"
+                        android:text="대형견" />
+                </RadioGroup>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

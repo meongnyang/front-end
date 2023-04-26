@@ -16,6 +16,7 @@ import com.example.meongnyang.diary.DiaryFragment
 import com.example.meongnyang.feed.FeedFragment
 import com.example.meongnyang.qna.QnaFragment
 import com.example.meongnyang.skin.SkinMainActivity
+import com.example.meongnyang.weather.WeatherActivity
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
@@ -57,6 +58,10 @@ class HomeFragment : Fragment() {
         }
         binding.commuMenu.setOnClickListener {
             (activity as NaviActivity).replace(CommuFragment())
+        }
+        binding.WeatherMenu.setOnClickListener {
+            val intent = Intent(context, WeatherActivity::class.java)
+            startActivity(intent)
         }
 
         return binding?.root
