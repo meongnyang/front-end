@@ -79,11 +79,11 @@ class EnrollActivity : AppCompatActivity() {
             }*/
 
         // 프로필 사진 선택
-        binding.petImg.setOnClickListener {
+        /*binding.petImg.setOnClickListener {
             checkPermission {
                 openGallery()
             }
-        }
+        }*/
 
 
         // 생년월일 선택
@@ -240,7 +240,7 @@ class EnrollActivity : AppCompatActivity() {
                     // 이미지 s3에 올리기
                     uploadImage(fileName, bitmapToFile(bitmap, fileName))
                     // 화면상에 띄우기
-                    binding.petImg.setImageBitmap(bitmap)
+                    //binding.petImg.setImageBitmap(bitmap)
                     updateImg(conimalId, "https://meongnyang.s3.ap-northeast-2.amazonaws.com/conimal/${fileName}")
 
                 } catch (e: Exception) {

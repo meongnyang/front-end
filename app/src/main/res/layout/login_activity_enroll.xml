@@ -49,25 +49,12 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/pet_img"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="140dp"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginEnd="141dp"
-                    android:src="@drawable/ic_profile"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/blue_line2" />
-
                 <EditText
                     android:id="@+id/nameEdit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="27dp"
+                    android:layout_marginTop="58dp"
                     android:layout_marginEnd="112dp"
                     android:backgroundTint="#5C71AF"
                     android:ems="10"
@@ -77,7 +64,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/textView28"
-                    app:layout_constraintTop_toBottomOf="@+id/pet_img" />
+                    app:layout_constraintTop_toBottomOf="@+id/blue_line2" />
 
                 <Button
                     android:id="@+id/adoptDay"
@@ -140,7 +127,7 @@
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="18dp"
                     android:layout_marginEnd="76dp"
                     android:backgroundTint="#81A0DC"
                     android:ems="10"
@@ -169,7 +156,7 @@
                     android:id="@+id/enrollBtn"
                     android:layout_width="103dp"
                     android:layout_height="44dp"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="80dp"
                     android:layout_marginBottom="32dp"
                     android:background="@drawable/ic_save_btn"
                     android:fontFamily="@font/gothic"
@@ -252,13 +239,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="56dp"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="72dp"
                     android:fontFamily="@font/gothic"
                     android:text="이름"
                     android:textColor="#000000"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/pet_img" />
+                    app:layout_constraintTop_toBottomOf="@+id/blue_line2" />
 
                 <CheckBox
                     android:id="@+id/neuterCheck"

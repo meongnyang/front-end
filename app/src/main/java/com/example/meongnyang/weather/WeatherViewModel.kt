@@ -31,6 +31,10 @@ class WeatherViewModel(la: Double, lo: Double, district: String): ViewModel() {
     val pm10 : MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val pm25 : MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val o3: MutableLiveData<String> by lazy { MutableLiveData<String>() }
+    val o3exp: MutableLiveData<String> by lazy { MutableLiveData<String>() }
+    val pm10exp: MutableLiveData<String> by lazy { MutableLiveData<String>() }
+    val pm25exp: MutableLiveData<String> by lazy { MutableLiveData<String>() }
+    val weather: MutableLiveData<String> by lazy { MutableLiveData<String>() }
 
     init {
         viewModelScope.launch {
@@ -45,7 +49,16 @@ class WeatherViewModel(la: Double, lo: Double, district: String): ViewModel() {
                                 Callback<Score> {
                                 override fun onResponse(call: Call<Score>, response: Response<Score>) {
                                     if (response.code() == 404) {
-
+                                        index.value = "-"
+                                        explanation.value = "산책지수를 불러들이는 데에 실패했어요. 😿"
+                                        temperature.value = "-"
+                                        o3.value = "-"
+                                        pm10.value = "-"
+                                        pm25.value = "-"
+                                        o3exp.value = "-"
+                                        pm10exp.value = "-"
+                                        pm25exp.value = "-"
+                                        weather.value = "-"
                                     } else {
                                         index.value = response.body()!!.index
                                         explanation.value = response.body()!!.explanation
@@ -53,6 +66,10 @@ class WeatherViewModel(la: Double, lo: Double, district: String): ViewModel() {
                                         o3.value = response.body()!!.o3.toString()
                                         pm10.value = response.body()!!.pm10.toString()
                                         pm25.value = response.body()!!.pm25.toString()
+                                        o3exp.value = response.body()!!.o3exp
+                                        pm10exp.value = response.body()!!.pm10exp
+                                        pm25exp.value = response.body()!!.pm25exp
+                                        weather.value = response.body()!!.weather
                                     }
                                 }
                                 override fun onFailure(call: Call<Score>, t: Throwable) {
