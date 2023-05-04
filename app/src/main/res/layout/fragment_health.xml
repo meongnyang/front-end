@@ -23,7 +23,7 @@
             android:fontFamily="@font/gothic"
             android:text="매일매일 간편 기록 🐾"
             android:textColor="#000000"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
@@ -38,7 +38,7 @@
             android:fontFamily="@font/gothic"
             android:text="우리 아이 건강은 내가 지킨다 👊"
             android:textColor="#000000"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -198,6 +198,65 @@
                         app:layout_constraintHorizontal_bias="0.983"
                         app:layout_constraintStart_toEndOf="@+id/skintv2"
                         app:layout_constraintTop_toTopOf="@+id/skinCheckBtn"
+                        app:tint="#BCBCBC" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/eyeCheckBtn"
+                        android:layout_width="341dp"
+                        android:layout_height="108dp"
+                        android:src="@drawable/ic_healthrec"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.507"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0" />
+
+                    <TextView
+                        android:id="@+id/eyetv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="28dp"
+                        android:background="#6DA1B1DF"
+                        android:fontFamily="@font/gothic"
+                        android:text="안구질환 확인하기"
+                        android:textColor="#000000"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toStartOf="@+id/nextBtn4"
+                        app:layout_constraintHorizontal_bias="0.158"
+                        app:layout_constraintStart_toStartOf="@+id/eyeCheckBtn"
+                        app:layout_constraintTop_toTopOf="@+id/eyeCheckBtn" />
+
+                    <TextView
+                        android:id="@+id/eyetv2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:fontFamily="@font/gothic"
+                        android:lineSpacingExtra="3sp"
+                        android:text="간단하게 사진 한 장으로\n안구질환을 체크해 보세요"
+                        android:textSize="10sp"
+                        app:layout_constraintEnd_toEndOf="@+id/eyeCheckBtn"
+                        app:layout_constraintHorizontal_bias="0.137"
+                        app:layout_constraintStart_toStartOf="@+id/eyeCheckBtn"
+                        app:layout_constraintTop_toBottomOf="@id/eyetv" />
+
+                    <ImageView
+                        android:id="@+id/nextBtn4"
+                        android:layout_width="19dp"
+                        android:layout_height="19dp"
+                        android:layout_marginEnd="16dp"
+                        android:src="@drawable/ic_round_arrow_forward_ios_24"
+                        app:layout_constraintBottom_toBottomOf="@+id/eyeCheckBtn"
+                        app:layout_constraintEnd_toEndOf="@+id/eyeCheckBtn"
+                        app:layout_constraintHorizontal_bias="0.983"
+                        app:layout_constraintStart_toEndOf="@+id/eyetv2"
+                        app:layout_constraintTop_toTopOf="@+id/eyeCheckBtn"
                         app:tint="#BCBCBC" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

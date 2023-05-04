@@ -17,6 +17,7 @@ import com.example.meongnyang.databinding.FragmentHealthBinding
 import com.example.meongnyang.diary.DiaryFragment
 import com.example.meongnyang.diary.DiaryViewModel
 import com.example.meongnyang.diary.DiaryViewModelFactory
+import com.example.meongnyang.eye.EyeMainActivity
 import com.example.meongnyang.feed.FeedFragment
 import com.example.meongnyang.model.Id
 import com.example.meongnyang.model.PostDiary
@@ -77,6 +78,10 @@ class HealthFragment : Fragment() {
         // 메뉴 화면 이동
         binding.skinCheckBtn.setOnClickListener {
             val intent = Intent(context, SkinMainActivity::class.java)
+            startActivity(intent)
+        }
+        binding.eyeCheckBtn.setOnClickListener {
+            val intent = Intent(context, EyeMainActivity::class.java)
             startActivity(intent)
         }
         binding.qnaBtn.setOnClickListener {
