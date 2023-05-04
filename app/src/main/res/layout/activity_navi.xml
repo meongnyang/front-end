@@ -90,12 +90,18 @@
                 android:textColor="@color/black"
                 android:textSize="15dp" />
 
+            <ImageView
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="17dp"
+                android:src="@drawable/ic_line1" />
+
             <TextView
                 android:id="@+id/eyeCheck"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="70dp"
                 android:fontFamily="@font/gothic"
                 android:text="우리 아이 안구질환 확인하기 👀"
                 android:textColor="@color/black"
