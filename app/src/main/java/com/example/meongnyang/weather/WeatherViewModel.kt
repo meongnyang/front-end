@@ -1,10 +1,15 @@
 package com.example.meongnyang.weather
 
+import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.util.Log
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.meongnyang.R
 import com.example.meongnyang.api.RetrofitApi
 import com.example.meongnyang.model.Id
 import com.example.meongnyang.model.PetModel
@@ -13,6 +18,7 @@ import com.example.meongnyang.model.Walk
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
+import com.kakao.auth.StringSet.file
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -35,6 +41,7 @@ class WeatherViewModel(la: Double, lo: Double, district: String): ViewModel() {
     val pm10exp: MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val pm25exp: MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val weather: MutableLiveData<String> by lazy { MutableLiveData<String>() }
+    val img: MutableLiveData<Int> by lazy { MutableLiveData<Int>() }
 
     init {
         viewModelScope.launch {
@@ -59,17 +66,36 @@ class WeatherViewModel(la: Double, lo: Double, district: String): ViewModel() {
                                         pm10exp.value = "-"
                                         pm25exp.value = "-"
                                         weather.value = "-"
+                                        img.value = R.drawable.fail
                                     } else {
-                                        index.value = response.body()!!.index
-                                        explanation.value = response.body()!!.explanation
-                                        temperature.value = "${response.body()!!.temperature}℃"
-                                        o3.value = response.body()!!.o3.toString()
-                                        pm10.value = response.body()!!.pm10.toString()
-                                        pm25.value = response.body()!!.pm25.toString()
-                                        o3exp.value = response.body()!!.o3exp
-                                        pm10exp.value = response.body()!!.pm10exp
-                                        pm25exp.value = response.body()!!.pm25exp
-                                        weather.value = response.body()!!.weather
+                                        val walk = response.body()!!
+                                        index.value = walk.index
+                                        when (walk.index) {
+                                            "아주 좋음" -> {
+                                                img.value = R.drawable.perfect
+                                            }
+                                            "좋음" -> {
+                                                img.value = R.drawable.nice
+                                            }
+                                            "보통" -> {
+                                                img.value = R.drawable.normal
+                                            }
+                                            "나쁨" -> {
+                                                img.value = R.drawable.bad
+                                            }
+                                            else -> {
+                                                img.value = R.drawable.nope
+                                            }
+                                        }
+                                        explanation.value = walk.explanation
+                                        temperature.value = "${walk.temperature}℃"
+                                        o3.value = walk.o3.toString()
+                                        pm10.value = walk.pm10.toString()
+                                        pm25.value = walk.pm25.toString()
+                                        o3exp.value = walk.o3exp
+                                        pm10exp.value = walk.pm10exp
+                                        pm25exp.value = walk.pm25exp
+                                        weather.value = walk.weather
                                     }
                                 }
                                 override fun onFailure(call: Call<Score>, t: Throwable) {

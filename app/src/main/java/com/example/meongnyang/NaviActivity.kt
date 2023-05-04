@@ -13,6 +13,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.example.meongnyang.databinding.ActivityNaviBinding
 import com.example.meongnyang.community.CommuFragment
+import com.example.meongnyang.eye.EyeMainActivity
 import com.example.meongnyang.feed.FeedFragment
 import com.example.meongnyang.health.*
 import com.example.meongnyang.home.HomeFragment
@@ -31,6 +32,7 @@ class NaviActivity : AppCompatActivity() {
     private lateinit var healthDiaryBtn: TextView
     private lateinit var communityBtn: TextView
     private lateinit var weatherBtn: TextView
+    private lateinit var eyeBtn: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,6 +84,7 @@ class NaviActivity : AppCompatActivity() {
         healthDiaryBtn = findViewById(R.id.healthDiary)
         communityBtn = findViewById(R.id.community)
         weatherBtn = findViewById(R.id.weahter)
+        eyeBtn = findViewById(R.id.eyeCheck)
 
         // 사이드 메뉴 클릭 시
         skinBtn.setOnClickListener {
@@ -110,6 +113,10 @@ class NaviActivity : AppCompatActivity() {
         }
         weatherBtn.setOnClickListener {
             val intent = Intent(this, WeatherActivity::class.java)
+            startActivity(intent)
+        }
+        eyeBtn.setOnClickListener {
+            val intent = Intent(this, EyeMainActivity::class.java)
             startActivity(intent)
         }
     }

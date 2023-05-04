@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".skin.SkinMainActivity">
+    tools:context=".eye.EyeMainActivity">
 
     <Button
         android:id="@+id/startBtn"
         android:layout_width="113dp"
         android:layout_height="52dp"
         android:layout_marginStart="149dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="149dp"
         android:background="@drawable/ic_click"
         android:fontFamily="@font/gothic"
@@ -41,44 +41,26 @@
         android:layout_marginTop="56dp"
         android:fontFamily="@font/gothic"
         android:lineSpacingExtra="5dp"
-        android:text="우리 아이의 피부 상태,\n사진 한 장으로 확인해 봐요 📷"
+        android:text="우리 아이의 안구 질환,\n사진 한 장으로 확인해 봐요 📷"
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="28dp"
-        android:fontFamily="@font/gothic"
-        android:lineSpacingExtra="4dp"
-        android:text="피부병 증상별로 각 2000개의 이미지 수집,\n이를 사용하여 피부병 확인 모델 구현"
-        android:textColor="#656565"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.061"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView25" />
-
-    <TextView
         android:id="@+id/textView19"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="56dp"
         android:layout_marginEnd="28dp"
         android:fontFamily="@font/gothic"
         android:gravity="center"
         android:lineSpacingExtra="4dp"
-        android:text="직접 만들어낸 모델을 이용해 구현한\n👇 피부병 검사를 체험해 보세요!"
+        android:text="직접 만들어낸 모델을 이용해 구현한\n👇 안구질환 검사를 체험해 보세요!"
         android:textColor="#000000"
-        android:textSize="15sp"
+        android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView25" />
 
@@ -87,11 +69,12 @@
         android:layout_width="339dp"
         android:layout_height="289dp"
         android:layout_marginStart="36dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="36dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView15"
-        app:srcCompat="@drawable/skin_img" />
+        app:srcCompat="@drawable/eye_img" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,14 +13,17 @@ import com.example.meongnyang.R
 import com.example.meongnyang.community.CommuFragment
 import com.example.meongnyang.databinding.FragmentHomeBinding
 import com.example.meongnyang.diary.DiaryFragment
+import com.example.meongnyang.eye.EyeMainActivity
 import com.example.meongnyang.feed.FeedFragment
 import com.example.meongnyang.qna.QnaFragment
 import com.example.meongnyang.skin.SkinMainActivity
 import com.example.meongnyang.weather.WeatherActivity
+import com.example.meongnyang.weather.WeatherViewModel
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private val model: HomeViewModel by activityViewModels()
+    private val weatherModel: WeatherViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,6 +47,10 @@ class HomeFragment : Fragment() {
         }
         binding.skinMenu.setOnClickListener {
             val intent = Intent(context, SkinMainActivity::class.java)
+            startActivity(intent)
+        }
+        binding.eyeMenu.setOnClickListener {
+            val intent = Intent(context, EyeMainActivity::class.java)
             startActivity(intent)
         }
         binding.hospitalMenu.setOnClickListener {

@@ -1,8 +1,6 @@
-package com.example.meongnyang.skin
+package com.example.meongnyang.eye
 
 import android.Manifest
-import android.Manifest.permission.CAMERA
-import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
@@ -10,6 +8,7 @@ import android.content.Intent
 import android.graphics.*
 import android.hardware.Camera
 import android.net.Uri
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -17,8 +16,7 @@ import android.util.Log
 import android.view.SurfaceHolder
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import com.example.meongnyang.databinding.SkinActivityCameraBinding
+import com.example.meongnyang.databinding.EyeActivityCameraBinding
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
 import org.pytorch.IValue
@@ -27,11 +25,10 @@ import org.pytorch.Module
 import org.pytorch.torchvision.TensorImageUtils
 import java.io.*
 
-
-class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.PictureCallback {
+class EyeCameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.PictureCallback {
     private var mModule: Module? = null
 
-    private lateinit var binding: SkinActivityCameraBinding
+    private lateinit var binding: EyeActivityCameraBinding
 
     private var surfaceHolder: SurfaceHolder? = null
     private var camera: Camera? = null
@@ -39,7 +36,7 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = SkinActivityCameraBinding.inflate(layoutInflater)
+        binding = EyeActivityCameraBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         checkPermission {
@@ -64,7 +61,7 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
 
                 // 권한이 거부됐을 때
                 override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
-                    Toast.makeText(this@CameraActivity, "권한 거부됨", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@EyeCameraActivity, "권한 거부됨", Toast.LENGTH_SHORT).show()
                 }
             })
             .setRationaleMessage("카메라 권한이 필요한 서비스입니다.")
@@ -72,9 +69,9 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
             .setDeniedCloseButtonText("닫기")
             .setGotoSettingButtonText("설정")
             .setPermissions(
-                WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.READ_EXTERNAL_STORAGE,
-                CAMERA
+                Manifest.permission.CAMERA
             )
             .check()
     }
@@ -157,14 +154,11 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
     // resultActivity로 사진 보내주기
     private fun sendImg(bytes: ByteArray) {
         val classList = mutableMapOf<Int, String>()
-        classList[0] = "구진, 플라크"
-        classList[1] = "비듬, 각질, 상피성잔고리"
-        classList[2] = "태선화, 과다색소침착"
-        classList[3] = "농포, 여드름"
-        classList[4] = "미란, 궤양"
-        classList[5] = "결절, 종괴"
-        classList[6] = "피부병무증상"
-
+        classList[0] = "결막염"
+        classList[1] = "궤양성각막질환"
+        classList[2] = "백내장"
+        classList[3] = "비궤양성각막질환"
+        classList[4] = "안구무증상"
 
         val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
 
@@ -173,7 +167,7 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
 
         // 90도 회전시키기
         val matrix = Matrix()
-        matrix.postRotate(90f)
+        matrix.postRotate(0f)
 
         val result = grayScale(Bitmap.createBitmap(resized, 0, 0, resized.width, resized.height, matrix, true))
         camera!!.startPreview()
@@ -181,13 +175,13 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
         val stream = ByteArrayOutputStream()
         result.compress(Bitmap.CompressFormat.PNG, 100, stream)
 
-        //val byte = stream.toByteArray()
+        val byte = stream.toByteArray()
 
-        //saveImage(byte) // 압축한 거 저장해 보기
+        saveImage(byte) // 압축한 거 저장해 보기
 
         // model
         if (mModule == null) {
-            mModule = LiteModuleLoader.load(assetFilePath(this, "petScript100.ptl"))
+            mModule = LiteModuleLoader.load(assetFilePath(this, "test_densnet_20ep_adam3.pt"))
         }
 
         val inputTensor = TensorImageUtils.bitmapToFloat32Tensor(
@@ -210,7 +204,7 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
         result.compress(Bitmap.CompressFormat.PNG, 60, stream)
         val bytes = stream.toByteArray()
 
-        val intent = Intent(this, ResultActivity::class.java)
+        val intent = Intent(this, EyeResultActivity::class.java)
         intent.putExtra("image", bytes)
         intent.putExtra("result", classList[maxScoreIdx].toString())
         startActivity(intent)
@@ -228,7 +222,7 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
             outStream = FileOutputStream(file)
             outStream.write(bytes)
             outStream.close()
-            Toast.makeText(this@CameraActivity, "촬영한 사진이 갤러리에 저장되었습니다.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@EyeCameraActivity, "촬영한 사진이 갤러리에 저장되었습니다.", Toast.LENGTH_SHORT).show()
         } catch (e: FileNotFoundException) {
             e.printStackTrace()
         } catch (e: IOException) {
@@ -242,7 +236,6 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = ("image/*")
         startActivityForResult(intent, OPEN_GALLERY)
-        Log.d("member", "갤러리 열었음.")
     }
 
     fun assetFilePath(context: Context, assetName: String?): String? {
@@ -265,22 +258,18 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
 
     // 갤러리에서 사진 가져오기
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        Log.d("member", "사진 가져오기")
 
         val classList = mutableMapOf<Int, String>()
-        classList[0] = "구진, 플라크"
-        classList[1] = "비듬, 각질, 상피성잔고리"
-        classList[2] = "태선화, 과다색소침착"
-        classList[3] = "농포, 여드름"
-        classList[4] = "미란, 궤양"
-        classList[5] = "결절, 종괴"
-        classList[6] = "무증상"
+        classList[0] = "결막염"
+        classList[1] = "궤양성각막질환"
+        classList[2] = "백내장"
+        classList[3] = "비궤양성각막질환"
+        classList[4] = "안구무증상"
         super.onActivityResult(requestCode, resultCode, data)
 
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == OPEN_GALLERY) {
-                var currentImageUrl = data!!.data
-                Log.d("memberid", currentImageUrl.toString())
+                var currentImageUrl: Uri? = data?.data
 
                 try {
                     // resultActivity에 이미지 보내기
@@ -312,10 +301,10 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
                         resizedBitmap,
                         TensorImageUtils.TORCHVISION_NORM_MEAN_RGB, TensorImageUtils.TORCHVISION_NORM_STD_RGB
                     )
-
+//
                     val outputTensor = mModule!!.forward(IValue.from(inputTensor)).toTensor()
                     val scores = outputTensor.dataAsFloatArray
-
+//
                     var maxScore = -Float.MAX_VALUE
                     var maxScoreIdx = -1
                     for (i in scores.indices) {
@@ -328,13 +317,9 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
                     resizedBitmap.compress(Bitmap.CompressFormat.PNG, 60, stream)
                     val bytes = stream.toByteArray()
 
-                    val intent = Intent(this, ResultActivity::class.java)
+                    val intent = Intent(this, EyeResultActivity::class.java)
                     intent.putExtra("image", bytes)
                     intent.putExtra("result", classList[maxScoreIdx].toString())
-
-                    Log.d("member", bytes.toString())
-                    Log.d("member", classList[maxScoreIdx].toString())
-
                     startActivity(intent)
 
                 } catch (e: Exception) {

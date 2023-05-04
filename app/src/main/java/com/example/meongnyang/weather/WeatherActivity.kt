@@ -94,6 +94,8 @@ class WeatherActivity : AppCompatActivity() {
                     var token = nowAddr.split(" ")
                     nowAddr = token[1] + " " + token[2]
                     locality = token[2]
+                } else {
+                    nowAddr = "서울특별시 노원구"
                 }
             }
         } catch (e: java.lang.Exception) {

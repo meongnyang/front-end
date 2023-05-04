@@ -30,6 +30,28 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".eye.EyeResultActivity"
+            android:exported="false" />
+        <activity
+            android:name=".eye.EyeCameraActivity"
+            android:exported="false" />
+        <activity
+            android:name=".eye.EyeMainActivity"
+            android:exported="false" />
+
+        <receiver
+            android:name=".weather.WeatherWidget"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/weather_widget_info" />
+        </receiver>
+
+        <activity
             android:name=".weather.WeatherActivity"
             android:exported="false" />
         <activity
@@ -116,7 +138,7 @@
         <activity
             android:name=".skin.CameraActivity"
             android:exported="false"
-            android:noHistory="true" />
+            android:noHistory="false" />
 
         <service
             android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService"

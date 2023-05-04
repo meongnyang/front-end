@@ -8,7 +8,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".skin.ResultActivity">
+        tools:context=".eye.EyeResultActivity">
 
         <ScrollView
             android:id="@+id/resultView"
@@ -44,7 +44,7 @@
                     android:layout_marginEnd="200dp"
                     android:fontFamily="@font/gothic"
                     android:lineSpacingExtra="5dp"
-                    android:text="확인 및 분석 결과 💻"
+                    android:text="@string/result_title"
                     android:textColor="#000000"
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -52,7 +52,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/resultTitle"
+                    android:id="@+id/eye_result_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="92dp"
@@ -64,10 +64,10 @@
                     android:text=""
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/resultImg" />
+                    app:layout_constraintTop_toBottomOf="@+id/eye_result_img" />
 
                 <TextView
-                    android:id="@+id/resultName"
+                    android:id="@+id/eye_result_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="80dp"
@@ -80,10 +80,10 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.497"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/resultTitle" />
+                    app:layout_constraintTop_toBottomOf="@+id/eye_result_title" />
 
                 <ImageView
-                    android:id="@+id/resultImg"
+                    android:id="@+id/eye_result_img"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_marginStart="140dp"
@@ -105,7 +105,7 @@
                     android:foregroundGravity="center"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/resultName"
+                    app:layout_constraintTop_toBottomOf="@+id/eye_result_name"
                     app:srcCompat="@drawable/ic_result_box" />
 
                 <ImageView
@@ -148,20 +148,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView26" />
 
                 <Button
-                    android:id="@+id/goFeedBtn"
-                    android:layout_width="350dp"
-                    android:layout_height="46dp"
-                    android:layout_marginStart="31dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="28dp"
-                    android:background="@drawable/ic_next_btn"
-                    android:fontFamily="@font/gothic"
-                    android:text="피부병에 좋은 사료 찾아보기"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/goMapBtn" />
-
-                <Button
                     android:id="@+id/goQnaBtn"
                     android:layout_width="350dp"
                     android:layout_height="46dp"
@@ -171,7 +157,7 @@
                     android:fontFamily="@font/gothic"
                     android:text="전문가의 솔루션 찾아보기"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/goFeedBtn" />
+                    app:layout_constraintTop_toBottomOf="@+id/goMapBtn" />
 
                 <Button
                     android:id="@+id/goMainBtn"
@@ -193,7 +179,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:fontFamily="@font/gothic"
-                    android:text="피부병 발생 원인 및 유의사항"
+                    android:text="안구질환 발생 원인 및 유의사항"
                     android:textSize="13sp"
                     app:layout_constraintEnd_toEndOf="@+id/resonBox"
                     app:layout_constraintStart_toStartOf="@+id/resonBox"
@@ -205,21 +191,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:fontFamily="@font/gothic"
-                    android:text="피부병 완화를 위해 힘써야 할 것"
+                    android:text="안구질환 완화를 위해 힘써야 할 것"
                     android:textSize="13sp"
                     app:layout_constraintEnd_toEndOf="@+id/manageBox"
                     app:layout_constraintStart_toStartOf="@+id/manageBox"
                     app:layout_constraintTop_toTopOf="@+id/manageBox" />
 
                 <TextView
-                    android:id="@+id/reasonText"
+                    android:id="@+id/reasonTextEye"
                     android:layout_width="300dp"
                     android:layout_height="90dp"
                     android:fontFamily="@font/gothic"
-                    android:lineSpacingExtra="4dp"
+                    android:lineSpacingExtra="2dp"
                     android:text=""
                     android:textColor="#303030"
-                    android:textSize="13sp"
                     app:layout_constraintBottom_toBottomOf="@+id/resonBox"
                     app:layout_constraintEnd_toEndOf="@+id/resonBox"
                     app:layout_constraintHorizontal_bias="0.481"
@@ -228,14 +213,13 @@
                     app:layout_constraintVertical_bias="0.386" />
 
                 <TextView
-                    android:id="@+id/manageText"
+                    android:id="@+id/manageTextEye"
                     android:layout_width="300dp"
                     android:layout_height="90dp"
                     android:fontFamily="@font/gothic"
-                    android:lineSpacingExtra="4dp"
+                    android:lineSpacingExtra="2dp"
                     android:text=""
                     android:textColor="#303030"
-                    android:textSize="13sp"
                     app:layout_constraintBottom_toBottomOf="@+id/manageBox"
                     app:layout_constraintEnd_toEndOf="@+id/manageBox"
                     app:layout_constraintStart_toStartOf="@+id/manageBox"

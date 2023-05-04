@@ -128,13 +128,13 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/imageView33"
                 app:layout_constraintStart_toStartOf="@+id/imageView33"
-                app:layout_constraintTop_toBottomOf="@+id/imageView38" />
+                app:layout_constraintTop_toBottomOf="@+id/expression" />
 
             <TextView
                 android:id="@+id/textView53"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="88dp"
+                android:layout_marginStart="90dp"
                 android:layout_marginTop="32dp"
                 android:fontFamily="@font/gothic"
                 android:text="오늘의 날씨"
@@ -147,7 +147,7 @@
                 android:id="@+id/textView54"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="86dp"
+                android:layout_marginStart="82dp"
                 android:layout_marginTop="32dp"
                 android:fontFamily="@font/gothic"
                 android:text="현재 온도"
@@ -170,7 +170,7 @@
                     android:id="@+id/weather"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="0.8"
                     android:fontFamily="@font/gothic"
                     android:gravity="center"
                     android:text="@{walk.weather}"
@@ -184,6 +184,7 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/gothic"
                     android:gravity="center"
+                    android:paddingLeft="2dp"
                     android:text="@{walk.temperature}"
                     android:textColor="#3A7CFF"
                     android:textSize="16sp" />
@@ -200,14 +201,14 @@
                 app:srcCompat="@drawable/ic_comment_line" />
 
             <ImageView
-                android:id="@+id/imageView38"
+                android:id="@+id/expression"
                 android:layout_width="74dp"
                 android:layout_height="74dp"
                 android:layout_marginTop="28dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView51"
-                app:srcCompat="@drawable/nice" />
+                app:imgRes="@{walk.img}" />
 
             <TextView
                 android:id="@+id/textView59"
@@ -284,24 +285,24 @@
             <LinearLayout
                 android:id="@+id/linearlayout"
                 android:layout_width="366dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="13dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="@+id/imageView33"
                 app:layout_constraintStart_toStartOf="@+id/imageView33"
-                app:layout_constraintTop_toBottomOf="@+id/linear_air">
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
                 <TextView
                     android:id="@+id/pm10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="1.1"
                     android:fontFamily="@font/gothic"
                     android:gravity="center"
                     android:text="@{walk.pm10}"
                     android:textColor="#2B446C"
-                    android:textSize="12sp" />
+                    android:textSize="10sp" />
 
                 <TextView
                     android:id="@+id/pm25"
@@ -312,7 +313,7 @@
                     android:gravity="center"
                     android:text="@{walk.pm25}"
                     android:textColor="#2B446C"
-                    android:textSize="12sp" />
+                    android:textSize="10sp" />
 
                 <TextView
                     android:id="@+id/o3"
@@ -323,7 +324,7 @@
                     android:gravity="center"
                     android:text="@{walk.o3}"
                     android:textColor="#2B446C"
-                    android:textSize="12sp" />
+                    android:textSize="10sp" />
 
             </LinearLayout>
 
@@ -331,21 +332,21 @@
                 android:id="@+id/linearLayout3"
                 android:layout_width="366dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="18dp"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="@+id/imageView33"
                 app:layout_constraintStart_toStartOf="@+id/imageView33"
-                app:layout_constraintTop_toBottomOf="@+id/linearlayout">
+                app:layout_constraintTop_toBottomOf="@+id/linear_air">
 
                 <TextView
                     android:id="@+id/pm10exp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="1.1"
                     android:fontFamily="@font/gothic"
                     android:gravity="center"
                     android:text="@{walk.pm10exp}"
-                    android:textColor="#353535"
+                    android:textColor="#3A7CFF"
                     android:textSize="12sp" />
 
                 <TextView
@@ -356,7 +357,7 @@
                     android:fontFamily="@font/gothic"
                     android:gravity="center"
                     android:text="@{walk.pm25exp}"
-                    android:textColor="#353535"
+                    android:textColor="#3A7CFF"
                     android:textSize="12sp" />
 
                 <TextView
@@ -367,7 +368,7 @@
                     android:fontFamily="@font/gothic"
                     android:gravity="center"
                     android:text="@{walk.o3exp}"
-                    android:textColor="#353535"
+                    android:textColor="#3A7CFF"
                     android:textSize="12sp" />
 
             </LinearLayout>
