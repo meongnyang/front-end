@@ -242,7 +242,6 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = ("image/*")
         startActivityForResult(intent, OPEN_GALLERY)
-        Log.d("member", "갤러리 열었음.")
     }
 
     fun assetFilePath(context: Context, assetName: String?): String? {
@@ -265,8 +264,6 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
 
     // 갤러리에서 사진 가져오기
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        Log.d("member", "사진 가져오기")
-
         val classList = mutableMapOf<Int, String>()
         classList[0] = "구진, 플라크"
         classList[1] = "비듬, 각질, 상피성잔고리"

@@ -158,48 +158,45 @@
                 app:layout_constraintStart_toEndOf="@+id/textView53"
                 app:layout_constraintTop_toBottomOf="@+id/index" />
 
-            <LinearLayout
-                android:id="@+id/LinearLayout"
-                android:layout_width="300dp"
+            <TextView
+                android:id="@+id/weather"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="13dp"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="@+id/imageView33"
+                android:layout_marginStart="108dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1.2"
+                android:fontFamily="@font/gothic"
+                android:gravity="center"
+                android:text="@{walk.weather}"
+                android:textColor="#3A7CFF"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@+id/imageView33"
-                app:layout_constraintTop_toBottomOf="@+id/textView53">
+                app:layout_constraintTop_toBottomOf="@+id/textView53" />
 
-                <TextView
-                    android:id="@+id/weather"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.2"
-                    android:fontFamily="@font/gothic"
-                    android:gravity="center"
-                    android:text="@{walk.weather}"
-                    android:textColor="#3A7CFF"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/temperature"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/gothic"
-                    android:gravity="center"
-                    android:paddingLeft="2dp"
-                    android:text="@{walk.temperature}"
-                    android:textColor="#3A7CFF"
-                    android:textSize="16sp" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/temperature"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="120dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/gothic"
+                android:gravity="center"
+                android:paddingLeft="2dp"
+                android:text="@{walk.temperature}"
+                android:textColor="#3A7CFF"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/weather"
+                app:layout_constraintTop_toBottomOf="@+id/textView54" />
 
             <ImageView
                 android:id="@+id/imageView37"
                 android:layout_width="365dp"
                 android:layout_height="6dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="30dp"
                 app:layout_constraintEnd_toEndOf="@+id/imageView33"
                 app:layout_constraintStart_toStartOf="@+id/imageView33"
-                app:layout_constraintTop_toBottomOf="@+id/LinearLayout"
+                app:layout_constraintTop_toBottomOf="@+id/temperature"
                 app:srcCompat="@drawable/ic_comment_line" />
 
             <ImageView
@@ -253,7 +250,7 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/gothic"
                     android:gravity="center"
-                    android:text="오존"
+                    android:text="미세먼지"
                     android:textColor="#393939"
                     android:textSize="12sp" />
 
@@ -261,10 +258,10 @@
                     android:id="@+id/textView60"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.8"
+                    android:layout_weight="1"
                     android:fontFamily="@font/gothic"
                     android:gravity="center"
-                    android:text="미세먼지"
+                    android:text="오존"
                     android:textColor="#393939"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -273,7 +270,7 @@
                 android:id="@+id/explanation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="56dp"
                 android:fontFamily="@font/gothic"
                 android:gravity="center"
                 android:text="@{walk.explanation}"
@@ -282,98 +279,97 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.488"
                 app:layout_constraintStart_toStartOf="@+id/imageView33"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+                app:layout_constraintTop_toBottomOf="@+id/pm25" />
 
-            <LinearLayout
-                android:id="@+id/linearlayout"
-                android:layout_width="366dp"
+            <TextView
+                android:id="@+id/o3"
+                android:layout_width="30dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="54dp"
                 android:layout_weight="1"
-                android:orientation="horizontal"
+                android:fontFamily="@font/gothic"
+                android:gravity="center"
+                android:text="@{walk.o3}"
+                android:textColor="#2B446C"
+                android:textSize="10sp"
                 app:layout_constraintEnd_toEndOf="@+id/imageView33"
-                app:layout_constraintStart_toStartOf="@+id/imageView33"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+                app:layout_constraintTop_toBottomOf="@+id/o3exp" />
 
-                <TextView
-                    android:id="@+id/pm10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.1"
-                    android:fontFamily="@font/gothic"
-                    android:gravity="center"
-                    android:text="@{walk.pm10}"
-                    android:textColor="#2B446C"
-                    android:textSize="10sp" />
-
-                <TextView
-                    android:id="@+id/pm25"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/gothic"
-                    android:gravity="center"
-                    android:text="@{walk.pm25}"
-                    android:textColor="#2B446C"
-                    android:textSize="10sp" />
-
-                <TextView
-                    android:id="@+id/o3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/gothic"
-                    android:gravity="center"
-                    android:text="@{walk.o3}"
-                    android:textColor="#2B446C"
-                    android:textSize="10sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linearLayout3"
-                android:layout_width="366dp"
+            <TextView
+                android:id="@+id/pm25"
+                android:layout_width="30dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="@+id/imageView33"
+                android:layout_marginStart="99dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/gothic"
+                android:gravity="center"
+                android:text="@{walk.pm25}"
+                android:textColor="#2B446C"
+                android:textSize="10sp"
+                app:layout_constraintStart_toEndOf="@+id/pm10"
+                app:layout_constraintTop_toBottomOf="@+id/pm25exp" />
+
+            <TextView
+                android:id="@+id/pm10"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="58dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1.1"
+                android:fontFamily="@font/gothic"
+                android:gravity="center"
+                android:text="@{walk.pm10}"
+                android:textColor="#2B446C"
+                android:textSize="10sp"
                 app:layout_constraintStart_toStartOf="@+id/imageView33"
-                app:layout_constraintTop_toBottomOf="@+id/linear_air">
+                app:layout_constraintTop_toBottomOf="@+id/pm10exp" />
 
-                <TextView
-                    android:id="@+id/pm10exp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.1"
-                    android:fontFamily="@font/gothic"
-                    android:gravity="center"
-                    android:text="@{walk.pm10exp}"
-                    android:textColor="#3A7CFF"
-                    android:textSize="12sp" />
+            <TextView
+                android:id="@+id/pm10exp"
+                android:layout_width="55dp"
+                android:layout_height="14dp"
+                android:layout_marginStart="45dp"
+                android:layout_marginTop="13dp"
+                android:layout_weight="1.1"
+                android:fontFamily="@font/gothic"
+                android:gravity="center"
+                android:text="@{walk.pm10exp}"
+                android:textColor="#3A7CFF"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/imageView33"
+                app:layout_constraintTop_toBottomOf="@+id/linear_air" />
 
-                <TextView
-                    android:id="@+id/pm25exp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/gothic"
-                    android:gravity="center"
-                    android:text="@{walk.pm25exp}"
-                    android:textColor="#3A7CFF"
-                    android:textSize="12sp" />
+            <TextView
+                android:id="@+id/pm25exp"
+                android:layout_width="55dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="75dp"
+                android:layout_marginTop="13dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/gothic"
+                android:gravity="center"
+                android:text="@{walk.pm25exp}"
+                android:textColor="#3A7CFF"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/pm10exp"
+                app:layout_constraintTop_toBottomOf="@+id/linear_air" />
 
-                <TextView
-                    android:id="@+id/o3exp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/gothic"
-                    android:gravity="center"
-                    android:text="@{walk.o3exp}"
-                    android:textColor="#3A7CFF"
-                    android:textSize="12sp" />
-
-            </LinearLayout>
+            <TextView
+                android:id="@+id/o3exp"
+                android:layout_width="55dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:layout_marginEnd="41dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/gothic"
+                android:gravity="center"
+                android:text="@{walk.o3exp}"
+                android:textColor="#3A7CFF"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@+id/imageView33"
+                app:layout_constraintTop_toBottomOf="@+id/linear_air" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

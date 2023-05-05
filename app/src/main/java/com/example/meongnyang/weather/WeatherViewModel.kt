@@ -55,7 +55,7 @@ class WeatherViewModel(la: Double, lo: Double, district: String): ViewModel() {
                             retrofit.walkScore(response.body()!!.category, location).enqueue(object:
                                 Callback<Score> {
                                 override fun onResponse(call: Call<Score>, response: Response<Score>) {
-                                    if (response.code() == 404) {
+                                    if (response.code() == 404 || response.code() == 500) {
                                         index.value = "-"
                                         explanation.value = "산책지수를 불러들이는 데에 실패했어요. 😿"
                                         temperature.value = "-"

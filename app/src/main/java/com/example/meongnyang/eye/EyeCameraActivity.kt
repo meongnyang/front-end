@@ -181,7 +181,7 @@ class EyeCameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pi
 
         // model
         if (mModule == null) {
-            mModule = LiteModuleLoader.load(assetFilePath(this, "test_densnet_20ep_adam3.pt"))
+            mModule = LiteModuleLoader.load(assetFilePath(this, "model2.ptl"))
         }
 
         val inputTensor = TensorImageUtils.bitmapToFloat32Tensor(

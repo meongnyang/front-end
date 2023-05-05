@@ -59,7 +59,7 @@
         android:lineSpacingExtra="4dp"
         android:text="직접 만들어낸 모델을 이용해 구현한\n👇 안구질환 검사를 체험해 보세요!"
         android:textColor="#000000"
-        android:textSize="17sp"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView25" />
