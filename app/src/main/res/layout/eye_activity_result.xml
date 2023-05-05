@@ -201,7 +201,6 @@
                     android:id="@+id/reasonTextEye"
                     android:layout_width="300dp"
                     android:layout_height="90dp"
-                    android:autoSizeTextType="uniform"
                     android:fontFamily="@font/gothic"
                     android:lineSpacingExtra="8dp"
                     android:text=""

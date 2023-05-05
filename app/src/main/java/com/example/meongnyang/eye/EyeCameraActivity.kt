@@ -24,6 +24,18 @@ import org.pytorch.LiteModuleLoader
 import org.pytorch.Module
 import org.pytorch.torchvision.TensorImageUtils
 import java.io.*
+import java.io.File
+import org.tensorflow.lite.Interpreter
+import org.tensorflow.lite.support.common.TensorProcessor
+import org.tensorflow.lite.support.common.ops.NormalizeOp
+import org.tensorflow.lite.support.image.ImageProcessor
+import org.tensorflow.lite.support.image.TensorImage
+import org.tensorflow.lite.support.image.ops.ResizeOp
+import org.tensorflow.lite.support.image.ops.ResizeOp.ResizeMethod
+import org.tensorflow.lite.support.image.ops.ResizeWithCropOrPadOp
+import org.tensorflow.lite.support.image.ops.Rot90Op
+import org.tensorflow.lite.support.label.TensorLabel
+import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
 
 class EyeCameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.PictureCallback {
     private var mModule: Module? = null
@@ -169,11 +181,14 @@ class EyeCameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pi
         val matrix = Matrix()
         matrix.postRotate(0f)
 
-        val result = grayScale(Bitmap.createBitmap(resized, 0, 0, resized.width, resized.height, matrix, true))
+        val resizedBitmap = Bitmap.createBitmap(resized, 0, 0, resized.width, resized.height, matrix, true)
         camera!!.startPreview()
+        val inputImg = TensorImage.fromBitmap(resizedBitmap)
+        val normalization = imageProcess(inputImg)
+        val resultImg = normalization!!.bitmap
 
         val stream = ByteArrayOutputStream()
-        result.compress(Bitmap.CompressFormat.PNG, 100, stream)
+        resultImg.compress(Bitmap.CompressFormat.PNG, 100, stream)
 
         val byte = stream.toByteArray()
 
@@ -185,7 +200,7 @@ class EyeCameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pi
         }
 
         val inputTensor = TensorImageUtils.bitmapToFloat32Tensor(
-            result,
+            resultImg,
             TensorImageUtils.TORCHVISION_NORM_MEAN_RGB, TensorImageUtils.TORCHVISION_NORM_STD_RGB
         )
 
@@ -201,7 +216,7 @@ class EyeCameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pi
             }
         }
 
-        result.compress(Bitmap.CompressFormat.PNG, 60, stream)
+        resizedBitmap.compress(Bitmap.CompressFormat.PNG, 60, stream)
         val bytes = stream.toByteArray()
 
         val intent = Intent(this, EyeResultActivity::class.java)
@@ -288,23 +303,25 @@ class EyeCameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pi
                     matrix.postScale(scaleWidth, scaleHeight)
                     matrix.postRotate(90f)
 
-                    val resizedBitmap: Bitmap =
-                        grayScale(Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true))
-
+                    val resizedBitmap: Bitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true)
+                    val inputImg = TensorImage.fromBitmap(resizedBitmap)
+                    val normalization = imageProcess(inputImg)
+                    val resultImg = normalization!!.bitmap
 
                     // model
                     if (mModule == null) {
-                        mModule = LiteModuleLoader.load(assetFilePath(this, "petScript100.ptl"))
+
+                        mModule = LiteModuleLoader.load(assetFilePath(this, "model2.ptl"))
                     }
 
                     val inputTensor = TensorImageUtils.bitmapToFloat32Tensor(
-                        resizedBitmap,
+                        resultImg,
                         TensorImageUtils.TORCHVISION_NORM_MEAN_RGB, TensorImageUtils.TORCHVISION_NORM_STD_RGB
                     )
-//
+
                     val outputTensor = mModule!!.forward(IValue.from(inputTensor)).toTensor()
                     val scores = outputTensor.dataAsFloatArray
-//
+
                     var maxScore = -Float.MAX_VALUE
                     var maxScoreIdx = -1
                     for (i in scores.indices) {
@@ -313,6 +330,13 @@ class EyeCameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pi
                             maxScoreIdx = i
                         }
                     }
+                    Log.d("model: scores[0]", (scores[0] * 100.0f).toString())
+                    Log.d("model: scores[1]", (scores[1] * 100.0f).toString())
+                    Log.d("model: scores[2]", (scores[2] * 100.0f).toString())
+                    Log.d("model: scores[3]", (scores[3] * 100.0f).toString())
+                    Log.d("model: scores[4]", (scores[4] * 100.0f).toString())
+                    Log.d("model: maxScore", maxScore.toString())
+                    Log.d("model: number", (maxScoreIdx+1).toString())
 
                     resizedBitmap.compress(Bitmap.CompressFormat.PNG, 60, stream)
                     val bytes = stream.toByteArray()
@@ -360,5 +384,16 @@ class EyeCameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pi
         paint.colorFilter = colorMatrixFilter
         canvas.drawBitmap(orgBitmap, 0f, 0f, paint)
         return bmpGrayScale
+    }
+
+    private fun imageProcess(input: TensorImage): TensorImage? {
+        val PROBABILITY_MEAN = 0.23486832f
+        val PROBABILITY_STD = 0.23325847f
+
+        val imageProcessor: ImageProcessor = ImageProcessor.Builder()
+            .add(NormalizeOp(PROBABILITY_MEAN, PROBABILITY_STD))
+            .build()
+
+        return imageProcessor.process(input)
     }
 }

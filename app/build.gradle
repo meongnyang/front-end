@@ -28,6 +28,19 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/INDEX.LIST'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -115,11 +128,36 @@ dependencies {
     // Model
     implementation 'org.pytorch:pytorch_android_lite:1.12.2'
     implementation 'org.pytorch:pytorch_android_torchvision_lite:1.12.2'
+    implementation 'org.tensorflow:tensorflow-lite:+'
+    implementation 'org.tensorflow:tensorflow-lite-support:+'
 
+    // retrofit2
     implementation 'com.squareup.retrofit2:converter-scalars:2.4.0'
 
     // AWS S3
     implementation 'com.amazonaws:aws-android-sdk-mobile-client:2.13.5'
     implementation 'com.amazonaws:aws-android-sdk-cognito:2.13.5'
     implementation 'com.amazonaws:aws-android-sdk-s3:2.13.5'
+
+    implementation 'org.apache.logging.log4j:log4j-api:2.17.2'
+    implementation 'org.apache.logging.log4j:log4j-core:2.17.2'
+    implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.17.2'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.2'
+}
+
+def publishedArtifactsVersion = System.getenv("KOTLIN_DL_RELEASE_VERSION")
+if (publishedArtifactsVersion != null && !publishedArtifactsVersion.isBlank()) {
+    configurations.all {
+        resolutionStrategy.dependencySubstitution {
+            substitute project(":api") using module("org.jetbrains.kotlinx:kotlin-deeplearning-api:$publishedArtifactsVersion") because "testing published artifacts"
+            substitute project(":impl") using module("org.jetbrains.kotlinx:kotlin-deeplearning-impl:$publishedArtifactsVersion") because "testing published artifacts"
+            substitute project(":tensorflow") using module("org.jetbrains.kotlinx:kotlin-deeplearning-tensorflow:$publishedArtifactsVersion") because "testing published artifacts"
+            substitute project(":dataset") using module("org.jetbrains.kotlinx:kotlin-deeplearning-dataset:$publishedArtifactsVersion") because "testing published artifacts"
+            substitute project(":visualization") using module("org.jetbrains.kotlinx:kotlin-deeplearning-visualization:$publishedArtifactsVersion") because "testing published artifacts"
+            substitute project(":onnx") using module("org.jetbrains.kotlinx:kotlin-deeplearning-onnx:$publishedArtifactsVersion") because "testing published artifacts"
+        }
+    }
 }

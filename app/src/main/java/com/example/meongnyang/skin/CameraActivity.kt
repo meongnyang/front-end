@@ -27,7 +27,6 @@ import org.pytorch.Module
 import org.pytorch.torchvision.TensorImageUtils
 import java.io.*
 
-
 class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.PictureCallback {
     private var mModule: Module? = null
 
@@ -298,7 +297,6 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
 
                     val resizedBitmap: Bitmap =
                         grayScale(Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true))
-
 
                     // model
                     if (mModule == null) {
