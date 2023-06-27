@@ -25,17 +25,9 @@ import org.pytorch.Module
 import org.pytorch.torchvision.TensorImageUtils
 import java.io.*
 import java.io.File
-import org.tensorflow.lite.Interpreter
-import org.tensorflow.lite.support.common.TensorProcessor
 import org.tensorflow.lite.support.common.ops.NormalizeOp
 import org.tensorflow.lite.support.image.ImageProcessor
 import org.tensorflow.lite.support.image.TensorImage
-import org.tensorflow.lite.support.image.ops.ResizeOp
-import org.tensorflow.lite.support.image.ops.ResizeOp.ResizeMethod
-import org.tensorflow.lite.support.image.ops.ResizeWithCropOrPadOp
-import org.tensorflow.lite.support.image.ops.Rot90Op
-import org.tensorflow.lite.support.label.TensorLabel
-import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
 
 class EyeCameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.PictureCallback {
     private var mModule: Module? = null
@@ -386,6 +378,7 @@ class EyeCameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pi
         return bmpGrayScale
     }
 
+    // 이미지 전처리
     private fun imageProcess(input: TensorImage): TensorImage? {
         val PROBABILITY_MEAN = 0.23486832f
         val PROBABILITY_STD = 0.23325847f
