@@ -1,15 +1,22 @@
 package com.example.meongnyang.api
 
+import com.example.meongnyang.App
 import com.example.meongnyang.model.*
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.kakao.network.response.ResponseBody
+import io.grpc.ClientInterceptor
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.*
+import java.io.IOException
+import java.util.concurrent.TimeUnit
 
 interface RetrofitApi {
     // 회원 API
@@ -18,10 +25,15 @@ interface RetrofitApi {
         @Body email: Email
     ): Call<MemberId>
 
+    @POST("members/login")
+    fun loginToken(
+        @Body email: Email
+    ): Call<LoginUser>
+
     @POST("members")
     fun userSignUp(
         @Body postUser: PostUser
-    ): Call<UserModel>
+    ): Call<LoginUser>
 
     @GET("mypage/{memberId}")
     fun getMember(
@@ -58,13 +70,13 @@ interface RetrofitApi {
 
     @GET("records/{recordId}")
     fun showDiary(
-        @Path("recordId") recordId: Int,
+        @Path("recordId") recordId: Int
     ): Call<DiaryModel>
 
     // 반려동물 API
     @POST("conimals/{memberId}")
     fun enrollPet(
-        @Path ("memberId", encoded = true) memberId: Int,
+        @Path ("memberId") memberId: Int,
         @Body pet: Pet
     ): Call<PetModel>
     @GET("conimals/{conimalId}")
@@ -196,11 +208,26 @@ interface RetrofitApi {
             val gson: Gson = GsonBuilder().setLenient().create()
 
             return Retrofit.Builder()
+                .client(okHttpClient)
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .addConverterFactory(ScalarsConverterFactory.create())
                 .build()
                 .create(RetrofitApi::class.java)
+        }
+
+        private val okHttpClient = OkHttpClient.Builder()
+            .addInterceptor(AuthInterceptor()).build()
+
+
+        class AuthInterceptor: Interceptor {
+            @Throws(IOException::class)
+            override fun intercept(chain: Interceptor.Chain): okhttp3.Response = with(chain) {
+                val newRequest = chain.request().newBuilder()
+                    .addHeader("Authorization", App.prefs.getString("token", "no_token"))
+                    .build()
+
+                return chain.proceed(newRequest)
+            }
         }
     }
 

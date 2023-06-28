@@ -271,5 +271,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView9" />
 
+        <TextView
+            android:id="@+id/deleteMember"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="300dp"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="53dp"
+            android:fontFamily="@font/gothic"
+            android:text="회원탈퇴"
+            android:textColor="#B51D1D"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/changePet" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

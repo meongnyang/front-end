@@ -168,6 +168,9 @@ class EnrollActivity : AppCompatActivity() {
 
 
             val pet = Pet(1, name, gender, neutering, birth, adopt, species, category)
+            Log.d("pet", pet.toString())
+            Log.d("member", member.toString())
+
             retrofit.enrollPet(member, pet).enqueue(object: Callback<PetModel> {
                 override fun onResponse(call: Call<PetModel>, response: Response<PetModel>) {
                     conimalId = response.body()!!.conimalId

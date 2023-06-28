@@ -6,8 +6,11 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import com.example.meongnyang.App
 import com.example.meongnyang.R
 import com.example.meongnyang.api.RetrofitApi
+import com.example.meongnyang.model.Email
+import com.example.meongnyang.model.LoginUser
 import com.example.meongnyang.model.PostUser
 import com.example.meongnyang.model.UserModel
 import retrofit2.Call
@@ -42,21 +45,26 @@ class NicknameActivity : AppCompatActivity() {
             // 서버에 유저 정보 등록
             val user = PostUser(nickname, email!!, pass)
 
-            retrofit.userSignUp(user).enqueue(object: Callback<UserModel> {
-                override fun onResponse(call: Call<UserModel>, response: Response<UserModel>) {
+            retrofit.userSignUp(user).enqueue(object: Callback<LoginUser> {
+                override fun onResponse(call: Call<LoginUser>, response: Response<LoginUser>) {
                     if (response.isSuccessful) {
                         memberId = response.body()!!.memberId // 할당된 고유 멤버아이디
+
+                        // 토큰 저장
+                        App.prefs.setString("token", "Bearer ${response.body()!!.token}")
 
                         val intent = Intent(this@NicknameActivity, TypeActivity::class.java)
                         intent.putExtra("memberId", memberId)
                         startActivity(intent)
 
+                        Log.d("token", response.body()!!.toString())
+
                     } else {
-                        Log.d("Post", "success, but ${response.errorBody()}")
+                        Log.d("Post", "success, but ${response.errorBody()?.string()!!}")
                     }
                 }
-                override fun onFailure(call: Call<UserModel>, t: Throwable) {
-                    Log.d("Post", "fail ${t}")
+                override fun onFailure(call: Call<LoginUser>, t: Throwable) {
+                    Log.d("Post", "fail $t")
                 }
             })
         }

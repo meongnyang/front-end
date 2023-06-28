@@ -6,6 +6,13 @@ data class PostUser(
     val password: String
 )
 
+data class LoginUser(
+    val token: String,
+    val memberId: Int,
+    val email: String,
+    val nickname: String
+)
+
 data class UserModel(
     val memberId: Int,
     val email: String,
