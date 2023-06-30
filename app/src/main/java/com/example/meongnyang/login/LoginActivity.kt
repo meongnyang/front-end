@@ -148,8 +148,21 @@ class LoginActivity : AppCompatActivity() {
     private fun moveNextPage() {
         var currentUser = FirebaseAuth.getInstance().currentUser
         if (currentUser != null) {
-            var intent = Intent(this, NaviActivity::class.java)
-            startActivity(intent)
+            val retrofit = RetrofitApi.create()
+            retrofit.loginToken(Email(currentUser?.email!!)).enqueue(object : Callback<LoginUser> {
+
+                override fun onResponse(call: Call<LoginUser>, response: Response<LoginUser>) {
+                    // 토큰 저장하기
+                    App.prefs.setString("token", "Bearer ${response.body()!!.token}")
+
+                    var intent = Intent(this@LoginActivity, NaviActivity::class.java)
+                    startActivity(intent)
+                    Log.d("token", App.prefs.getString("token", "no_token"))
+                }
+                override fun onFailure(call: Call<LoginUser>, t: Throwable) {
+                    Toast.makeText(this@LoginActivity, "로그인 실패", Toast.LENGTH_LONG).show()
+                }
+            })
         }
     }
 
