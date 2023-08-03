@@ -63,7 +63,6 @@ class MypageViewModel: ViewModel() {
                             petName.value = conimal[0].name
                             petSex.value = conimal[0].gender
                             petSpec.value = conimal[0].species
-                            //petImg.value = conimal[0].conimalImg
                             petImg.value =
                                 "https://meongnyang.s3.ap-northeast-2.amazonaws.com/conimal/pet_profile.png"
                         }
