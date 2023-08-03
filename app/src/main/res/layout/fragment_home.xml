@@ -6,7 +6,7 @@
     <data>
         <variable
             name="pet"
-            type="com.example.meongnyang.home.HomeViewModel" />
+            type="com.nakyung.meongnyang.home.HomeViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"

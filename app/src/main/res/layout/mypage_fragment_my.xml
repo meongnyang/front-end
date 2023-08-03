@@ -6,7 +6,7 @@
     <data>
         <variable
             name="mypage"
-            type="com.example.meongnyang.mypage.MypageViewModel" />
+            type="com.nakyung.meongnyang.mypage.MypageViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/frameLayout2"

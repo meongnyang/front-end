@@ -5,7 +5,7 @@
     <data>
         <variable
             name="post"
-            type="com.example.meongnyang.community.PostViewModel" />
+            type="com.nakyung.meongnyang.community.PostViewModel" />
     </data>
     <ScrollView
         android:id="@+id/postSv"

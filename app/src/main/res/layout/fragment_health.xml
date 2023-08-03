@@ -6,7 +6,7 @@
     <data>
         <variable
             name="diary"
-            type="com.example.meongnyang.diary.DiaryViewModel" />
+            type="com.nakyung.meongnyang.diary.DiaryViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -4,7 +4,7 @@
     <data>
         <variable
             name="walk"
-            type="com.example.meongnyang.weather.WeatherViewModel" />
+            type="com.nakyung.meongnyang.weather.WeatherViewModel" />
     </data>
 
     <RelativeLayout
