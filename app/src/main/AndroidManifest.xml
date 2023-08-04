@@ -30,17 +30,19 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".login.SelectPetActivity"
+            android:exported="false" />
+        <activity
             android:name=".eye.EyeResultActivity"
             android:exported="false"
-            android:noHistory="true"/>
+            android:noHistory="true" />
         <activity
             android:name=".eye.EyeCameraActivity"
             android:exported="false" />
         <activity
             android:name=".eye.EyeMainActivity"
             android:exported="false"
-            android:noHistory="true"/>
-
+            android:noHistory="true" />
         <activity
             android:name=".weather.WeatherActivity"
             android:exported="false" />

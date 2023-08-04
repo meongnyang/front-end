@@ -34,3 +34,10 @@ data class myPet(
     val ddayadopt: Int,
     val conimalImg: String
 )
+
+data class PetList(
+    val name: String,
+    val birth: String,
+    val species: String,
+    val conimalId: Int
+)

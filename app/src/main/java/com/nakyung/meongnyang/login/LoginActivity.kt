@@ -135,12 +135,13 @@ class LoginActivity : AppCompatActivity() {
         if (currentUser != null) {
             val retrofit = RetrofitApi.create()
             retrofit.loginToken(Email(currentUser?.email!!)).enqueue(object : Callback<LoginUser> {
-
                 override fun onResponse(call: Call<LoginUser>, response: Response<LoginUser>) {
                     // 토큰 저장하기
                     App.prefs.setString("token", "Bearer ${response.body()!!.token}")
+                    // memberId 저장
+                    App.prefs.setInt("memberId", response.body()!!.memberId)
 
-                    var intent = Intent(this@LoginActivity, NaviActivity::class.java)
+                    var intent = Intent(this@LoginActivity, SelectPetActivity::class.java)
                     startActivity(intent)
                     Log.d("token", App.prefs.getString("token", "no_token"))
                 }

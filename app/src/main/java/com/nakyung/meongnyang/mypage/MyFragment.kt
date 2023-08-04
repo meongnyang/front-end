@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -19,6 +20,12 @@ import com.nakyung.meongnyang.databinding.MypageFragmentMyBinding
 import com.nakyung.meongnyang.login.TypeActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.toObject
+import com.nakyung.meongnyang.model.Id
+import org.checkerframework.checker.units.qual.Length
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MyFragment : Fragment() {
     private lateinit var binding: MypageFragmentMyBinding
@@ -93,6 +100,26 @@ class MyFragment : Fragment() {
         binding.changePet.setOnClickListener {
             val intent = Intent(context, ChoiceActivity::class.java)
             startActivity(intent)
+        }
+
+        // 회원 탈퇴
+        binding.deleteMember.setOnClickListener {
+            // memberId 가져오기
+            fbFirestore.collection("users").document(uid).get()
+                .addOnSuccessListener { documentsSnapshot ->
+                    var id = documentsSnapshot.toObject<Id>()!!
+                    var memberId = id.memberId!!
+
+                    retrofit.deleteProfile(memberId).enqueue(object : Callback<String> {
+                        override fun onFailure(call: Call<String>, t: Throwable) {
+                            Toast.makeText(context, "회원 탈퇴 실패, 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
+                        }
+
+                        override fun onResponse(call: Call<String>, response: Response<String>) {
+                            Log.d("member", "회원 탈퇴 성공")
+                        }
+                    })
+                }
         }
 
         return binding?.root

@@ -6,11 +6,15 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import retrofit2.Call
+import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 import java.io.IOException
+import java.lang.reflect.Type
 
 interface RetrofitApi {
     // 회원 API
@@ -46,6 +50,11 @@ interface RetrofitApi {
         @Body img: Img
     ): Call<UserModel>
 
+    @DELETE("members/delete/{memberId}")
+    fun deleteProfile(
+        @Path("memberId") memberId: Int
+    ): Call<String>
+
     // 건강기록부 API
     @POST("records/{memberId}/{conimalId}")
     fun writeDiary(
@@ -73,10 +82,16 @@ interface RetrofitApi {
         @Path ("memberId") memberId: Int,
         @Body pet: Pet
     ): Call<PetModel>
+
     @GET("conimals/{conimalId}")
     fun getPet(
         @Path("conimalId") conimalId: Int
     ): Call<PetModel>
+
+    @GET("conimals/all/{memberId}")
+    fun getAllPet(
+        @Path("memberId") memberId: Int
+    ): Call<List<PetModel>>
 
     // 커뮤니티 API
     @GET("posts")
@@ -205,6 +220,7 @@ interface RetrofitApi {
                 .client(okHttpClient)
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(NullOnEmptyConverterFactory())
                 .build()
                 .create(RetrofitApi::class.java)
         }
@@ -221,6 +237,21 @@ interface RetrofitApi {
                     .build()
 
                 return chain.proceed(newRequest)
+            }
+        }
+
+        class NullOnEmptyConverterFactory: Converter.Factory() {
+            override fun responseBodyConverter(
+                type: Type,
+                annotations: Array<out Annotation>,
+                retrofit: Retrofit
+            ): Converter<ResponseBody, *>? {
+                val delegate: Converter<ResponseBody, *> =
+                    retrofit.nextResponseBodyConverter<Any>(this, type, annotations)
+                return Converter { body: ResponseBody ->
+                    if (body.contentLength() == 0L) return@Converter null
+                    delegate.convert(body)
+                }
             }
         }
     }
