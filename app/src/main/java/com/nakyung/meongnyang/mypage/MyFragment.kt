@@ -82,9 +82,11 @@ class MyFragment : Fragment() {
         binding.userView.setOnClickListener {
             (activity as NaviActivity).replace(ModifyFragment())
         }
+
         // 반려동물 추가하기
         binding.addPet.setOnClickListener {
             val intent = Intent(context, TypeActivity::class.java)
+            intent.putExtra("addPet", true)
             startActivity(intent)
         }
         // 메인 반려동물 변경

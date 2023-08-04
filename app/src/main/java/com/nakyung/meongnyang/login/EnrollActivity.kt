@@ -60,6 +60,8 @@ class EnrollActivity : AppCompatActivity() {
         binding = LoginActivityEnrollBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val intent = intent
+
         val retrofit = RetrofitApi.create()
 
         /*fbFirestore!!.collection("users").document(uid).get()
@@ -122,7 +124,7 @@ class EnrollActivity : AppCompatActivity() {
 
         val typeIntent = intent
 
-        // 견묘/멤버아이디 받아오기
+        // 멤버아이디 받아오기
         var member = typeIntent.getIntExtra("memberId", 0)
 
         // 저장 버튼 클릭 시 반려동물 정보 저장

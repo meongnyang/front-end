@@ -66,7 +66,7 @@ class PostFragment : Fragment() {
             viewModelFactory).get(PostViewModel::class.java)
 
         // 내가 쓴 글인 경우 수정 | 삭제 보이도록 하기
-        fbFirestore!!.collection("users").document(uid).get()
+        fbFirestore.collection("users").document(uid).get()
             .addOnSuccessListener { documentsSnapshot ->
                 var id = documentsSnapshot.toObject<Id>()!!
                 var memberId = id.memberId
@@ -101,15 +101,15 @@ class PostFragment : Fragment() {
 
 
         // 댓글 달기
-        if (bundle!!.getString("contents") != null) {
+        if (bundle.getString("contents") != null) {
             var comment = bundle!!.getString("contents")
             writeComment(postId, comment!!)
         } else showComment(postId)
 
         // 대댓글 달기
-        if (bundle!!.getString("reContents") != null && bundle!!.getInt("commentId") != null) {
-            var comment = bundle!!.getString("reContents")
-            var commentId = bundle!!.getInt("commentId")
+        if (bundle.getString("reContents") != null) {
+            var comment = bundle.getString("reContents")
+            var commentId = bundle.getInt("commentId")
             writeReComment(commentId, postId, comment!!)
         } else showComment(postId)
 
@@ -182,7 +182,7 @@ class PostFragment : Fragment() {
         })
     }
     private fun writeComment(postId: Int, comment: String) {
-        fbFirestore!!.collection("users").document(uid).get()
+        fbFirestore.collection("users").document(uid).get()
             .addOnSuccessListener { documentsSnapshot ->
                 var id = documentsSnapshot.toObject<Id>()!!
 
@@ -200,7 +200,7 @@ class PostFragment : Fragment() {
     }
 
     private fun writeReComment(commentId: Int, postId: Int, comment: String) {
-        fbFirestore!!.collection("users").document(uid).get()
+        fbFirestore.collection("users").document(uid).get()
             .addOnSuccessListener { documentsSnapshot ->
                 var id = documentsSnapshot.toObject<Id>()!!
 
@@ -220,7 +220,7 @@ class PostFragment : Fragment() {
     }
 
     private fun updateCount(postId: Int) {
-        fbFirestore!!.collection("users").document(uid).get()
+        fbFirestore.collection("users").document(uid).get()
             .addOnSuccessListener { documentsSnapshot ->
                 var id = documentsSnapshot.toObject<Id>()!!
                 retrofit.updateLikes(id.memberId!!, postId).enqueue(object : Callback<Count> {

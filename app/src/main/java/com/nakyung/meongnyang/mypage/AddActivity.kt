@@ -14,6 +14,7 @@ class AddActivity : AppCompatActivity() {
     private lateinit var binding: MypageActivityAddBinding
     var birthString = ""
     var adoptString = ""
+    var species = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,10 +52,9 @@ class AddActivity : AppCompatActivity() {
 
         binding.selectSpecies.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
-                // 선택하세요 이외의 것을 클릭했을 때만 기능 구현되게
-                if (!binding.selectSpecies.getItemAtPosition(position).equals("선택하세요")) {
-
-                }
+                // 선택하세요 이외의 것을 클릭했을 때만 저장버튼 활성화
+                binding.addBtn.isEnabled = !binding.selectSpecies.getItemAtPosition(position).equals("선택하세요")
+                species = binding.selectSpecies.selectedItem.toString()
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {

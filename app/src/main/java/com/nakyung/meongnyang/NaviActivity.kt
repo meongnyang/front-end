@@ -87,12 +87,12 @@ class NaviActivity : AppCompatActivity() {
 
         // 사이드 메뉴 클릭 시
         skinBtn.setOnClickListener {
-            val intent = Intent(this, SkinMainActivity::class.java)
-            startActivity(intent)
+            val skin = Intent(this, SkinMainActivity::class.java)
+            startActivity(skin)
         }
         hospitalBtn.setOnClickListener {
-            val intent = Intent(this, MapActivity::class.java)
-            startActivity(intent)
+            val hospital = Intent(this, MapActivity::class.java)
+            startActivity(hospital)
         }
         qnaBtn.setOnClickListener {
             closeMenu()
@@ -111,12 +111,12 @@ class NaviActivity : AppCompatActivity() {
             replace(CommuFragment())
         }
         weatherBtn.setOnClickListener {
-            val intent = Intent(this, WeatherActivity::class.java)
-            startActivity(intent)
+            val weather = Intent(this, WeatherActivity::class.java)
+            startActivity(weather)
         }
         eyeBtn.setOnClickListener {
-            val intent = Intent(this, EyeMainActivity::class.java)
-            startActivity(intent)
+            val eye = Intent(this, EyeMainActivity::class.java)
+            startActivity(eye)
         }
     }
 
