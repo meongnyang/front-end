@@ -21,6 +21,7 @@ import com.nakyung.meongnyang.mypage.KeyboardVisibilityUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
+import com.nakyung.meongnyang.App
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -35,12 +36,8 @@ class PostFragment : Fragment() {
     private val listItems = arrayListOf<AllComment>() // 리사이클러뷰 아이템
     private val commentListAdapter = CommentListAdpater(listItems) // adapter
 
-    var fbAuth = FirebaseAuth.getInstance()
-    var fbFirestore = FirebaseFirestore.getInstance()
-    val uid = fbAuth.uid.toString()
-
     var postId = 0
-    var memberId = 0
+    var memberId = App.prefs.getInt("memberId", 0)
 
     val retrofit = RetrofitApi.create()
 
@@ -66,24 +63,19 @@ class PostFragment : Fragment() {
             viewModelFactory).get(PostViewModel::class.java)
 
         // 내가 쓴 글인 경우 수정 | 삭제 보이도록 하기
-        fbFirestore.collection("users").document(uid).get()
-            .addOnSuccessListener { documentsSnapshot ->
-                var id = documentsSnapshot.toObject<Id>()!!
-                var memberId = id.memberId
-                retrofit.getPost(postId).enqueue(object : Callback<GetPosts> {
-                    override fun onFailure(call: Call<GetPosts>, t: Throwable) {
+        retrofit.getPost(postId).enqueue(object : Callback<GetPosts> {
+            override fun onFailure(call: Call<GetPosts>, t: Throwable) {
 
-                    }
-
-                    override fun onResponse(call: Call<GetPosts>, response: Response<GetPosts>) {
-                        if (memberId == response.body()!!.memberId) {
-                            binding.postEdit.visibility =  View.VISIBLE
-                            binding.postEdit2.visibility = View.VISIBLE
-                            binding.postDelete.visibility = View.VISIBLE
-                        }
-                    }
-                })
             }
+
+            override fun onResponse(call: Call<GetPosts>, response: Response<GetPosts>) {
+                if (memberId == response.body()!!.memberId) {
+                    binding.postEdit.visibility =  View.VISIBLE
+                    binding.postEdit2.visibility = View.VISIBLE
+                    binding.postDelete.visibility = View.VISIBLE
+                }
+            }
+        })
 
         binding.postEdit.setOnClickListener {
             // 게시물 작성 화면으로 이동, postId 담아서 보내기
@@ -182,57 +174,43 @@ class PostFragment : Fragment() {
         })
     }
     private fun writeComment(postId: Int, comment: String) {
-        fbFirestore.collection("users").document(uid).get()
-            .addOnSuccessListener { documentsSnapshot ->
-                var id = documentsSnapshot.toObject<Id>()!!
-
-                retrofit.writeComment(id.memberId!!, postId, comment).enqueue(object : Callback<Comment> {
-                    override fun onResponse(call: Call<Comment>, response: Response<Comment>) {
-                        Toast.makeText(context, "댓글 작성 완료!", Toast.LENGTH_SHORT).show()
-                        showComment(postId)
-                    }
-
-                    override fun onFailure(call: Call<Comment>, t: Throwable) {
-                        Toast.makeText(context, "작성 실패, 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
-                    }
-                })
+        retrofit.writeComment(memberId, postId, comment).enqueue(object : Callback<Comment> {
+            override fun onResponse(call: Call<Comment>, response: Response<Comment>) {
+                Toast.makeText(context, "댓글 작성 완료!", Toast.LENGTH_SHORT).show()
+                showComment(postId)
             }
+
+            override fun onFailure(call: Call<Comment>, t: Throwable) {
+                Toast.makeText(context, "작성 실패, 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     private fun writeReComment(commentId: Int, postId: Int, comment: String) {
-        fbFirestore.collection("users").document(uid).get()
-            .addOnSuccessListener { documentsSnapshot ->
-                var id = documentsSnapshot.toObject<Id>()!!
-
-                retrofit.reWriteComment(id.memberId!!, commentId, postId, comment).enqueue(object : Callback<Comment> {
-                    override fun onResponse(call: Call<Comment>, response: Response<Comment>) {
-                        Toast.makeText(context, "댓글 작성 완료!", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(context, CommentActivity::class.java)
-                        intent.putExtra("postId", postId)
-                        startActivity(intent)
-                    }
-
-                    override fun onFailure(call: Call<Comment>, t: Throwable) {
-                        Toast.makeText(context, "작성 실패, 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
-                    }
-                })
+        retrofit.reWriteComment(memberId, commentId, postId, comment).enqueue(object : Callback<Comment> {
+            override fun onResponse(call: Call<Comment>, response: Response<Comment>) {
+                Toast.makeText(context, "댓글 작성 완료!", Toast.LENGTH_SHORT).show()
+                val intent = Intent(context, CommentActivity::class.java)
+                intent.putExtra("postId", postId)
+                startActivity(intent)
             }
+
+            override fun onFailure(call: Call<Comment>, t: Throwable) {
+                Toast.makeText(context, "작성 실패, 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     private fun updateCount(postId: Int) {
-        fbFirestore.collection("users").document(uid).get()
-            .addOnSuccessListener { documentsSnapshot ->
-                var id = documentsSnapshot.toObject<Id>()!!
-                retrofit.updateLikes(id.memberId!!, postId).enqueue(object : Callback<Count> {
-                    override fun onResponse(call: Call<Count>, response: Response<Count>) {
-                        (activity as CommentActivity).sendId(postId)
-                    }
-
-                    override fun onFailure(call: Call<Count>, t: Throwable) {
-
-                    }
-                })
+        retrofit.updateLikes(memberId, postId).enqueue(object : Callback<Count> {
+            override fun onResponse(call: Call<Count>, response: Response<Count>) {
+                (activity as CommentActivity).sendId(postId)
             }
+
+            override fun onFailure(call: Call<Count>, t: Throwable) {
+
+            }
+        })
     }
 
     fun deletePost(postId: Int) {

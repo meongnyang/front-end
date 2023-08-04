@@ -49,27 +49,12 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/pet_img"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="140dp"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginEnd="141dp"
-                    android:src="@drawable/ic_profile"
-                    app:civ_border_overlay="true"
-                    app:civ_border_width="2dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/blue_line2" />
-
                 <EditText
                     android:id="@+id/nameEdit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="36dp"
+                    android:layout_marginTop="67dp"
                     android:layout_marginEnd="112dp"
                     android:backgroundTint="#5C71AF"
                     android:ems="10"
@@ -79,7 +64,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/textView28"
-                    app:layout_constraintTop_toBottomOf="@+id/pet_img" />
+                    app:layout_constraintTop_toBottomOf="@+id/blue_line2" />
 
                 <Button
                     android:id="@+id/adoptDay"
@@ -241,13 +226,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="56dp"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="80dp"
                     android:fontFamily="@font/gothic"
                     android:text="이름"
                     android:textColor="#000000"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/pet_img" />
+                    app:layout_constraintTop_toBottomOf="@+id/blue_line2" />
 
                 <CheckBox
                     android:id="@+id/neuterCheck"

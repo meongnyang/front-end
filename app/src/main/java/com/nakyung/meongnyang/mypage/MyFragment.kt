@@ -21,6 +21,8 @@ import com.nakyung.meongnyang.login.TypeActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
+import com.nakyung.meongnyang.App
+import com.nakyung.meongnyang.login.SelectPetActivity
 import com.nakyung.meongnyang.model.Id
 import org.checkerframework.checker.units.qual.Length
 import retrofit2.Call
@@ -93,33 +95,28 @@ class MyFragment : Fragment() {
         // 반려동물 추가하기
         binding.addPet.setOnClickListener {
             val intent = Intent(context, TypeActivity::class.java)
-            intent.putExtra("addPet", true)
             startActivity(intent)
         }
         // 메인 반려동물 변경
         binding.changePet.setOnClickListener {
-            val intent = Intent(context, ChoiceActivity::class.java)
+            val intent = Intent(context, SelectPetActivity::class.java)
             startActivity(intent)
         }
 
         // 회원 탈퇴
         binding.deleteMember.setOnClickListener {
             // memberId 가져오기
-            fbFirestore.collection("users").document(uid).get()
-                .addOnSuccessListener { documentsSnapshot ->
-                    var id = documentsSnapshot.toObject<Id>()!!
-                    var memberId = id.memberId!!
+            var id = App.prefs.getInt("memberId", 0)
 
-                    retrofit.deleteProfile(memberId).enqueue(object : Callback<String> {
-                        override fun onFailure(call: Call<String>, t: Throwable) {
-                            Toast.makeText(context, "회원 탈퇴 실패, 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
-                        }
-
-                        override fun onResponse(call: Call<String>, response: Response<String>) {
-                            Log.d("member", "회원 탈퇴 성공")
-                        }
-                    })
+            retrofit.deleteProfile(id).enqueue(object : Callback<String> {
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    Toast.makeText(context, "회원 탈퇴 실패, 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
                 }
+
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    Toast.makeText(context, "회원 탈퇴 성공.", Toast.LENGTH_SHORT).show()
+                }
+            })
         }
 
         return binding?.root

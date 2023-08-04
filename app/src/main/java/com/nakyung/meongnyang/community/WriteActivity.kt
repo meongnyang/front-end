@@ -29,6 +29,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
+import com.nakyung.meongnyang.App
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -49,6 +50,8 @@ class WriteActivity : AppCompatActivity() {
     var fileName = ""
     var fileUrl = ""
     var strCategory = ""
+    var conimalId = App.prefs.getInt("conimalId", 0)
+    var memberId = App.prefs.getInt("memberId", 0)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,35 +106,30 @@ class WriteActivity : AppCompatActivity() {
             var contents = binding.postContent.editText?.text.toString()
             var img = fileUrl
 
-            fbFirestore!!.collection("users").document(uid).get()
-                .addOnSuccessListener { documentsSnapshot ->
-                    var id = documentsSnapshot.toObject<Id>()!!
+            retrofit.getPet(conimalId).enqueue(object: Callback<PetModel> {
+                override fun onResponse(call: Call<PetModel>, response: Response<PetModel>) {
+                    type = response.body()!!.type
+                    data = PostModel(category, type, title, contents, img)
 
-                    retrofit.getPet(id.conimalId!!).enqueue(object: Callback<PetModel> {
-                        override fun onResponse(call: Call<PetModel>, response: Response<PetModel>) {
-                            type = response.body()!!.type
-                            data = PostModel(category, type, title, contents, img)
-
-                            retrofit.createPost(data, id.memberId!!).enqueue(object:
-                                Callback<GetPosts> {
-                                override fun onResponse(call: Call<GetPosts>, response: Response<GetPosts>) {
-                                    if (response.body().toString().isNotEmpty()) {
-                                        val intent = Intent(this@WriteActivity, NaviActivity::class.java)
-                                        intent.putExtra("fragment", "community")
-                                        startActivity(intent)
-                                    }
-                                }
-                                override fun onFailure(call: Call<GetPosts>, t: Throwable) {
-                                    Log.d("error", "fail")
-                                    Log.d("error", t.message.toString())
-                                }
-                            })
+                    retrofit.createPost(data, memberId).enqueue(object:
+                        Callback<GetPosts> {
+                        override fun onResponse(call: Call<GetPosts>, response: Response<GetPosts>) {
+                            if (response.body().toString().isNotEmpty()) {
+                                val intent = Intent(this@WriteActivity, NaviActivity::class.java)
+                                intent.putExtra("fragment", "community")
+                                startActivity(intent)
+                            }
                         }
-
-                        override fun onFailure(call: Call<PetModel>, t: Throwable) {
+                        override fun onFailure(call: Call<GetPosts>, t: Throwable) {
+                            Log.d("error", "fail")
+                            Log.d("error", t.message.toString())
                         }
                     })
                 }
+
+                override fun onFailure(call: Call<PetModel>, t: Throwable) {
+                }
+            })
         }
     }
     @SuppressLint("MissingPermission")

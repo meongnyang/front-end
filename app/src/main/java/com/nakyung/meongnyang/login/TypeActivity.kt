@@ -28,27 +28,6 @@ class TypeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_activity_type)
 
-        val intent = intent
-        var memberId = intent.getIntExtra("memberId", 0) // 아무것도 없으면 그냥 0 집어넣기
-
-        // memberId 0이면 반려동물 추가하는 것임
-        if (memberId == 0) {
-            var fbAuth = FirebaseAuth.getInstance()
-            var fbFirestore = FirebaseFirestore.getInstance()
-            val uid = fbAuth.uid.toString()
-
-            // memberId 가져오기
-            fbFirestore.collection("users").document(uid).get()
-                .addOnSuccessListener { documentsSnapshot ->
-                    var id = documentsSnapshot.toObject<Id>()!!
-                    memberId = id.memberId!!
-                }
-        }
-
-        var isAdd = intent.getBooleanExtra("isAdd", true)
-        Log.d("memberid", memberId.toString())
-
-
         dogBtn = findViewById(R.id.dogBtn)
         catBtn = findViewById(R.id.catBtn)
         selectBtn = findViewById(R.id.selectTypeBtn)
@@ -66,13 +45,13 @@ class TypeActivity : AppCompatActivity() {
         selectBtn.setOnClickListener {
             if (dogBtn.isSelected) {
                 val typeintent = Intent(this, EnrollActivity::class.java)
-                typeintent.putExtra("memberId", memberId)
-                typeintent.putExtra("isAdd", isAdd)
+                //typeintent.putExtra("memberId", memberId)
+                //typeintent.putExtra("isAdd", isAdd)
                 startActivity(typeintent)
             } else {
                 val typeintent = Intent(this, CatEnrollActivity::class.java)
-                typeintent.putExtra("memberId", memberId)
-                typeintent.putExtra("isAdd", isAdd)
+                //typeintent.putExtra("memberId", memberId)
+                //typeintent.putExtra("isAdd", isAdd)
                 startActivity(typeintent)
             }
         }

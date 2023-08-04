@@ -31,6 +31,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
+import com.nakyung.meongnyang.App
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -59,8 +60,6 @@ class EnrollActivity : AppCompatActivity() {
 
         binding = LoginActivityEnrollBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val intent = intent
 
         val retrofit = RetrofitApi.create()
 
@@ -125,7 +124,7 @@ class EnrollActivity : AppCompatActivity() {
         val typeIntent = intent
 
         // 멤버아이디 받아오기
-        var member = typeIntent.getIntExtra("memberId", 0)
+        var member = App.prefs.getInt("memberId", 0)
 
         // 저장 버튼 클릭 시 반려동물 정보 저장
         binding.enrollBtn.setOnClickListener {
@@ -166,6 +165,7 @@ class EnrollActivity : AppCompatActivity() {
             retrofit.enrollPet(member, pet).enqueue(object: Callback<PetModel> {
                 override fun onResponse(call: Call<PetModel>, response: Response<PetModel>) {
                     conimalId = response.body()!!.conimalId
+                    App.prefs.setInt("conimalId", conimalId)
                     var memberId = typeIntent.getIntExtra("memberId", 0)
 
                     // firebase에 memberid, conimalid 저장
