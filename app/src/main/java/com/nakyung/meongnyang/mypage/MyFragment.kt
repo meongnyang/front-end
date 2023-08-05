@@ -36,7 +36,6 @@ class MyFragment : Fragment() {
 
     val retrofit = RetrofitApi.create()
     var fbAuth = FirebaseAuth.getInstance()
-    var fbFirestore = FirebaseFirestore.getInstance()
     val uid = fbAuth.uid.toString()
 
     override fun onCreateView(

@@ -29,10 +29,6 @@ class HealthFragment : Fragment() {
     private lateinit var viewModel: DiaryViewModel
     private lateinit var viewModelFactory: DiaryViewModelFactory
 
-//    var fbAuth = FirebaseAuth.getInstance()
-//    var fbFirestore = FirebaseFirestore.getInstance()
-//    val uid = fbAuth.uid.toString()
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

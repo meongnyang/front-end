@@ -43,9 +43,6 @@ class WriteActivity : AppCompatActivity() {
     private lateinit var bitmap: Bitmap
     private lateinit var data: PostModel
     var type = 0
-    var fbAuth = FirebaseAuth.getInstance()
-    var fbFirestore = FirebaseFirestore.getInstance()
-    val uid = fbAuth.uid.toString()
     var category = 0
     var fileName = ""
     var fileUrl = ""

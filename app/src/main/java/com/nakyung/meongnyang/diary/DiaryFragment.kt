@@ -29,10 +29,6 @@ class DiaryFragment : Fragment() {
     private lateinit var binding: DiaryFragmentWriteBinding
     private lateinit var keyboardVisibilityUtils: KeyboardVisibilityUtils
 
-    var fbAuth = FirebaseAuth.getInstance()
-    var fbFirestore = FirebaseFirestore.getInstance()
-    val uid = fbAuth.uid.toString()
-
     val retrofit = RetrofitApi.create()
 
     override fun onCreateView(
@@ -94,16 +90,12 @@ class DiaryFragment : Fragment() {
             excretion = 2
         }
 
-        var fbAuth = FirebaseAuth.getInstance()
-        var fbFirestore = FirebaseFirestore.getInstance()
-        val uid = fbAuth.uid.toString()
-
         // 작성 완료 버튼
         binding.diarySaveBtn.setOnClickListener {
             // 토스트 메시지 띄워주고 건강 화면으로 이동해 주기
             var memberId = App.prefs.getInt("memberId", 0)
             var conimalId = App.prefs.getInt("conimalId", 0)
-            var diary = PostDiary(memberId, conimalId, meal, voiding, binding.peeReason.text.toString(), excretion, binding.pooReason.text.toString())
+            var diary = PostDiary(conimalId, memberId, meal, voiding, binding.peeReason.text.toString(), excretion, binding.pooReason.text.toString())
             Log.d("diary", diary.toString())
 
             retrofit.writeDiary(memberId, conimalId, diary).enqueue(object : Callback<DiaryModel> {
@@ -111,42 +103,19 @@ class DiaryFragment : Fragment() {
                     call: Call<DiaryModel>,
                     response: Response<DiaryModel>
                 ) {
+                    Log.d("response", response.body()!!.toString())
                     var diaryId = response.body()!!.recordId
+                    Log.d("diaryId", diaryId.toString())
                     // diaryId 저장
                     App.prefs.setInt("diaryId", diaryId)
-                    //fbFirestore!!.collection("users").document(uid).update("recordId", recordId)
                     Toast.makeText(context, "오늘의 기록 완료 ✍️", Toast.LENGTH_SHORT).show()
                     sendId(diaryId)
                 }
 
                 override fun onFailure(call: Call<DiaryModel>, t: Throwable) {
-
+                    Log.d("diary", t.message.toString())
                 }
             })
-//            fbFirestore!!.collection("users").document(uid).get()
-//                .addOnSuccessListener { documentsSnapshot ->
-//                    var id = documentsSnapshot.toObject<Id>()!!
-//                    val retrofit = RetrofitApi.create()
-//                    var diary = PostDiary(id.memberId!!, id.conimalId!!, meal, voiding, binding.peeReason.text.toString(), excretion, binding.pooReason.text.toString())
-//                    Log.d("member", diary.toString())
-//
-//                    retrofit.writeDiary(id.memberId!!, id.conimalId!!, diary).enqueue(object : Callback<DiaryModel> {
-//                        override fun onResponse(
-//                            call: Call<DiaryModel>,
-//                            response: Response<DiaryModel>
-//                       ) {
-//                            var recordId = response.body()!!.recordId
-//                            // 파이어베이스에 저장하기
-//                            fbFirestore!!.collection("users").document(uid).update("recordId", recordId)
-//                            Toast.makeText(context, "오늘의 기록 완료 ✍️", Toast.LENGTH_SHORT).show()
-//                            sendId(recordId)
-//                        }
-//
-//                        override fun onFailure(call: Call<DiaryModel>, t: Throwable) {
-//
-//                        }
-//                    })
-//                }
         }
 
         // 키보드 올라 왔을 때 화면 가리는 것 방지하는 코드

@@ -18,7 +18,6 @@ class DiaryViewModel(recordId: Int) : ViewModel() {
     val excretion : MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val excReason : MutableLiveData<String> by lazy { MutableLiveData<String>() }
 
-
     init {
         viewModelScope.launch {
             val retrofit = RetrofitApi.create()

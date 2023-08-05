@@ -40,9 +40,7 @@ import java.util.*
 
 class EnrollActivity : AppCompatActivity() {
     private lateinit var binding: LoginActivityEnrollBinding
-    var fbAuth = FirebaseAuth.getInstance()
-    var fbFirestore = FirebaseFirestore.getInstance()
-    val uid = fbAuth.uid.toString()
+
     var memberId = 0
     var conimalId = 0
     var birthString = ""
@@ -69,20 +67,6 @@ class EnrollActivity : AppCompatActivity() {
         }
 
         val retrofit = RetrofitApi.create()
-
-        /*fbFirestore!!.collection("users").document(uid).get()
-            .addOnSuccessListener { documentsSnapshot ->
-                var id = documentsSnapshot.toObject<Id>()!!
-                memberId = id.memberId!!
-            }*/
-
-        // 프로필 사진 선택
-        /*binding.petImg.setOnClickListener {
-            checkPermission {
-                openGallery()
-            }
-        }*/
-
 
         // 생년월일 선택
         binding.birthDay.setOnClickListener {

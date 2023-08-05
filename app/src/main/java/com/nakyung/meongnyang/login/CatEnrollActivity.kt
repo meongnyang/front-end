@@ -41,9 +41,6 @@ import java.util.*
 
 class CatEnrollActivity : AppCompatActivity() {
     private lateinit var binding: LoginActivityCatEnrollBinding
-    var fbAuth = FirebaseAuth.getInstance()
-    var fbFirestore = FirebaseFirestore.getInstance()
-    val uid = fbAuth.uid.toString()
     var memberId = 0
     var conimalId = 0
     var birthString = ""
