@@ -92,6 +92,12 @@
 -keep class org.tensorflow.lite.** { *; }
 -dontwarn org.tensorflow.lite.**
 
+#amazon s3
+-keep class com.amazonaws.** { *; }
+-dontwarn com.amazonaws.**
+-keep class org.apache.http.** { *; }
+-dontwarn org.apache.http.**
+
 -dontwarn android.support.**
 
 -dontwarn okhttp3.**

@@ -40,6 +40,9 @@ class WeatherActivity : AppCompatActivity() {
             val uLatitude = userNowLocation!!.latitude
             val uLongitude = userNowLocation!!.longitude
 
+            Log.d("location", uLatitude.toString())
+            Log.d("location", uLongitude.toString())
+
             // 내 주소 받아 오기
             addr = getAddress(userNowLocation!!)
 
