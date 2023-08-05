@@ -45,7 +45,7 @@ class WeatherActivity : AppCompatActivity() {
 
             binding.myLocation.text = addr
 
-            viewModelFactory = WeatherViewModelFactory(uLatitude, uLongitude, locality)
+            viewModelFactory = WeatherViewModelFactory(uLatitude, uLongitude)
             viewModel = ViewModelProvider(this,
                 viewModelFactory).get(WeatherViewModel::class.java)
 
