@@ -19,7 +19,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class WeatherViewModel(la: Double, lo: Double, district: String): ViewModel() {
+class WeatherViewModel(la: Double, lo: Double): ViewModel() {
     val retrofit = RetrofitApi.create()
 
     val index : MutableLiveData<String> by lazy { MutableLiveData<String>() }
