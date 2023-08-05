@@ -139,8 +139,6 @@ class EnrollActivity : AppCompatActivity() {
                 1
             }
 
-
-
             val pet = Pet(1, name, gender, neutering, birth, adopt, species, category)
 
             retrofit.enrollPet(memberId, pet).enqueue(object: Callback<PetModel> {

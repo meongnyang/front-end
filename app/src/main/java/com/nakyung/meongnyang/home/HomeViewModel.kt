@@ -23,9 +23,9 @@ class HomeViewModel: ViewModel() {
     val popularDogCnt: MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val popularCatCnt: MutableLiveData<String> by lazy { MutableLiveData<String>() }
 
-    var conimalId = App.prefs.getInt("conimalId", 0)
-
     init {
+        var conimalId = App.prefs.getInt("conimalId", 0)
+        Log.d("coimal", conimalId.toString())
         viewModelScope.launch {
             retrofit.getPet(conimalId).enqueue(object : Callback<PetModel> {
                 override fun onResponse(call: Call<PetModel>, response: Response<PetModel>) {

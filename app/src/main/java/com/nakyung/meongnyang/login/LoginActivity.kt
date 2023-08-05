@@ -114,7 +114,7 @@ class LoginActivity : AppCompatActivity() {
                                     App.prefs.setString("token", "Bearer ${response.body()!!.token}")
                                     App.prefs.setInt("memberId", response.body()!!.memberId)
 
-                                    var intent = Intent(this@LoginActivity, NaviActivity::class.java)
+                                    var intent = Intent(this@LoginActivity, SelectPetActivity::class.java)
                                     startActivity(intent)
                                     Log.d("token", App.prefs.getString("token", "no_token"))
                                 }
@@ -128,6 +128,7 @@ class LoginActivity : AppCompatActivity() {
                         } else {
                             // 회원가입 시키기
                             Toast.makeText(this@LoginActivity, "멍냥백서 가입 성공!", Toast.LENGTH_LONG).show()
+                            //App.prefs.setInt("memberId", response.body()!!.memberId)
                             var intent = Intent(this@LoginActivity, NicknameActivity::class.java)
                             intent.putExtra("email", account?.email)
                             startActivity(intent)
