@@ -25,9 +25,6 @@ class WeatherActivity : AppCompatActivity() {
     private lateinit var viewModelFactory: WeatherViewModelFactory
     private var addr = ""
     private var locality = ""
-    var fbAuth = FirebaseAuth.getInstance()
-    var fbFirestore = FirebaseFirestore.getInstance()
-    val uid = fbAuth.uid.toString()
 
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {

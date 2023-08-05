@@ -16,6 +16,7 @@ import com.nakyung.meongnyang.model.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
+import com.nakyung.meongnyang.App
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,10 +26,6 @@ open class FeedFragment : Fragment() {
     private lateinit var feedList: ArrayList<Feed> // 사료들 담을 배열
     private val listItems = arrayListOf<FeedModel>() // 리사이클러뷰 아이템
     private val feedListAdapter = FeedListAdapter(listItems) // adapter
-
-    var fbAuth = FirebaseAuth.getInstance()
-    var fbFirestore = FirebaseFirestore.getInstance()
-    val uid = fbAuth.uid.toString()
 
     val retrofit = RetrofitApi.create()
 
@@ -51,22 +48,18 @@ open class FeedFragment : Fragment() {
         binding.allBtn.isSelected = true
         feedList = arrayListOf() // 사료 정보 담는 배열
 
-        // typeId 받기
-        fbFirestore!!.collection("users").document(uid).get()
-            .addOnSuccessListener { documentsSnapshot ->
-                var id = documentsSnapshot.toObject<Id>()!!
+        var conimalId = App.prefs.getInt("conimalId", 0)
 
-                retrofit.getPet(id.conimalId!!).enqueue(object : Callback<PetModel> {
-                    override fun onFailure(call: Call<PetModel>, t: Throwable) {
-                        Log.d("fail", "정보 불러오기 실패")
-                    }
-
-                    override fun onResponse(call: Call<PetModel>, response: Response<PetModel>) {
-                        typeId = response.body()!!.type
-                        showFeed(typeId)
-                    }
-                })
+        retrofit.getPet(conimalId).enqueue(object : Callback<PetModel> {
+            override fun onFailure(call: Call<PetModel>, t: Throwable) {
+                Log.d("fail", "정보 불러오기 실패")
             }
+
+            override fun onResponse(call: Call<PetModel>, response: Response<PetModel>) {
+                typeId = response.body()!!.type
+                showFeed(typeId)
+            }
+        })
 
         // 눌렀을 때 상세 정보 띄우기
         feedListAdapter.setItemClickListener(object: FeedListAdapter.OnItemClickListener {
