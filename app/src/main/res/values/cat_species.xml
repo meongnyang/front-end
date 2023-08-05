@@ -2,19 +2,71 @@
 <resources>
     <string-array name="cat_species_array">
         <item>선택하세요</item>
-        <item>코리안 숏헤어</item>
         <item>노르웨이 숲</item>
+        <item>네벨룽</item>
+        <item>네바 마스커레이드</item>
+        <item>데본렉스</item>
+        <item>도메스틱 숏헤어/도메스틱 롱헤어</item>
+        <item>돈스코이/돈스핑크스</item>
+        <item>라가머핀</item>
         <item>랙돌</item>
         <item>러시안 블루</item>
+        <item>라이코이</item>
+        <item>라팜</item>
+        <item>맹크스</item>
         <item>메인쿤</item>
         <item>먼치킨</item>
-        <item>뱅갈</item>
+        <item>미뉴에트</item>
+        <item>발리니즈</item>
+        <item>버만</item>
+        <item>버미즈</item>
+        <item>벵갈</item>
+        <item>봄베이</item>
         <item>브리티시 쇼트헤어</item>
+        <item>브리티시 롱헤어</item>
+        <item>버밀라</item>
+        <item>시베리안</item>
+        <item>샴</item>
+        <item>샤트룩스</item>
+        <item>소말리</item>
         <item>스코티시 폴드</item>
+        <item>스코티시 스트레이트</item>
         <item>스핑크스</item>
+        <item>싱가푸라</item>
+        <item>스노우슈</item>
+        <item>사바나</item>
+        <item>소코케</item>
+        <item>아라비안 마우</item>
+        <item>아메리칸 밥테일</item>
         <item>아메리칸 쇼트헤어</item>
+        <item>아메리칸 와이어헤어</item>
+        <item>아메리칸 컬</item>
         <item>아비시니안</item>
+        <item>오리엔탈 쇼트헤어</item>
+        <item>오리엔탈 롱헤어</item>
+        <item>오시캣</item>
+        <item>유러피안</item>
+        <item>유러피안버미즈</item>
+        <item>이집션마우</item>
+        <item>엑조틱</item>
+        <item>재패니즈 밥테일</item>
+        <item>쵸시</item>
+        <item>카오마니</item>
+        <item>컬러포인트쇼트헤어</item>
+        <item>코니시 렉스</item>
+        <item>코랫</item>
+        <item>쿠리리안 밥테일</item>
+        <item>킴릭</item>
+        <item>타이</item>
+        <item>터키시 반</item>
         <item>터키시 앙고라</item>
+        <item>통키니즈</item>
+        <item>토이거</item>
+        <item>토이밥</item>
         <item>페르시안</item>
+        <item>픽시 밥</item>
+        <item>피터볼드</item>
+        <item>하바나브라운</item>
+        <item>히말라얀</item>
     </string-array>
 </resources>

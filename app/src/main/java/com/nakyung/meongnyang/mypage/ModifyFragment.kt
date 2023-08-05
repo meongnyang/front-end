@@ -30,6 +30,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
+import com.nakyung.meongnyang.App
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -46,9 +47,6 @@ class ModifyFragment : Fragment() {
     private lateinit var editText: TextView
     private lateinit var modifySV: ScrollView
     var memberId = 0
-    var fbAuth = FirebaseAuth.getInstance()
-    var fbFirestore = FirebaseFirestore.getInstance()
-    val uid = fbAuth.uid.toString()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,11 +60,7 @@ class ModifyFragment : Fragment() {
         editText = view.findViewById(R.id.editText)
         modifySV = view.findViewById(R.id.modify_sv)
 
-        fbFirestore!!.collection("users").document(uid).get()
-            .addOnSuccessListener { documentsSnapshot ->
-                var id = documentsSnapshot.toObject<Id>()!!
-                memberId = id.memberId!!
-            }
+        memberId = App.prefs.getInt("memberId", 0)
 
         profile.setOnClickListener {
             checkPermission {
@@ -215,7 +209,6 @@ class ModifyFragment : Fragment() {
     }
 
     private fun bitmapToFile(bitmap: Bitmap, fileName: String): File {
-        //var file = File(path)
         var file =  File.createTempFile("image", fileName)
         var out: OutputStream? = null
 
