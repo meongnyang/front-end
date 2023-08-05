@@ -25,6 +25,8 @@
 -keep public class org.jsoup.**{
     public *;
 }
+-keep class com.nakyung.meongnyang.model.** { *; }
+-keepclassmembers class com.nakyung.meongnyang.model.** { *; }
 
 #gson
 
@@ -59,6 +61,15 @@
     public *;
 }
 
+#location
+-keep class android.location.** { *; }
+
+#kakaoMap
+-keep class net.daum.** { *; }
+-keep class com.kakao.** { *; }
+-dontwarn net.daum.**
+-dontwarn com.kakao.**
+
 #glide
 -keep public class * implements com.bumptech.glide.module.GlideModule
 -keep public class * extends com.bumptech.glide.module.AppGlideModule
@@ -71,7 +82,7 @@
 
 -dontwarn okhttp3.**
 -dontwarn okio.**
--dontnote okhttp3.**
+-dontwarn java.annotation.**
 
 # Uncomment this to preserve the line number information for
 # debugging stack traces.
