@@ -83,6 +83,15 @@
   public *;
 }
 
+#pytorch
+-keep class org.pytorch.** { *; }
+-keep class com.facebook.jni.** { *; }
+-keep class com.facebook.soloader.nativeloader.** { *; }
+
+#tensorflow lite
+-keep class org.tensorflow.lite.** { *; }
+-dontwarn org.tensorflow.lite.**
+
 -dontwarn android.support.**
 
 -dontwarn okhttp3.**
