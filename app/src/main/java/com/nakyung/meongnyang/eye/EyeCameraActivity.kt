@@ -176,15 +176,15 @@ class EyeCameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pi
         val resizedBitmap = Bitmap.createBitmap(resized, 0, 0, resized.width, resized.height, matrix, true)
         camera!!.startPreview()
         val inputImg = TensorImage.fromBitmap(resizedBitmap)
-        val normalization = imageProcess(inputImg)
+        val normalization = imageProcess(inputImg) // normalization
         val resultImg = normalization!!.bitmap
 
         val stream = ByteArrayOutputStream()
         resultImg.compress(Bitmap.CompressFormat.PNG, 100, stream)
 
-        val byte = stream.toByteArray()
+        //val byte = stream.toByteArray()
 
-        saveImage(byte) // 압축한 거 저장해 보기
+        //saveImage(byte) // 압축한 거 저장해 보기
 
         // model
         if (mModule == null) {

@@ -2,8 +2,8 @@ package com.nakyung.meongnyang.model
 
 // 보내는 데이터
 data class Walk(
-    val nx: String,
-    val ny: String,
+    val longitude: Double,
+    val latitude: Double,
     val category: String
 )
 
