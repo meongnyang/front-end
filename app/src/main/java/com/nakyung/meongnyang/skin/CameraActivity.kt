@@ -312,6 +312,7 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
 
                     var maxScore = -Float.MAX_VALUE
                     var maxScoreIdx = -1
+
                     for (i in scores.indices) {
                         if (scores[i] > maxScore) {
                             maxScore = scores[i]
@@ -324,10 +325,15 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pictu
 
                     val intent = Intent(this, ResultActivity::class.java)
                     intent.putExtra("image", bytes)
-                    intent.putExtra("result", classList[maxScoreIdx].toString())
 
-                    Log.d("member", bytes.toString())
-                    Log.d("member", classList[maxScoreIdx].toString())
+                    if (maxScoreIdx < 0 || maxScoreIdx > 6) {
+                        intent.putExtra("result", "noResult")
+                    } else {
+                        intent.putExtra("result", classList[maxScoreIdx].toString())
+                    }
+
+                    Log.d("result", maxScoreIdx.toString())
+                    Log.d("result", classList[maxScoreIdx].toString())
 
                     startActivity(intent)
 

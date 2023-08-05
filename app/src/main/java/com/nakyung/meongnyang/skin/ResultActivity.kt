@@ -19,7 +19,7 @@ import retrofit2.Response
 
 class ResultActivity : AppCompatActivity() {
     private lateinit var binding: SkinActivityResultBinding
-    var result = ""
+    var resultName = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,30 +29,37 @@ class ResultActivity : AppCompatActivity() {
         // 이미지 띄우기
         val intent = intent
         val bytes = intent.getByteArrayExtra("image")
-        result = intent.getStringExtra("result").toString()
+        resultName = intent.getStringExtra("result").toString()
         val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes!!.size)
         binding.resultImg.setImageBitmap(bitmap)
 
-        Log.d("pet", result)
+        Log.d("resultName", resultName)
 
         val retrofit = RetrofitApi.create()
 
-        var result = Name(result)
+        var result = Name(resultName)
 
-        retrofit.getDisease(result).enqueue(object : Callback<Result> {
-            override fun onResponse(call: Call<Result>, response: Response<Result>) {
-                if (response.isSuccessful) {
-                    binding.resultTitle.text = "피부 질환이 있는 것 같아요"
-                    binding.resultName.text = "⚠️ ${response.body()!!.name}(으)로 의심돼요 ⚠️"
-                    binding.reasonText.text = response.body()!!.reason
-                    binding.manageText.text = response.body()!!.manage
+        if (resultName == "noResult") {
+            binding.resultTitle.text = "의심되는 피부 질환이 발견되지 않아요"
+            binding.resultName.text = "앞으로도 피부 관리에 힘써주세요 👏"
+            binding.reasonText.text = "-"
+            binding.manageText.text = "-"
+        } else {
+            retrofit.getDisease(result).enqueue(object : Callback<Result> {
+                override fun onResponse(call: Call<Result>, response: Response<Result>) {
+                    if (response.isSuccessful) {
+                        binding.resultTitle.text = "피부 질환이 있는 것 같아요"
+                        binding.resultName.text = "⚠️ ${response.body()!!.name}(으)로 의심돼요 ⚠️"
+                        binding.reasonText.text = response.body()!!.reason
+                        binding.manageText.text = response.body()!!.manage
+                    }
                 }
-            }
-            override fun onFailure(call: Call<Result>, t: Throwable) {
-                Log.d("error", t.message.toString())
+                override fun onFailure(call: Call<Result>, t: Throwable) {
+                    Log.d("error", t.message.toString())
 
-            }
-        })
+                }
+            })
+        }
 
         // 메뉴 클릭 시 이동
         binding.goFeedBtn.setOnClickListener {

@@ -212,8 +212,12 @@ class EyeCameraActivity : AppCompatActivity(), SurfaceHolder.Callback, Camera.Pi
         val bytes = stream.toByteArray()
 
         val intent = Intent(this, EyeResultActivity::class.java)
+        if (maxScoreIdx < 0 || maxScoreIdx > 6) {
+            intent.putExtra("result", "noResult")
+        } else {
+            intent.putExtra("result", classList[maxScoreIdx].toString())
+        }
         intent.putExtra("image", bytes)
-        intent.putExtra("result", classList[maxScoreIdx].toString())
         startActivity(intent)
     }
 
