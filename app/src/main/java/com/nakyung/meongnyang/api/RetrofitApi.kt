@@ -50,7 +50,7 @@ interface RetrofitApi {
         @Body img: Img
     ): Call<UserModel>
 
-    @DELETE("members/delete/{memberId}")
+    @DELETE("members/{memberId}")
     fun deleteProfile(
         @Path("memberId") memberId: Int
     ): Call<String>

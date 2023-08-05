@@ -63,6 +63,11 @@ class CatEnrollActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val intent = intent
+        var memberId = intent.getIntExtra("memebrId", 0)
+
+        if (App.prefs.getInt("memberId", 0) != 0) {
+            memberId = App.prefs.getInt("memberId", 0)
+        }
 
         val retrofit = RetrofitApi.create()
 
@@ -124,11 +129,6 @@ class CatEnrollActivity : AppCompatActivity() {
             }
         }
 
-        val typeIntent = intent
-
-        // 멤버아이디 받아오기
-        var member = App.prefs.getInt("memberId", 0)
-
         // 저장 버튼 클릭 시 반려동물 정보 저장
         binding.enrollBtn.setOnClickListener {
             name = binding.nameEdit.text.toString()
@@ -147,38 +147,26 @@ class CatEnrollActivity : AppCompatActivity() {
                 2 // 안 했음
             }
 
-            Log.d("pet", gender)
-            Log.d("pet", neutering.toString())
-            Log.d("pet", category.toString())
-
-
             val pet = Pet(2, name, gender, neutering, birth, adopt, species, category)
-            Log.d("pet", pet.toString())
-            Log.d("member", member.toString())
 
-            retrofit.enrollPet(member, pet).enqueue(object: Callback<PetModel> {
+            retrofit.enrollPet(memberId, pet).enqueue(object: Callback<PetModel> {
                 override fun onResponse(call: Call<PetModel>, response: Response<PetModel>) {
-                    Log.d("response", response.body()!!.toString())
-                    conimalId = response.body()!!.conimalId
-                    App.prefs.setInt("conimalId", conimalId)
-                    //var memberId = typeIntent.getIntExtra("memberId", 0)
-
-                    // firebase에 memberid, conimalid 저장
-//                    fbAuth = FirebaseAuth.getInstance()
-//                    fbFirestore = FirebaseFirestore.getInstance()
-//                    var user = Id(memberId, conimalId, 0)
+                    Log.d("response: conimal", response.body()!!.conimalId.toString())
+                    App.prefs.setInt("conimalId", response.body()!!.conimalId) // conimal id 저장
+//                    if (App.prefs.getInt("diaryId", 0) == 0) {
 //
-//                    fbFirestore?.collection("users")?.document(fbAuth?.uid.toString())?.set(user)
+//                    }
+//                    App.prefs.setInt("diaryId", 0) // diaryid 0으로 초기화하여 저장
+
+                    Toast.makeText(this@CatEnrollActivity, "정보 저장 완료!", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this@CatEnrollActivity, NaviActivity::class.java)
+                    startActivity(intent)
                 }
 
                 override fun onFailure(call: Call<PetModel>, t: Throwable) {
                     Log.d("Post", "error, ${t}")
                 }
             })
-
-            Toast.makeText(this@CatEnrollActivity, "정보 저장 완료!", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this@CatEnrollActivity, NaviActivity::class.java)
-            startActivity(intent)
         }
     }
 

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -111,10 +112,13 @@ class MyFragment : Fragment() {
             retrofit.deleteProfile(id).enqueue(object : Callback<String> {
                 override fun onFailure(call: Call<String>, t: Throwable) {
                     Toast.makeText(context, "회원 탈퇴 실패, 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
+                    Log.d("deleteErr", t.message.toString())
                 }
 
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     Toast.makeText(context, "회원 탈퇴 성공.", Toast.LENGTH_SHORT).show()
+                    fbAuth.currentUser?.delete() // firebase에서 삭제
+                    (activity as NaviActivity).finish() // 앱 종료
                 }
             })
         }

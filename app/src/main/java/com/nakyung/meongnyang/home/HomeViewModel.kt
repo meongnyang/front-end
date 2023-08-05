@@ -1,14 +1,11 @@
 package com.nakyung.meongnyang.home
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
 import com.nakyung.meongnyang.api.RetrofitApi
 import com.nakyung.meongnyang.model.GetPosts
-import com.nakyung.meongnyang.model.Id
 import com.nakyung.meongnyang.model.PetModel
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.toObject
 import com.nakyung.meongnyang.App
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -18,10 +15,6 @@ import retrofit2.Response
 class HomeViewModel: ViewModel() {
     val retrofit = RetrofitApi.create()
 
-    var fbAuth = FirebaseAuth.getInstance()
-    var fbFirestore = FirebaseFirestore.getInstance()
-    val uid = fbAuth.uid.toString()
-
     val name : MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val strType : MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val count : MutableLiveData<String> by lazy { MutableLiveData<String>() }
@@ -30,9 +23,10 @@ class HomeViewModel: ViewModel() {
     val popularDogCnt: MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val popularCatCnt: MutableLiveData<String> by lazy { MutableLiveData<String>() }
 
+    var conimalId = App.prefs.getInt("conimalId", 0)
+
     init {
         viewModelScope.launch {
-            val conimalId = App.prefs.getInt("conimalId", 0)
             retrofit.getPet(conimalId).enqueue(object : Callback<PetModel> {
                 override fun onResponse(call: Call<PetModel>, response: Response<PetModel>) {
                     name.value = response.body()!!.name
@@ -44,23 +38,6 @@ class HomeViewModel: ViewModel() {
                     Log.d("error", t.toString())
                 }
             })
-
-//            fbFirestore!!.collection("users").document(uid).get()
-//                .addOnSuccessListener { documentsSnapshot ->
-//                    var id = documentsSnapshot.toObject<Id>()!!
-//
-//                    retrofit.getPet(id.conimalId!!).enqueue(object : Callback<PetModel> {
-//                        override fun onResponse(call: Call<PetModel>, response: Response<PetModel>) {
-//                            name.value = response.body()!!.name
-//                            strType.value = strType(response.body()!!.type)
-//                            count.value = response.body()!!.ddayadopt.toString()
-//                        }
-//
-//                        override fun onFailure(call: Call<PetModel>, t: Throwable) {
-//                            Log.d("error", t.toString())
-//                        }
-//                    })
-//                }
 
             retrofit.getPopularPost(1).enqueue(object : Callback<GetPosts> {
                 override fun onFailure(call: Call<GetPosts>, t: Throwable) {

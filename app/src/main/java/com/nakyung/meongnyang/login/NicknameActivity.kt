@@ -51,6 +51,10 @@ class NicknameActivity : AppCompatActivity() {
                         // 토큰 저장
                         App.prefs.setString("token", "Bearer ${response.body()!!.token}")
 
+                        // 멤버 아이디 저장
+                        App.prefs.setInt("memberId", memberId)
+                        Log.d("닉네임", App.prefs.getInt("memberId", 0).toString())
+
                         val intent = Intent(this@NicknameActivity, TypeActivity::class.java)
                         intent.putExtra("memberId", memberId)
                         startActivity(intent)

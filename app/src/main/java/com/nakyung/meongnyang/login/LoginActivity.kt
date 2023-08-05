@@ -36,7 +36,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         ggBtn = findViewById(R.id.ggBtn)
-        kkoBtn = findViewById(R.id.kkoBtn)
+       // kkoBtn = findViewById(R.id.kkoBtn)
 
         // firebase auth 객체 초기화
         auth = FirebaseAuth.getInstance()
@@ -191,8 +191,6 @@ class LoginActivity : AppCompatActivity() {
 
                         } else {
                             // 회원가입 시키기
-                            // 멤버 아이디 저장
-                            App.prefs.setInt("memberId", response.body()!!.memberId)
                             Toast.makeText(this@LoginActivity, "멍냥백서 가입 성공!", Toast.LENGTH_LONG).show()
                             var intent = Intent(this@LoginActivity, NicknameActivity::class.java)
                             intent.putExtra("email", account?.email)

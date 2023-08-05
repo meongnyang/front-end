@@ -23,7 +23,6 @@ import com.nakyung.meongnyang.weather.WeatherViewModel
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private val model: HomeViewModel by activityViewModels()
-    private val weatherModel: WeatherViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
