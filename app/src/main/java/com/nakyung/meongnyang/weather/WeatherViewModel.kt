@@ -36,11 +36,12 @@ class WeatherViewModel(la: Double, lo: Double, district: String): ViewModel() {
 
     init {
         viewModelScope.launch {
-            val location = Walk(la.toInt().toString(), lo.toInt().toString(), "서울", district)
             var conimalId = App.prefs.getInt("conimalId", 0)
 
             retrofit.getPet(conimalId).enqueue(object : Callback<PetModel> {
                 override fun onResponse(call: Call<PetModel>, response: Response<PetModel>) {
+                    var species = response.body()!!.speciesName
+                    val location = Walk(la.toInt().toString(), lo.toInt().toString(), species)
                     retrofit.walkScore(response.body()!!.category, location).enqueue(object :
                         Callback<Score> {
                         override fun onResponse(call: Call<Score>, response: Response<Score>) {

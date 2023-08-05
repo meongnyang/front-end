@@ -4,8 +4,7 @@ package com.nakyung.meongnyang.model
 data class Walk(
     val nx: String,
     val ny: String,
-    val city: String,
-    val district: String
+    val category: String
 )
 
 // 받을 때 데이터 형식
