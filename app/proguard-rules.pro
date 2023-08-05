@@ -61,7 +61,7 @@
     public *;
 }
 
-#location
+#Location
 -keep class android.location.** { *; }
 
 #kakaoMap
@@ -69,6 +69,11 @@
 -keep class com.kakao.** { *; }
 -dontwarn net.daum.**
 -dontwarn com.kakao.**
+
+#Geocoder
+-keep class android.location.Geocoder { *; }
+-keep class android.location.Address { *; }
+
 
 #glide
 -keep public class * implements com.bumptech.glide.module.GlideModule
